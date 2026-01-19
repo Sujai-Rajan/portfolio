@@ -1,424 +1,954 @@
+<!-- home / index.html -->
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sujai Rajan — Robotics Engineer | Digital Twin Command Center</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sujai Rajan — Robotics Engineer | Systems Architect</title>
 
-  <!-- Tailwind CSS v4 (browser runtime) -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS v4 (Play CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Motion (Framer's Motion One; vanilla-friendly) -->
-  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.umd.min.js"></script>
+    <!-- Framer Motion (UMD build from unpkg dist) -->
+    <!-- Note: This is a UMD build available in the framer-motion package dist. -->
+    <script defer src="https://unpkg.com/framer-motion@12.23.26/dist/framer-motion.js"></script>
 
-  <style>
-    :root{
-      --bg:#050505;
-      --lime:#ccff00;
-      --blue:#2e66ff;
-      --glass: rgba(255,255,255,0.06);
-      --glass2: rgba(255,255,255,0.10);
-    }
-    html,body{ background:var(--bg); color:#eaeaea; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial; }
-    .mono{ font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    <style type="text/tailwindcss">
+      @theme {
+        --color-obsidian: #050505;
+        --color-cyberlime: #ccff00;
+        --color-cobalt: #2e66ff;
+        --color-glass: rgba(255, 255, 255, 0.06);
+        --color-glass-strong: rgba(255, 255, 255, 0.09);
+        --color-stroke: rgba(255, 255, 255, 0.12);
+        --shadow-neon: 0 0 0 1px rgba(204, 255, 0, 0.18), 0 0 40px rgba(204, 255, 0, 0.08),
+          0 0 120px rgba(46, 102, 255, 0.06);
+        --shadow-neon-strong: 0 0 0 1px rgba(204, 255, 0, 0.28), 0 0 60px rgba(204, 255, 0, 0.12),
+          0 0 160px rgba(46, 102, 255, 0.1);
+      }
 
-    /* Mesh gradient "command center" background */
-    .mesh {
-      position:absolute; inset:-30% -30% -30% -30%;
-      background:
-        radial-gradient(900px 500px at 10% 10%, rgba(204,255,0,.18), transparent 60%),
-        radial-gradient(850px 500px at 90% 25%, rgba(46,102,255,.18), transparent 60%),
-        radial-gradient(900px 600px at 35% 85%, rgba(204,255,0,.10), transparent 60%),
-        radial-gradient(900px 600px at 80% 80%, rgba(46,102,255,.10), transparent 60%);
-      filter: blur(30px) saturate(120%);
-      animation: drift 10s ease-in-out infinite alternate;
-      transform: translate3d(0,0,0);
-    }
-    @keyframes drift{
-      from{ transform: translate3d(-2%, -1%, 0) scale(1.02); }
-      to{ transform: translate3d(2%, 1%, 0) scale(1.06); }
-    }
+      html,
+      body {
+        background: var(--color-obsidian);
+        color: white;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow-x: hidden;
+      }
 
-    /* Subtle noise overlay */
-    .noise::before{
-      content:"";
-      position:absolute; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      opacity:.10; mix-blend-mode: overlay; pointer-events:none;
-    }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+      }
 
-    /* Glass + neon edges */
-    .glass{
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    .glow-border{
-      box-shadow: 0 0 0 1px rgba(204,255,0,.14), 0 0 28px rgba(204,255,0,.06);
-    }
-    .hover-glow:hover{
-      box-shadow: 0 0 0 1px rgba(204,255,0,.25), 0 0 42px rgba(204,255,0,.10);
-      transform: translateY(-2px);
-    }
+      .glass {
+        background: var(--color-glass);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
 
-    /* Animated "scanline" */
-    .scanline{
-      position:absolute; inset:0; pointer-events:none;
-      background: linear-gradient(to bottom, transparent, rgba(204,255,0,.08), transparent);
-      height: 220px; width: 100%;
-      transform: translateY(-260px);
-      animation: scan 4.8s ease-in-out infinite;
-      mix-blend-mode: screen;
-      opacity: .35;
-    }
-    @keyframes scan{
-      0%{ transform: translateY(-260px); }
-      60%{ transform: translateY(120%); }
-      100%{ transform: translateY(120%); }
-    }
+      .glass-strong {
+        background: var(--color-glass-strong);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
 
-    /* Neon link */
-    a.link{ color: var(--blue); }
-    a.link:hover{ color: #7aa0ff; text-shadow: 0 0 14px rgba(46,102,255,.35); }
+      .neon-ring {
+        box-shadow: var(--shadow-neon);
+      }
 
-    /* Focus ring */
-    .ring-lime:focus{ outline: none; box-shadow: 0 0 0 2px rgba(204,255,0,.25), 0 0 0 6px rgba(204,255,0,.08); }
+      .neon-ring-strong {
+        box-shadow: var(--shadow-neon-strong);
+      }
 
-    /* Nav blur */
-    .navglass{
-      background: rgba(5,5,5,0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-  </style>
-</head>
+      .scanlines {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 100% 6px;
+        opacity: 0.12;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
 
-<body class="min-h-screen overflow-x-hidden">
-  <!-- Fixed Nav -->
-  <header class="fixed top-0 left-0 right-0 z-50 navglass">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-xl glass glow-border grid place-items-center">
-          <span class="mono text-[12px] text-[#ccff00]">SR</span>
-        </div>
-        <div class="leading-tight">
-          <div class="text-sm font-semibold tracking-wide">Sujai Rajan</div>
-          <div class="text-xs text-white/60 mono">Digital Twin Command Center</div>
-        </div>
-      </a>
+      .grid-dots {
+        background-image: radial-gradient(rgba(204, 255, 0, 0.22) 1px, transparent 1px);
+        background-size: 22px 22px;
+        mask-image: radial-gradient(circle at 30% 20%, black 0%, transparent 62%);
+        opacity: 0.22;
+        pointer-events: none;
+      }
 
-      <nav class="flex items-center gap-2 text-sm">
-        <a class="px-3 py-2 rounded-xl glass hover-glow transition will-change-transform" href="index.html">Home</a>
-        <a class="px-3 py-2 rounded-xl glass hover-glow transition will-change-transform" href="projects.html">Projects</a>
-        <a class="px-3 py-2 rounded-xl glass hover-glow transition will-change-transform" href="about.html">Experience</a>
-        <a class="px-3 py-2 rounded-xl glass hover-glow transition will-change-transform" href="contact.html">Contact</a>
-        <a class="px-3 py-2 rounded-xl border border-white/15 hover:border-[#2e66ff]/60 transition"
-           href="https://www.linkedin.com/in/sujai-r/" target="_blank" rel="noreferrer">
-          LinkedIn ↗
-        </a>
-      </nav>
+      /* Animated mesh gradient */
+      .mesh {
+        background:
+          radial-gradient(900px 600px at 15% 20%, rgba(204, 255, 0, 0.18), transparent 55%),
+          radial-gradient(800px 560px at 70% 25%, rgba(46, 102, 255, 0.20), transparent 55%),
+          radial-gradient(700px 520px at 60% 80%, rgba(204, 255, 0, 0.10), transparent 55%),
+          radial-gradient(900px 700px at 18% 78%, rgba(46, 102, 255, 0.10), transparent 55%),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03), transparent 22%, rgba(255, 255, 255, 0.02));
+        filter: saturate(1.15) contrast(1.05);
+        transform: translateZ(0);
+        animation: meshShift 14s ease-in-out infinite alternate;
+      }
+      @keyframes meshShift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: saturate(1.1) contrast(1.05);
+        }
+        100% {
+          transform: translate3d(0, -12px, 0) scale(1.02);
+          filter: saturate(1.25) contrast(1.1);
+        }
+      }
+
+      /* Soft vignette */
+      .vignette {
+        background: radial-gradient(circle at 50% 20%, transparent 0%, rgba(0, 0, 0, 0.7) 62%, rgba(0, 0, 0, 0.9) 100%);
+        pointer-events: none;
+      }
+
+      /* Hover micro-interactions */
+      .hover-lift {
+        transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+        will-change: transform, box-shadow;
+      }
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-neon-strong);
+        border-color: rgba(204, 255, 0, 0.28);
+      }
+
+      /* 3D tilt base */
+      .tilt {
+        transform-style: preserve-3d;
+        perspective: 900px;
+      }
+      .tilt > .tilt-inner {
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      /* Custom scrollbar (subtle) */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        border: 2px solid #050505;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(204, 255, 0, 0.18);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- Background system -->
+    <div class="fixed inset-0 -z-50">
+      <div class="absolute inset-0 mesh"></div>
+      <div class="absolute inset-0 scanlines"></div>
+      <div class="absolute inset-0 grid-dots"></div>
+      <div class="absolute inset-0 vignette"></div>
+      <canvas id="starfield" class="absolute inset-0 opacity-60"></canvas>
     </div>
-  </header>
 
-  <!-- Hero -->
-  <main class="relative pt-24">
-    <section class="relative overflow-hidden">
-      <div class="mesh"></div>
-      <div class="noise absolute inset-0"></div>
-      <div class="scanline"></div>
+    <!-- Fixed Nav -->
+    <header class="fixed top-0 left-0 right-0 z-50">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mt-4 glass rounded-2xl">
+          <div class="flex items-center justify-between px-4 py-3 sm:px-5">
+            <a href="index.html" class="group flex items-center gap-3">
+              <div
+                class="h-10 w-10 rounded-xl glass-strong neon-ring flex items-center justify-center"
+                aria-hidden="true"
+              >
+                <div class="h-2.5 w-2.5 rounded-full" style="background:#ccff00; box-shadow: 0 0 22px rgba(204,255,0,.45)"></div>
+              </div>
+              <div class="leading-tight">
+                <div class="text-sm font-semibold tracking-wide">SUJAI RAJAN</div>
+                <div class="mono text-[11px] text-white/60 group-hover:text-white/80 transition">DIGITAL TWIN COMMAND CENTER</div>
+              </div>
+            </a>
 
-      <div class="mx-auto max-w-6xl px-4 py-14 relative">
-        <div class="grid lg:grid-cols-12 gap-8 items-start">
-          <div class="lg:col-span-7">
-            <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full glass border border-white/10">
-              <span class="h-2 w-2 rounded-full bg-[#ccff00] shadow-[0_0_20px_rgba(204,255,0,.45)]"></span>
-              <span class="mono text-xs text-white/70">SYSTEM STATUS: ONLINE</span>
+            <div class="hidden md:flex items-center gap-2">
+              <a href="index.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Experience</a>
+              <a href="#contact" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Contact</a>
+
+              <a
+                href="projects.html"
+                class="ml-2 inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-black"
+                style="background:#ccff00"
+              >
+                <span>Enter Lab</span>
+                <span class="mono text-[12px]">↳</span>
+              </a>
             </div>
 
-            <h1 class="mt-5 text-4xl md:text-6xl font-extrabold tracking-tight">
-              ROBOTICS ENGINEER <span class="text-white/50">|</span> <span class="text-[#ccff00]">SYSTEMS ARCHITECT.</span>
-            </h1>
+            <button id="mobileBtn" class="md:hidden rounded-xl px-3 py-2 glass hover:bg-white/5 transition" aria-label="Open menu">
+              <span class="mono text-xs text-white/80">MENU</span>
+            </button>
+          </div>
 
-            <p class="mt-5 text-lg text-white/70 leading-relaxed max-w-xl">
-              I design end-to-end robotic systems across perception, planning, controls, and embedded integration —
-              built for real factories, real constraints, and real throughput.
+          <!-- Mobile menu -->
+          <div id="mobileMenu" class="hidden border-t border-white/10 px-4 py-3">
+            <div class="grid gap-2">
+              <a href="index.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Experience</a>
+              <a href="#contact" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="pt-28 sm:pt-32">
+      <!-- HERO -->
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-7">
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="flex items-center gap-3">
+                <div class="mono text-xs text-white/60">SYSTEM STATUS</div>
+                <div class="h-[1px] flex-1 bg-white/10"></div>
+                <div class="mono text-xs" style="color:#ccff00">ONLINE</div>
+              </div>
+
+              <h1 class="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight">
+                ROBOTICS ENGINEER <span class="text-white/60">|</span> <span style="color:#ccff00">SYSTEMS ARCHITECT</span>
+              </h1>
+
+              <p class="mt-4 text-white/75 text-base sm:text-lg leading-relaxed">
+                I build robot systems end-to-end: perception → planning → control → deployment.
+                This portfolio is designed like a <span class="text-white/90">Digital Twin Command Center</span> —
+                fast to scan, deep when you drill in.
+              </p>
+
+              <!-- CTA row -->
+              <div class="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href="projects.html"
+                  class="inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold text-black hover:brightness-95 transition"
+                  style="background:#ccff00"
+                >
+                  <span>Open Projects Grid</span>
+                  <span class="mono text-sm">→</span>
+                </a>
+
+                <a
+                  href="#core"
+                  class="inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold text-white/90 glass hover:bg-white/5 transition"
+                >
+                  <span>View Core Systems</span>
+                  <span class="mono text-sm" style="color:#2e66ff">⌁</span>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/sujai-r/"
+                  target="_blank"
+                  rel="noreferrer"
+                  class="inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold text-white/80 glass hover:bg-white/5 transition"
+                >
+                  <span>LinkedIn</span>
+                  <span class="mono text-sm" style="color:#2e66ff">↗</span>
+                </a>
+              </div>
+
+              <!-- Technical Stats Bar -->
+              <div class="mt-8 grid gap-3 sm:grid-cols-3">
+                <div class="glass-strong rounded-2xl px-4 py-4 hover-lift reveal">
+                  <div class="mono text-[11px] text-white/60">TECHNICAL STATS</div>
+                  <div class="mt-1 text-lg font-bold" style="color:#ccff00">13+ PROJECTS</div>
+                  <div class="mt-1 text-sm text-white/70">Academic + industrial systems</div>
+                </div>
+                <div class="glass-strong rounded-2xl px-4 py-4 hover-lift reveal">
+                  <div class="mono text-[11px] text-white/60">FIELD EXPERIENCE</div>
+                  <div class="mt-1 text-lg font-bold text-white/90">3 WORK TERMS</div>
+                  <div class="mt-1 text-sm text-white/70">Shipped automation & robotics</div>
+                </div>
+                <div class="glass-strong rounded-2xl px-4 py-4 hover-lift reveal">
+                  <div class="mono text-[11px] text-white/60">EDUCATION</div>
+                  <div class="mt-1 text-lg font-bold text-white/90">M.S. ROBOTICS</div>
+                  <div class="mt-1 text-sm text-white/70">Perception, planning, control</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: “Live” robotics panel -->
+          <div class="lg:col-span-5">
+            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring tilt" id="tiltPanel">
+              <div class="tilt-inner">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="mono text-xs text-white/60">SENSOR FUSION VIEW</div>
+                    <div class="mt-1 text-xl font-bold">Robotics Telemetry</div>
+                    <div class="mt-1 text-sm text-white/70">
+                      Animated “system feed” with LiDAR sweep + camera tiles.
+                    </div>
+                  </div>
+                  <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">LIVE</div>
+                </div>
+
+                <!-- Faux sensor tiles -->
+                <div class="mt-5 grid grid-cols-2 gap-3">
+                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                    <div class="mono text-[11px] text-white/60">LIDAR</div>
+                    <div class="mt-2 relative h-24 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                      <!-- radar sweep -->
+                      <svg class="absolute inset-0 h-full w-full" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                          <radialGradient id="g" cx="35%" cy="60%" r="70%">
+                            <stop offset="0%" stop-color="#ccff00" stop-opacity="0.22" />
+                            <stop offset="60%" stop-color="#ccff00" stop-opacity="0.06" />
+                            <stop offset="100%" stop-color="#ccff00" stop-opacity="0.0" />
+                          </radialGradient>
+                        </defs>
+                        <rect x="0" y="0" width="200" height="120" fill="url(#g)" />
+                        <g opacity="0.7">
+                          <path d="M0,90 C40,80 70,75 105,55 C140,35 165,20 200,10" fill="none" stroke="#2e66ff" stroke-opacity="0.5" stroke-width="1.2"/>
+                          <path d="M0,105 C55,92 88,80 120,62 C150,45 175,30 200,22" fill="none" stroke="#ccff00" stroke-opacity="0.35" stroke-width="1.2"/>
+                        </g>
+                      </svg>
+                      <div id="sweep" class="absolute -left-10 top-0 h-full w-24"
+                        style="background: linear-gradient(90deg, transparent, rgba(204,255,0,.18), transparent); transform: skewX(-18deg);"
+                      ></div>
+                    </div>
+                    <div class="mt-2 mono text-[11px] text-white/60">
+                      <span style="color:#ccff00">~</span> point cloud inference overlay
+                    </div>
+                  </div>
+
+                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                    <div class="mono text-[11px] text-white/60">CAMERA</div>
+                    <div class="mt-2 relative h-24 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                      <!-- “camera feed” shimmer tiles -->
+                      <div class="absolute inset-0 grid grid-cols-3 gap-[2px] p-[2px] opacity-95">
+                        <div class="rounded-[8px] bg-white/5"></div>
+                        <div class="rounded-[8px] bg-white/10"></div>
+                        <div class="rounded-[8px] bg-white/5"></div>
+                        <div class="rounded-[8px] bg-white/10"></div>
+                        <div class="rounded-[8px] bg-white/5"></div>
+                        <div class="rounded-[8px] bg-white/10"></div>
+                        <div class="rounded-[8px] bg-white/5"></div>
+                        <div class="rounded-[8px] bg-white/10"></div>
+                        <div class="rounded-[8px] bg-white/5"></div>
+                      </div>
+                      <div id="shimmer" class="absolute -left-28 top-0 h-full w-40"
+                        style="background: linear-gradient(90deg, transparent, rgba(46,102,255,.20), transparent); transform: skewX(-18deg);"
+                      ></div>
+                    </div>
+                    <div class="mt-2 mono text-[11px] text-white/60">
+                      <span style="color:#2e66ff">⊙</span> feature extraction / pose cues
+                    </div>
+                  </div>
+
+                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                    <div class="mono text-[11px] text-white/60">IMU</div>
+                    <div class="mt-2 flex items-end justify-between gap-2">
+                      <div class="mono text-[11px] text-white/60">bias</div>
+                      <div class="mono text-[11px]" style="color:#ccff00" id="imuBias">0.014</div>
+                    </div>
+                    <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div id="imuBar" class="h-full w-1/2" style="background:#ccff00; box-shadow: 0 0 18px rgba(204,255,0,.35)"></div>
+                    </div>
+                    <div class="mt-2 mono text-[11px] text-white/60">kalman-filtered stabilization</div>
+                  </div>
+
+                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                    <div class="mono text-[11px] text-white/60">GPS</div>
+                    <div class="mt-2 flex items-end justify-between gap-2">
+                      <div class="mono text-[11px] text-white/60">fix</div>
+                      <div class="mono text-[11px]" style="color:#2e66ff" id="gpsFix">3D</div>
+                    </div>
+                    <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div id="gpsBar" class="h-full w-[68%]" style="background:#2e66ff; box-shadow: 0 0 18px rgba(46,102,255,.35)"></div>
+                    </div>
+                    <div class="mt-2 mono text-[11px] text-white/60">pose correction stream</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <div class="mono text-[11px] text-white/60">COMMAND</div>
+                  <div class="mono text-[11px] text-white/70">
+                    <span style="color:#ccff00">run</span> /projects<span class="text-white/60"> --mode</span> <span style="color:#2e66ff">bento</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Robot visual strip (lightweight “live” animation) -->
+            <div class="mt-6 glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="mono text-xs text-white/60">ROBOT VISUALIZATION</div>
+                  <div class="mt-1 text-lg font-bold">Kinematic Ghost</div>
+                  <div class="mt-1 text-sm text-white/70">
+                    CSS-driven 3D transform “humanoid” rig placeholder (swap with your real media later).
+                  </div>
+                </div>
+                <a href="projects.html" class="mono text-xs" style="color:#2e66ff">see builds ↗</a>
+              </div>
+
+              <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                <div class="absolute inset-0 opacity-60"
+                  style="background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 16px 16px;"
+                ></div>
+
+                <!-- “humanoid” rig -->
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div id="rig" class="relative h-32 w-28">
+                    <div class="absolute left-1/2 top-2 h-8 w-8 -translate-x-1/2 rounded-2xl glass-strong neon-ring"></div>
+                    <div class="absolute left-1/2 top-12 h-10 w-14 -translate-x-1/2 rounded-2xl glass neon-ring"></div>
+
+                    <div id="armL" class="absolute left-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-right"></div>
+                    <div id="armR" class="absolute right-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-left"></div>
+
+                    <div id="legL" class="absolute left-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-right"></div>
+                    <div id="legR" class="absolute right-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-left"></div>
+
+                    <div class="absolute left-1/2 top-28 h-2 w-16 -translate-x-1/2 rounded-full"
+                      style="background: linear-gradient(90deg, transparent, rgba(204,255,0,.28), transparent);"
+                    ></div>
+                  </div>
+                </div>
+
+                <!-- floating glow orbs -->
+                <div class="absolute -left-10 top-6 h-40 w-40 rounded-full blur-3xl" style="background: rgba(204,255,0,.12)"></div>
+                <div class="absolute -right-10 bottom-0 h-44 w-44 rounded-full blur-3xl" style="background: rgba(46,102,255,.12)"></div>
+              </div>
+
+              <div class="mt-3 flex flex-wrap items-center gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CORE SYSTEMS -->
+      <section id="core" class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <div class="mono text-xs text-white/60">CORE SYSTEMS</div>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Command Modules <span class="text-white/60">—</span> <span style="color:#ccff00">interactive</span>
+            </h2>
+            <p class="mt-2 text-white/70 max-w-2xl">
+              Four pillars that show up across my 13+ academic projects and real-world builds: navigation, vision, embedded integration, and control.
+            </p>
+          </div>
+
+          <a href="projects.html" class="hidden sm:inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition">
+            <span>Explore All Projects</span>
+            <span class="mono text-sm" style="color:#2e66ff">→</span>
+          </a>
+        </div>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <!-- Card 1 -->
+          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
+            <div class="flex items-center justify-between">
+              <div class="mono text-xs text-white/60">MODULE 01</div>
+              <div class="mono text-xs" style="color:#ccff00">NAV</div>
+            </div>
+            <div class="mt-3 text-xl font-bold">Autonomous Navigation</div>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">
+              SLAM, mapping, obstacle avoidance, and reliable localization in simulation → reality.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Gazebo</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Gmapping</span>
+            </div>
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+              <span>Drill-in</span><span class="mono">↗</span>
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
+            <div class="flex items-center justify-between">
+              <div class="mono text-xs text-white/60">MODULE 02</div>
+              <div class="mono text-xs" style="color:#ccff00">CV</div>
+            </div>
+            <div class="mt-3 text-xl font-bold">Computer Vision</div>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">
+              Detection, tracking, pose estimation, AR overlays, and retrieval pipelines.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ArUco</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">PyTorch</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">CNN</span>
+            </div>
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+              <span>Drill-in</span><span class="mono">↗</span>
+            </div>
+          </a>
+
+          <!-- Card 3 -->
+          <a href="projects.html#industrial" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
+            <div class="flex items-center justify-between">
+              <div class="mono text-xs text-white/60">MODULE 03</div>
+              <div class="mono text-xs" style="color:#ccff00">EMB</div>
+            </div>
+            <div class="mt-3 text-xl font-bold">Embedded Systems</div>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">
+              Sensor integration, calibration, timing, and robust field wiring + safety behaviors.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Linux</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">C++</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Python</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Sensor Fusion</span>
+            </div>
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+              <span>Drill-in</span><span class="mono">↗</span>
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
+            <div class="flex items-center justify-between">
+              <div class="mono text-xs text-white/60">MODULE 04</div>
+              <div class="mono text-xs" style="color:#ccff00">CTRL</div>
+            </div>
+            <div class="mt-3 text-xl font-bold">Control Theory</div>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">
+              MPC, LQR, robust control (µ-synthesis), stability under uncertainty.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MATLAB</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Simulink</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC</span>
+              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">LQR</span>
+            </div>
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+              <span>Drill-in</span><span class="mono">↗</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Quick “Featured” academic highlights -->
+      <section class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+            <div>
+              <div class="mono text-xs text-white/60">FEATURED SIGNAL</div>
+              <h3 class="mt-2 text-2xl font-extrabold tracking-tight">
+                Academic Projects <span class="text-white/60">—</span> <span style="color:#ccff00">13+</span> systems shipped in code
+              </h3>
+              <p class="mt-2 text-white/70 max-w-2xl">
+                Your full “Bento Lab” lives on the Projects page. This is a quick scan of the heaviest hitters.
+              </p>
+            </div>
+
+            <div class="flex gap-2">
+              <a href="projects.html#academic" class="rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition">
+                View Academic Bento
+              </a>
+              <a href="projects.html#industrial" class="rounded-2xl px-4 py-3 font-semibold text-black hover:brightness-95 transition" style="background:#ccff00">
+                View Industrial
+              </a>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-4 lg:grid-cols-12">
+            <div class="lg:col-span-7 glass-strong rounded-3xl p-5 sm:p-6 hover-lift reveal">
+              <div class="flex items-center justify-between">
+                <div class="mono text-xs text-white/60">FLAGSHIP</div>
+                <div class="mono text-xs" style="color:#ccff00">STRETCH RE2</div>
+              </div>
+              <div class="mt-2 text-xl font-bold">Household Automation Robot (Stretch 2)</div>
+              <p class="mt-2 text-sm text-white/70 leading-relaxed">
+                Built an autonomous household helper: SLAM + object/face detection + pose estimation + grasping.
+                Sim-first with Gazebo (2D LiDAR + depth cameras), then integrated on the real Stretch RE2.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ROS2</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Gazebo</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">SLAM</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Sensor Fusion</span>
+              </div>
+              <a href="projects.html#stretch" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+                Open detailed view <span class="mono">→</span>
+              </a>
+            </div>
+
+            <div class="lg:col-span-5 grid gap-4">
+              <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift reveal">
+                <div class="mono text-xs text-white/60">PERCEPTION</div>
+                <div class="mt-2 text-lg font-bold">3D Point Cloud Reconstruction</div>
+                <div class="mt-2 text-sm text-white/70">
+                  SIFT + epipolar geometry + triangulation + bundle adjustment in GTSAM, rendered in Open3D.
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">GTSAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Open3D</span>
+                </div>
+              </div>
+
+              <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift reveal">
+                <div class="mono text-xs text-white/60">CONTROL</div>
+                <div class="mt-2 text-lg font-bold">Quadcopter Stability (MPC / LQR / Robust)</div>
+                <div class="mt-2 text-sm text-white/70">
+                  Trajectory tracking with MPC, energy-performance balancing with LQR, robustness via µ-synthesis + Monte Carlo validation.
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">MATLAB</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Simulink</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Robust Control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT (interactive) -->
+      <section id="contact" class="mt-10 sm:mt-14 pb-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-4 lg:grid-cols-12">
+          <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 neon-ring">
+            <div class="mono text-xs text-white/60">CONTACT CHANNEL</div>
+            <h3 class="mt-2 text-2xl font-extrabold tracking-tight">
+              Let’s build something that <span style="color:#ccff00">moves in the real world</span>.
+            </h3>
+            <p class="mt-2 text-white/70">
+              If you’re hiring for Senior Robotics / Systems roles, I’m strongest where perception + navigation + control meet deployment reality.
             </p>
 
-            <!-- CTA row -->
-            <div class="mt-7 flex flex-wrap items-center gap-3">
-              <a href="projects.html"
-                 class="px-5 py-3 rounded-2xl bg-[#ccff00] text-black font-semibold tracking-wide hover:brightness-110 transition ring-lime">
-                Enter The Bento Lab
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              <a
+                class="hover-lift glass-strong rounded-2xl p-4"
+                href="https://www.linkedin.com/in/sujai-r/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="mono text-[11px] text-white/60">LINKEDIN</div>
+                <div class="mt-1 font-bold text-white/90">/in/sujai-r</div>
+                <div class="mt-1 text-sm" style="color:#2e66ff">Open profile ↗</div>
               </a>
-              <a href="about.html"
-                 class="px-5 py-3 rounded-2xl glass hover-glow transition ring-lime">
-                View Mission Log
-              </a>
-              <a href="contact.html"
-                 class="px-5 py-3 rounded-2xl border border-white/15 hover:border-[#ccff00]/60 transition ring-lime">
-                Initiate Contact
+
+              <a class="hover-lift glass-strong rounded-2xl p-4" href="projects.html">
+                <div class="mono text-[11px] text-white/60">PROJECTS</div>
+                <div class="mt-1 font-bold text-white/90">Bento Lab</div>
+                <div class="mt-1 text-sm" style="color:#2e66ff">Browse grid ↗</div>
               </a>
             </div>
 
-            <!-- Technical Stats bar -->
-            <div id="statsBar" class="mt-9 grid grid-cols-3 gap-3">
-              <div class="glass glow-border rounded-2xl p-4 hover-glow transition">
-                <div class="mono text-xs text-white/60">TECHNICAL STATS</div>
-                <div class="mt-2 text-xl font-bold"><span class="text-[#ccff00]">13+</span> Projects</div>
-                <div class="mono text-xs text-white/60 mt-1">Academic + Industrial</div>
-              </div>
-              <div class="glass glow-border rounded-2xl p-4 hover-glow transition">
-                <div class="mono text-xs text-white/60">FIELD TIME</div>
-                <div class="mt-2 text-xl font-bold"><span class="text-[#ccff00]">3</span> Work Terms</div>
-                <div class="mono text-xs text-white/60 mt-1">2020 → Current</div>
-              </div>
-              <div class="glass glow-border rounded-2xl p-4 hover-glow transition">
-                <div class="mono text-xs text-white/60">EDUCATION</div>
-                <div class="mt-2 text-xl font-bold"><span class="text-[#ccff00]">M.S.</span> Robotics</div>
-                <div class="mono text-xs text-white/60 mt-1">Northeastern University</div>
+            <div class="mt-6 glass-strong rounded-2xl p-4">
+              <div class="mono text-[11px] text-white/60">NOTE</div>
+              <div class="mt-1 text-sm text-white/70">
+                Email + downloadable resume buttons will be wired on the Experience page. This home page is the “scan-fast” command view.
               </div>
             </div>
           </div>
 
-          <!-- Right: "Sensor Dock" visual -->
-          <div class="lg:col-span-5">
-            <div id="sensorDock" class="glass glow-border rounded-3xl p-5 relative overflow-hidden">
-              <div class="absolute inset-0 opacity-40 pointer-events-none"
-                   style="background:
-                     radial-gradient(600px 260px at 30% 20%, rgba(46,102,255,.35), transparent 60%),
-                     radial-gradient(520px 280px at 70% 70%, rgba(204,255,0,.28), transparent 60%);"></div>
+          <div class="lg:col-span-5 glass rounded-3xl p-6 sm:p-8 neon-ring tilt" id="contactTilt">
+            <div class="tilt-inner">
+              <div class="mono text-xs text-white/60">MICRO-INTERACTION</div>
+              <div class="mt-2 text-xl font-bold">Signal Beacon</div>
+              <p class="mt-2 text-white/70 text-sm">
+                Hover/tilt this panel. The beacon pulse reacts like a “handoff” animation.
+              </p>
 
-              <div class="relative flex items-center justify-between">
-                <div>
-                  <div class="mono text-xs text-white/60">LIVE TELEMETRY</div>
-                  <div class="mt-1 text-lg font-semibold">Perception + Motion</div>
-                </div>
-                <div class="mono text-xs text-white/60">FPS <span class="text-[#ccff00] font-semibold" id="fps">—</span></div>
-              </div>
+              <div class="mt-5 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-44">
+                <div class="absolute inset-0 opacity-70"
+                  style="background: radial-gradient(circle at 40% 30%, rgba(204,255,0,.16), transparent 55%), radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 55%);"
+                ></div>
 
-              <!-- Animated "robot + sensors" inline SVG -->
-              <div class="mt-4 rounded-2xl border border-white/10 overflow-hidden bg-black/40">
-                <svg viewBox="0 0 840 360" class="w-full h-auto">
-                  <defs>
-                    <linearGradient id="g" x1="0" x2="1">
-                      <stop offset="0" stop-color="#2e66ff" stop-opacity="0.55"/>
-                      <stop offset="1" stop-color="#ccff00" stop-opacity="0.45"/>
-                    </linearGradient>
-                    <filter id="glow">
-                      <feGaussianBlur stdDeviation="4" result="b"/>
-                      <feMerge>
-                        <feMergeNode in="b"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-
-                  <!-- grid -->
-                  <g opacity="0.25" stroke="white">
-                    <path d="M0 300 H840" />
-                    <path d="M0 240 H840" />
-                    <path d="M0 180 H840" />
-                    <path d="M0 120 H840" />
-                    <path d="M0 60 H840" />
-                    <path d="M140 0 V360" />
-                    <path d="M280 0 V360" />
-                    <path d="M420 0 V360" />
-                    <path d="M560 0 V360" />
-                    <path d="M700 0 V360" />
-                  </g>
-
-                  <!-- lidar sweep -->
-                  <g filter="url(#glow)">
-                    <circle cx="210" cy="210" r="6" fill="#ccff00"/>
-                    <path id="sweepArc" d="M210 210 m -110 0 a 110 110 0 0 1 220 0" fill="none" stroke="url(#g)" stroke-width="10" opacity="0.9"/>
-                  </g>
-
-                  <!-- robot silhouette -->
-                  <g filter="url(#glow)">
-                    <rect x="500" y="120" width="140" height="150" rx="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
-                    <rect x="528" y="90" width="84" height="44" rx="14" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
-                    <circle cx="555" cy="112" r="6" fill="#2e66ff"/>
-                    <circle cx="585" cy="112" r="6" fill="#2e66ff"/>
-                    <path d="M520 210 H660" stroke="#ccff00" stroke-width="3" opacity=".7"/>
-                    <rect x="480" y="170" width="26" height="90" rx="12" fill="rgba(255,255,255,0.07)"/>
-                    <rect x="634" y="170" width="26" height="90" rx="12" fill="rgba(255,255,255,0.07)"/>
-                    <rect x="520" y="270" width="44" height="60" rx="14" fill="rgba(255,255,255,0.07)"/>
-                    <rect x="576" y="270" width="44" height="60" rx="14" fill="rgba(255,255,255,0.07)"/>
-                  </g>
-
-                  <!-- data points -->
-                  <g class="mono" font-size="12" fill="rgba(255,255,255,0.75)">
-                    <text x="40" y="28">SENSORS</text>
-                    <text x="40" y="52" fill="#ccff00">LiDAR</text>
-                    <text x="40" y="72">IMU</text>
-                    <text x="40" y="92">GPS</text>
-
-                    <text x="690" y="28">PIPELINE</text>
-                    <text x="690" y="52" fill="#ccff00">Fusion</text>
-                    <text x="690" y="72">Planning</text>
-                    <text x="690" y="92">Control</text>
-                  </g>
-                </svg>
-              </div>
-
-              <!-- micro telemetry pills -->
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
-                  <div class="mono text-xs text-white/60">LOCALIZATION</div>
-                  <div class="mt-1 flex items-end justify-between">
-                    <div class="text-base font-semibold">EKF / SLAM</div>
-                    <div class="mono text-xs text-[#ccff00]" id="locStatus">LOCKED</div>
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div class="relative h-24 w-24">
+                    <div id="beacon" class="absolute inset-0 rounded-full"
+                      style="background: rgba(204,255,0,.10); box-shadow: 0 0 0 1px rgba(204,255,0,.18), 0 0 50px rgba(204,255,0,.12);"
+                    ></div>
+                    <div class="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                      style="background:#ccff00; box-shadow: 0 0 24px rgba(204,255,0,.55);"
+                    ></div>
                   </div>
                 </div>
-                <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
-                  <div class="mono text-xs text-white/60">CONTROL</div>
-                  <div class="mt-1 flex items-end justify-between">
-                    <div class="text-base font-semibold">PID / MPC</div>
-                    <div class="mono text-xs text-[#2e66ff]" id="ctrlMode">AUTO</div>
-                  </div>
-                </div>
+
+                <div id="beaconSweep" class="absolute -left-40 top-0 h-full w-64"
+                  style="background: linear-gradient(90deg, transparent, rgba(46,102,255,.22), transparent); transform: skewX(-18deg);"
+                ></div>
               </div>
 
-              <div class="mt-4 text-sm text-white/65 leading-relaxed">
-                Built for <span class="text-[#ccff00] font-semibold">real deployment</span>: ROS2, OpenCV, sensor fusion, motion planning, and embedded control —
-                optimized for throughput and traceability.
+              <div class="mt-4 flex items-center justify-between">
+                <div class="mono text-[11px] text-white/60">STATUS</div>
+                <div class="mono text-[11px]" style="color:#ccff00">READY</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Core Systems -->
-        <div class="mt-12">
-          <div class="flex items-end justify-between gap-4">
-            <div>
-              <div class="mono text-xs text-white/60">CORE SYSTEMS</div>
-              <h2 class="mt-1 text-2xl md:text-3xl font-bold">Your autonomous stack, modularized.</h2>
-            </div>
-            <a href="projects.html" class="link text-sm mono">View full build matrix →</a>
-          </div>
+        <footer class="mt-10 text-center text-white/55 mono text-[11px]">
+          © <span id="year"></span> Sujai Rajan — Obsidian & Neon Command Center UI
+        </footer>
+      </section>
+    </main>
 
-          <div class="mt-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Card 1 -->
-            <button class="coreCard glass glow-border rounded-3xl p-5 text-left hover-glow transition will-change-transform">
-              <div class="mono text-xs text-white/60">01</div>
-              <div class="mt-2 text-lg font-semibold">Autonomous Navigation</div>
-              <p class="mt-2 text-sm text-white/70 leading-relaxed">
-                Localization + mapping + recovery behavior tuned for stability in sim and field.
-              </p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">ROS2 Nav2</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">EKF</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">A*/DWA</span>
-              </div>
-            </button>
-            <!-- Card 2 -->
-            <button class="coreCard glass glow-border rounded-3xl p-5 text-left hover-glow transition will-change-transform">
-              <div class="mono text-xs text-white/60">02</div>
-              <div class="mt-2 text-lg font-semibold">Computer Vision</div>
-              <p class="mt-2 text-sm text-white/70 leading-relaxed">
-                Feature extraction, verification, tracking, and robust imaging under nasty lighting.
-              </p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">OpenCV</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">YOLO</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">3D Vision</span>
-              </div>
-            </button>
-            <!-- Card 3 -->
-            <button class="coreCard glass glow-border rounded-3xl p-5 text-left hover-glow transition will-change-transform">
-              <div class="mono text-xs text-white/60">03</div>
-              <div class="mt-2 text-lg font-semibold">Embedded Systems</div>
-              <p class="mt-2 text-sm text-white/70 leading-relaxed">
-                Sensor IO, motor control, safety interlocks, and deterministic behaviors.
-              </p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">Raspberry Pi</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">ESP32</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">RTOS</span>
-              </div>
-            </button>
-            <!-- Card 4 -->
-            <button class="coreCard glass glow-border rounded-3xl p-5 text-left hover-glow transition will-change-transform">
-              <div class="mono text-xs text-white/60">04</div>
-              <div class="mt-2 text-lg font-semibold">Control Theory</div>
-              <p class="mt-2 text-sm text-white/70 leading-relaxed">
-                From classical PID loops to MPC constraints — tuned for repeatability.
-              </p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">PID</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">MPC</span>
-                <span class="mono text-xs px-2 py-1 rounded-full border border-white/10 bg-white/5">Kinematics</span>
-              </div>
-            </button>
-          </div>
-        </div>
+    <script>
+      // ---------------------------
+      // Utilities: Motion wrapper
+      // ---------------------------
+      const FM = window.framerMotion || window.FramerMotion || null;
 
-        <!-- Footer mini -->
-        <div class="mt-12 pb-12 flex flex-col md:flex-row md:items-center justify-between gap-3 text-sm text-white/60">
-          <div class="mono">© <span id="year"></span> Sujai Rajan — Robotics Portfolio</div>
-          <div class="flex gap-4">
-            <a class="link mono" href="mailto:send2sujai@gmail.com">send2sujai@gmail.com</a>
-            <a class="link mono" href="tel:+16176020833">+1 (617) 602-0833</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+      function animateSafe(el, keyframes, options) {
+        // Try Framer Motion if present, else fallback to WAAPI.
+        try {
+          if (FM && typeof FM.animate === "function") {
+            // Some UMD builds expose animate()
+            return FM.animate(el, keyframes, options);
+          }
+        } catch (_) {}
+        return el.animate(keyframes, options);
+      }
 
-  <script>
-    const { animate, inView, spring, stagger } = window.motion;
+      // ---------------------------
+      // Mobile menu
+      // ---------------------------
+      const mobileBtn = document.getElementById("mobileBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileBtn?.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
 
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+      // ---------------------------
+      // Year
+      // ---------------------------
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Fake FPS telemetry (visual flair)
-    const fpsEl = document.getElementById("fps");
-    let t = 0;
-    setInterval(() => {
-      t += 1;
-      const fps = 58 + Math.round(4 * Math.sin(t / 3));
-      fpsEl.textContent = fps;
-    }, 500);
+      // ---------------------------
+      // Starfield (lightweight)
+      // ---------------------------
+      const canvas = document.getElementById("starfield");
+      const ctx = canvas.getContext("2d");
+      let w, h, stars;
 
-    // Animate sweep arc by rotating it (simple visual trick)
-    const arc = document.getElementById("sweepArc");
-    let a = 0;
-    setInterval(() => {
-      a = (a + 8) % 360;
-      arc.setAttribute("transform", `rotate(${a} 210 210)`);
-    }, 60);
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        stars = Array.from({ length: Math.min(220, Math.floor((w * h) / 12000)) }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.8 + 0.2,
+          r: Math.random() * 1.6 + 0.4,
+          vx: (Math.random() * 0.2 + 0.05) * (Math.random() > 0.5 ? 1 : -1),
+          vy: (Math.random() * 0.2 + 0.05) * (Math.random() > 0.5 ? 1 : -1),
+        }));
+      }
+      window.addEventListener("resize", resize);
+      resize();
 
-    // Reveal animations
-    inView("#statsBar > div", (info) => {
-      animate(info.target, { opacity: [0, 1], y: [14, 0] }, { duration: 0.7, delay: info.index * 0.07, easing: spring({ stiffness: 180, damping: 18 }) });
-    });
+      function tick() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.globalCompositeOperation = "lighter";
 
-    inView(".coreCard", (info) => {
-      animate(info.target, { opacity: [0, 1], y: [18, 0] }, { duration: 0.7, delay: info.index * 0.06, easing: spring({ stiffness: 200, damping: 20 }) });
-    });
+        for (const s of stars) {
+          s.x += s.vx * (0.8 + s.z);
+          s.y += s.vy * (0.8 + s.z);
 
-    inView("#sensorDock", () => {
-      animate("#sensorDock", { opacity: [0, 1], scale: [0.98, 1] }, { duration: 0.8, easing: spring({ stiffness: 160, damping: 16 }) });
-    });
+          if (s.x < -20) s.x = w + 20;
+          if (s.x > w + 20) s.x = -20;
+          if (s.y < -20) s.y = h + 20;
+          if (s.y > h + 20) s.y = -20;
 
-    // Micro-interaction: card tilt based on pointer
-    const dock = document.getElementById("sensorDock");
-    dock.addEventListener("mousemove", (e) => {
-      const r = dock.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      dock.style.transform = `perspective(900px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateY(-1px)`;
-    });
-    dock.addEventListener("mouseleave", () => {
-      dock.style.transform = "none";
-    });
-  </script>
-</body>
+          // Lime + blue mix
+          const lime = 0.18 + s.z * 0.25;
+          const blue = 0.10 + s.z * 0.22;
+
+          // Draw glow
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(204,255,0,${lime})`;
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(46,102,255,${blue})`;
+          ctx.arc(s.x + 0.7, s.y + 0.3, Math.max(0.7, s.r * 0.65), 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalCompositeOperation = "source-over";
+        requestAnimationFrame(tick);
+      }
+      tick();
+
+      // ---------------------------
+      // Reveals on scroll
+      // ---------------------------
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add("will-animate");
+            animateSafe(
+              e.target,
+              [
+                { opacity: 0, transform: "translateY(14px) scale(0.99)" },
+                { opacity: 1, transform: "translateY(0px) scale(1)" },
+              ],
+              { duration: 650, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "both" }
+            );
+            io.unobserve(e.target);
+          });
+        },
+        { threshold: 0.15 }
+      );
+      revealEls.forEach((el) => io.observe(el));
+
+      // ---------------------------
+      // Sensor sweeps / shimmer loops
+      // ---------------------------
+      const sweep = document.getElementById("sweep");
+      const shimmer = document.getElementById("shimmer");
+      const beaconSweep = document.getElementById("beaconSweep");
+
+      if (sweep) {
+        animateSafe(
+          sweep,
+          [{ transform: "translateX(-40px) skewX(-18deg)" }, { transform: "translateX(260px) skewX(-18deg)" }],
+          { duration: 1400, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+      if (shimmer) {
+        animateSafe(
+          shimmer,
+          [{ transform: "translateX(-180px) skewX(-18deg)" }, { transform: "translateX(260px) skewX(-18deg)" }],
+          { duration: 1800, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+      if (beaconSweep) {
+        animateSafe(
+          beaconSweep,
+          [{ transform: "translateX(-260px) skewX(-18deg)" }, { transform: "translateX(520px) skewX(-18deg)" }],
+          { duration: 2200, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+
+      // Beacon pulse
+      const beacon = document.getElementById("beacon");
+      if (beacon) {
+        animateSafe(
+          beacon,
+          [
+            { transform: "scale(0.88)", opacity: 0.75 },
+            { transform: "scale(1.08)", opacity: 0.95 },
+            { transform: "scale(0.92)", opacity: 0.8 },
+          ],
+          { duration: 1700, iterations: Infinity, easing: "ease-in-out" }
+        );
+      }
+
+      // ---------------------------
+      // IMU/GPS faux telemetry
+      // ---------------------------
+      const imuBias = document.getElementById("imuBias");
+      const imuBar = document.getElementById("imuBar");
+      const gpsFix = document.getElementById("gpsFix");
+      const gpsBar = document.getElementById("gpsBar");
+
+      const fixes = ["2D", "3D", "DGPS", "RTK-FLOAT", "RTK-FIX"];
+      let t = 0;
+
+      setInterval(() => {
+        t += 1;
+        const bias = (0.010 + Math.random() * 0.012).toFixed(3);
+        if (imuBias) imuBias.textContent = bias;
+
+        const imuPct = 40 + Math.floor(Math.random() * 50);
+        if (imuBar) imuBar.style.width = imuPct + "%";
+
+        const fix = fixes[Math.floor(Math.random() * fixes.length)];
+        if (gpsFix) gpsFix.textContent = fix;
+
+        const gpsPct = 55 + Math.floor(Math.random() * 40);
+        if (gpsBar) gpsBar.style.width = gpsPct + "%";
+      }, 1100);
+
+      // ---------------------------
+      // 3D tilt (panels)
+      // ---------------------------
+      function attachTilt(containerId, strength = 10) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const inner = el.querySelector(".tilt-inner");
+        if (!inner) return;
+
+        function onMove(e) {
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          const rx = (-y * strength).toFixed(2);
+          const ry = (x * strength).toFixed(2);
+          inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+        }
+        function onLeave() {
+          inner.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)";
+        }
+
+        el.addEventListener("mousemove", onMove);
+        el.addEventListener("mouseleave", onLeave);
+      }
+      attachTilt("tiltPanel", 10);
+      attachTilt("contactTilt", 12);
+
+      // ---------------------------
+      // Humanoid rig motion
+      // ---------------------------
+      const armL = document.getElementById("armL");
+      const armR = document.getElementById("armR");
+      const legL = document.getElementById("legL");
+      const legR = document.getElementById("legR");
+
+      const rigParts = [armL, armR, legL, legR].filter(Boolean);
+      if (rigParts.length) {
+        animateSafe(
+          armL,
+          [{ transform: "rotate(12deg)" }, { transform: "rotate(-18deg)" }, { transform: "rotate(12deg)" }],
+          { duration: 1400, iterations: Infinity, easing: "ease-in-out" }
+        );
+        animateSafe(
+          armR,
+          [{ transform: "rotate(-14deg)" }, { transform: "rotate(16deg)" }, { transform: "rotate(-14deg)" }],
+          { duration: 1400, iterations: Infinity, easing: "ease-in-out" }
+        );
+        animateSafe(
+          legL,
+          [{ transform: "rotate(-10deg)" }, { transform: "rotate(14deg)" }, { transform: "rotate(-10deg)" }],
+          { duration: 1600, iterations: Infinity, easing: "ease-in-out" }
+        );
+        animateSafe(
+          legR,
+          [{ transform: "rotate(10deg)" }, { transform: "rotate(-14deg)" }, { transform: "rotate(10deg)" }],
+          { duration: 1600, iterations: Infinity, easing: "ease-in-out" }
+        );
+      }
+    </script>
+  </body>
 </html>
