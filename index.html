@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robotics Portfolio — Command Center</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind v4 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --bg:#050505;
+      --lime:#ccff00;
+      --blue:#2e66ff;
+      --glass: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.10);
+      --shadow: 0 0 0 1px rgba(255,255,255,.08), 0 20px 60px rgba(0,0,0,.55);
+    }
+    html,body{ background:var(--bg); color:#eaeaea; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .mono{ font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    /* Glass + neon edge */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .neon-edge{
+      position: relative;
+      overflow: hidden;
+    }
+    .neon-edge::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(60% 60% at 20% 10%, rgba(204,255,0,.22), transparent 55%),
+                  radial-gradient(70% 70% at 80% 20%, rgba(46,102,255,.22), transparent 60%),
+                  radial-gradient(80% 80% at 50% 90%, rgba(204,255,0,.10), transparent 65%);
+      filter: blur(18px);
+      opacity:.0;
+      transition: opacity .35s ease;
+      pointer-events:none;
+    }
+    .neon-edge:hover::before{ opacity:1; }
+
+    /* Mesh gradient animation */
+    .mesh{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(204,255,0,.10), transparent 55%),
+        radial-gradient(900px 700px at 80% 15%, rgba(46,102,255,.12), transparent 55%),
+        radial-gradient(700px 700px at 55% 80%, rgba(204,255,0,.08), transparent 55%),
+        radial-gradient(1200px 900px at 50% 50%, rgba(255,255,255,.03), transparent 60%);
+      filter: blur(0px);
+      animation: drift 10s ease-in-out infinite alternate;
+      transform: translateZ(0);
+    }
+    @keyframes drift{
+      0%   { transform: translate3d(-1%, -1%, 0) scale(1.02); }
+      100% { transform: translate3d(1%,  1%, 0) scale(1.05); }
+    }
+
+    /* Subtle grid overlay */
+    .grid-overlay{
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(60% 60% at 50% 25%, black 40%, transparent 75%);
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    /* Accent utilities */
+    .text-lime{ color: var(--lime); }
+    .text-blue{ color: var(--blue); }
+    .ring-lime{ box-shadow: 0 0 0 1px rgba(204,255,0,.25), 0 0 30px rgba(204,255,0,.10); }
+    .ring-blue{ box-shadow: 0 0 0 1px rgba(46,102,255,.25), 0 0 30px rgba(46,102,255,.10); }
+
+    /* Nav blur */
+    .navglass{
+      background: rgba(5,5,5,.55);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <!-- Fixed Nav -->
+  <header class="navglass fixed top-0 inset-x-0 z-50">
+    <nav class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 rounded-xl glass items-center justify-center neon-edge">
+          <span class="mono text-lime text-sm">DT</span>
+        </span>
+        <div class="leading-tight">
+          <div class="font-semibold tracking-tight">Digital Twin Command Center</div>
+          <div class="text-xs text-white/60 mono">Robotics Portfolio • 2026</div>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <a href="projects.html" class="px-3 py-2 rounded-xl text-sm text-white/80 hover:text-white glass neon-edge">Projects</a>
+        <a href="about.html" class="px-3 py-2 rounded-xl text-sm text-white/80 hover:text-white glass neon-edge">Experience</a>
+        <a href="contact.html" class="px-3 py-2 rounded-xl text-sm text-white/80 hover:text-white glass neon-edge">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main class="pt-20">
+    <section class="relative mx-auto max-w-6xl px-4 py-10">
+      <div class="absolute inset-0 -z-10 rounded-3xl overflow-hidden">
+        <div class="mesh"></div>
+        <div class="grid-overlay"></div>
+      </div>
+
+      <div class="glass neon-edge rounded-3xl p-7 md:p-10">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div class="max-w-2xl">
+            <div class="mono text-white/70 text-sm">SYSTEM STATUS: <span class="text-lime">ONLINE</span> • TELEMETRY: <span class="text-blue">STABLE</span></div>
+            <h1 class="mt-4 text-3xl md:text-5xl font-extrabold tracking-tight">
+              ROBOTICS ENGINEER <span class="text-white/30">|</span>
+              <span class="text-lime">SYSTEMS ARCHITECT</span>
+            </h1>
+            <p class="mt-4 text-white/70 leading-relaxed">
+              A dark, high-tech portfolio designed like a control room—built for senior engineering roles:
+              rigorous systems thinking, real robotics shipping experience, and clean execution.
+            </p>
+
+            <!-- Technical Stats bar -->
+            <div class="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="mono text-xs text-white/60">AT A GLANCE</div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <div class="text-2xl font-bold text-lime">13+</div>
+                  <div class="text-white/70">Projects</div>
+                </div>
+              </div>
+
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="mono text-xs text-white/60">INDUSTRY</div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <div class="text-2xl font-bold text-lime">3</div>
+                  <div class="text-white/70">Work Terms</div>
+                </div>
+              </div>
+
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="mono text-xs text-white/60">EDUCATION</div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <div class="text-2xl font-bold text-lime">M.S.</div>
+                  <div class="text-white/70">Robotics</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a href="projects.html" class="glass rounded-2xl px-4 py-3 neon-edge ring-lime">
+                <span class="mono text-sm text-white">ENTER BENTO LAB</span>
+                <span class="mono text-sm text-lime"> →</span>
+              </a>
+              <a href="about.html" class="glass rounded-2xl px-4 py-3 neon-edge ring-blue">
+                <span class="mono text-sm text-white">VIEW MISSION LOG</span>
+                <span class="mono text-sm text-blue"> →</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Mini "telemetry" panel -->
+          <div class="w-full md:w-[360px] glass rounded-3xl p-5 neon-edge">
+            <div class="flex items-center justify-between">
+              <div class="mono text-xs text-white/60">LIVE TELEMETRY</div>
+              <div class="mono text-xs text-lime">T+00:00:00</div>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="flex items-center justify-between">
+                  <div class="mono text-xs text-white/60">NAV STACK</div>
+                  <div class="mono text-xs text-lime">LOCKED</div>
+                </div>
+                <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full w-[88%] bg-[rgba(204,255,0,.75)]"></div>
+                </div>
+              </div>
+
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="flex items-center justify-between">
+                  <div class="mono text-xs text-white/60">VISION PIPELINE</div>
+                  <div class="mono text-xs text-blue">SYNC</div>
+                </div>
+                <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full w-[72%] bg-[rgba(46,102,255,.75)]"></div>
+                </div>
+              </div>
+
+              <div class="glass rounded-2xl p-4 neon-edge">
+                <div class="flex items-center justify-between">
+                  <div class="mono text-xs text-white/60">CONTROL LOOP</div>
+                  <div class="mono text-xs text-lime">1 kHz</div>
+                </div>
+                <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full w-[64%] bg-[rgba(204,255,0,.55)]"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-xs text-white/55">
+              Tip: hover cards for micro-glow reactions. This UI is intentionally “control-room” minimal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Systems -->
+    <section class="mx-auto max-w-6xl px-4 pb-14">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight">Core Systems</h2>
+          <p class="text-white/70 mt-1">Four pillars that define how I architect robotics software and ship it.</p>
+        </div>
+        <div class="mono text-xs text-white/60 hidden sm:block">HOVER = REVEAL SIGNAL</div>
+      </div>
+
+      <div id="coreGrid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Cards injected by JS -->
+      </div>
+    </section>
+
+    <footer class="mx-auto max-w-6xl px-4 pb-10 text-white/55 text-sm">
+      <div class="glass rounded-2xl p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <span class="mono">BUILD:</span> Tailwind v4 • Motion (Framer) • HTML5
+        </div>
+        <div class="mono">
+          <a class="text-blue hover:text-white" href="contact.html">Initiate Contact</a>
+          <span class="text-white/30"> • </span>
+          <a class="text-white/70 hover:text-white" href="projects.html">Browse Projects</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Motion (Framer) - browser animations without React -->
+  <script src="https://unpkg.com/motion@11.11.13/dist/motion.umd.min.js"></script>
+
+  <script>
+    const { animate, inView } = window.motion;
+
+    const core = [
+      {
+        title: "Autonomous Navigation",
+        accent: "lime",
+        desc: "Localization + planning + safety constraints. Built for real floors, not ideal sims.",
+        tags: ["ROS2", "SLAM", "LiDAR", "Nav2"]
+      },
+      {
+        title: "Computer Vision",
+        accent: "blue",
+        desc: "Robust detection + decoding pipelines with production lighting and timing realities.",
+        tags: ["OpenCV", "DL", "Calibration", "DataMatrix"]
+      },
+      {
+        title: "Embedded Systems",
+        accent: "lime",
+        desc: "Sensors, IO, timing, serial protocols—integrated into a dependable automation stack.",
+        tags: ["Linux", "UART", "GPIO", "RT Concepts"]
+      },
+      {
+        title: "Control Theory",
+        accent: "blue",
+        desc: "Precision motion + repeatability. Closed-loop thinking from math to firmware.",
+        tags: ["PID", "State Space", "Tuning", "Dynamics"]
+      }
+    ];
+
+    const grid = document.getElementById("coreGrid");
+
+    function badge(text){
+      return `<span class="mono text-[11px] px-2 py-1 rounded-xl bg-white/5 border border-white/10 text-white/70">${text}</span>`;
+    }
+
+    grid.innerHTML = core.map((c, i) => `
+      <article class="glass neon-edge rounded-3xl p-5 group" data-i="${i}">
+        <div class="flex items-center justify-between">
+          <div class="mono text-xs text-white/60">MODULE ${String(i+1).padStart(2,"0")}</div>
+          <div class="h-2 w-2 rounded-full ${c.accent==="lime" ? "bg-[rgba(204,255,0,.85)]" : "bg-[rgba(46,102,255,.85)]"}"></div>
+        </div>
+        <h3 class="mt-3 text-lg font-semibold tracking-tight">${c.title}</h3>
+        <p class="mt-2 text-white/70 leading-relaxed">${c.desc}</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          ${c.tags.map(badge).join("")}
+        </div>
+        <div class="mt-5 h-px bg-white/10"></div>
+        <div class="mt-4 mono text-xs ${c.accent==="lime" ? "text-lime" : "text-blue"} opacity-80 group-hover:opacity-100 transition">
+          INSPECT DETAILS →
+        </div>
+      </article>
+    `).join("");
+
+    // Animate cards on entrance
+    document.querySelectorAll("#coreGrid article").forEach((el, idx) => {
+      inView(el, () => {
+        animate(el, { opacity: [0, 1], y: [16, 0] }, { duration: 0.55, delay: idx * 0.07, easing: "ease-out" });
+      }, { margin: "-10% 0px -10% 0px" });
+
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        el.style.background = `radial-gradient(1200px 700px at ${x}% ${y}%, rgba(255,255,255,.08), rgba(255,255,255,.04))`;
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.background = "";
+      });
+    });
+  </script>
+</body>
+</html>
