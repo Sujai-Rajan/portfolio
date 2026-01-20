@@ -1,0 +1,990 @@
+<!-- projects.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sujai Rajan — Projects | Bento Lab</title>
+
+    <!-- Tailwind CSS v4 (Play CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Framer Motion (UMD) -->
+    <script defer src="https://unpkg.com/framer-motion@12.23.26/dist/framer-motion.js"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --color-obsidian: #050505;
+        --color-cyberlime: #ccff00;
+        --color-cobalt: #2e66ff;
+        --color-glass: rgba(255, 255, 255, 0.06);
+        --color-glass-strong: rgba(255, 255, 255, 0.09);
+        --color-stroke: rgba(255, 255, 255, 0.12);
+        --shadow-neon: 0 0 0 1px rgba(204, 255, 0, 0.18), 0 0 40px rgba(204, 255, 0, 0.08),
+          0 0 120px rgba(46, 102, 255, 0.06);
+        --shadow-neon-strong: 0 0 0 1px rgba(204, 255, 0, 0.28), 0 0 60px rgba(204, 255, 0, 0.12),
+          0 0 160px rgba(46, 102, 255, 0.1);
+      }
+
+      html,
+      body {
+        background: var(--color-obsidian);
+        color: white;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow-x: hidden;
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+      }
+
+      .glass {
+        background: var(--color-glass);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .glass-strong {
+        background: var(--color-glass-strong);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .neon-ring {
+        box-shadow: var(--shadow-neon);
+      }
+
+      .neon-ring-strong {
+        box-shadow: var(--shadow-neon-strong);
+      }
+
+      .hover-lift {
+        transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease, background 280ms ease;
+        will-change: transform, box-shadow;
+      }
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-neon-strong);
+        border-color: rgba(204, 255, 0, 0.28);
+        background: rgba(255, 255, 255, 0.075);
+      }
+
+      /* Animated mesh gradient (subtle) */
+      .mesh {
+        background:
+          radial-gradient(900px 600px at 10% 15%, rgba(204, 255, 0, 0.16), transparent 55%),
+          radial-gradient(820px 580px at 80% 22%, rgba(46, 102, 255, 0.18), transparent 55%),
+          radial-gradient(700px 520px at 64% 85%, rgba(204, 255, 0, 0.10), transparent 55%),
+          radial-gradient(900px 700px at 20% 78%, rgba(46, 102, 255, 0.10), transparent 55%),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03), transparent 22%, rgba(255, 255, 255, 0.02));
+        filter: saturate(1.12) contrast(1.05);
+        animation: meshShift 16s ease-in-out infinite alternate;
+        transform: translateZ(0);
+      }
+      @keyframes meshShift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: saturate(1.05) contrast(1.05);
+        }
+        100% {
+          transform: translate3d(0, -10px, 0) scale(1.02);
+          filter: saturate(1.25) contrast(1.1);
+        }
+      }
+
+      .scanlines {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 100% 6px;
+        opacity: 0.10;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      .vignette {
+        background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0, 0, 0, 0.72) 62%, rgba(0, 0, 0, 0.92) 100%);
+        pointer-events: none;
+      }
+
+      /* Bento sizing helpers */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 14px;
+      }
+      @media (max-width: 1024px) {
+        .bento {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 640px) {
+        .bento {
+          grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+      }
+
+      /* Modal */
+      .modal-backdrop {
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .mesh {
+          animation: none !important;
+        }
+        .hover-lift {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- Background system -->
+    <div class="fixed inset-0 -z-50">
+      <div class="absolute inset-0 mesh"></div>
+      <div class="absolute inset-0 scanlines"></div>
+      <div class="absolute inset-0 vignette"></div>
+      <canvas id="stars" class="absolute inset-0 opacity-55"></canvas>
+    </div>
+
+    <!-- Fixed Nav (same across pages) -->
+    <header class="fixed top-0 left-0 right-0 z-50">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mt-4 glass rounded-2xl">
+          <div class="flex items-center justify-between px-4 py-3 sm:px-5">
+            <a href="index.html" class="group flex items-center gap-3">
+              <div class="h-10 w-10 rounded-xl glass-strong neon-ring flex items-center justify-center" aria-hidden="true">
+                <div class="h-2.5 w-2.5 rounded-full" style="background:#ccff00; box-shadow: 0 0 22px rgba(204,255,0,.45)"></div>
+              </div>
+              <div class="leading-tight">
+                <div class="text-sm font-semibold tracking-wide">SUJAI RAJAN</div>
+                <div class="mono text-[11px] text-white/60 group-hover:text-white/80 transition">BENTO LAB</div>
+              </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-2">
+              <a href="index.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Experience</a>
+              <a href="about.html#contact" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Contact</a>
+
+              <a
+                href="#grid"
+                class="ml-2 inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-black"
+                style="background:#ccff00"
+              >
+                <span>Jump to Grid</span>
+                <span class="mono text-[12px]">↓</span>
+              </a>
+            </div>
+
+            <button id="mobileBtn" class="md:hidden rounded-xl px-3 py-2 glass hover:bg-white/5 transition" aria-label="Open menu">
+              <span class="mono text-xs text-white/80">MENU</span>
+            </button>
+          </div>
+
+          <div id="mobileMenu" class="hidden border-t border-white/10 px-4 py-3">
+            <div class="grid gap-2">
+              <a href="index.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Experience</a>
+              <a href="about.html#contact" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="pt-28 sm:pt-32">
+      <!-- Top / Header -->
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-12">
+          <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 neon-ring">
+            <div class="flex items-center gap-3">
+              <div class="mono text-xs text-white/60">PROJECTS DATABASE</div>
+              <div class="h-[1px] flex-1 bg-white/10"></div>
+              <div class="mono text-xs" style="color:#ccff00">SYNCED</div>
+            </div>
+
+            <h1 class="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight">
+              The <span style="color:#ccff00">Bento Lab</span>
+            </h1>
+            <p class="mt-3 text-white/75 text-base sm:text-lg leading-relaxed">
+              13+ academic robotics systems (plus industrial work) — organized like a command UI.
+              Filter fast, open a card, and drill into the details overlay. Later, we’ll wire real media + deeper subpages.
+            </p>
+
+            <!-- Controls -->
+            <div class="mt-6 grid gap-3 sm:grid-cols-12">
+              <div class="sm:col-span-7 glass-strong rounded-2xl px-4 py-3 flex items-center gap-3">
+                <span class="mono text-xs text-white/60">SEARCH</span>
+                <input
+                  id="search"
+                  class="w-full bg-transparent outline-none text-sm placeholder:text-white/35"
+                  placeholder="Try: SLAM, GTSAM, CNN, Kalman, OpenCV, MPC..."
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="sm:col-span-5 grid grid-cols-2 gap-3">
+                <button
+                  id="btnAcademic"
+                  class="glass-strong rounded-2xl px-4 py-3 hover-lift text-left"
+                  data-mode="academic"
+                >
+                  <div class="mono text-[11px] text-white/60">FILTER</div>
+                  <div class="mt-1 font-bold" style="color:#ccff00">Academic</div>
+                </button>
+
+                <button
+                  id="btnIndustrial"
+                  class="glass-strong rounded-2xl px-4 py-3 hover-lift text-left"
+                  data-mode="industrial"
+                >
+                  <div class="mono text-[11px] text-white/60">FILTER</div>
+                  <div class="mt-1 font-bold text-white/90">Industrial</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-6 grid gap-3 sm:grid-cols-3">
+              <div class="glass-strong rounded-2xl px-4 py-4">
+                <div class="mono text-[11px] text-white/60">TOTAL</div>
+                <div class="mt-1 text-lg font-bold"><span style="color:#ccff00">13+</span> Academic Projects</div>
+                <div class="mt-1 text-sm text-white/65">Perception • Navigation • Control</div>
+              </div>
+              <div class="glass-strong rounded-2xl px-4 py-4">
+                <div class="mono text-[11px] text-white/60">INTERACTION</div>
+                <div class="mt-1 text-lg font-bold text-white/90">Click-to-Inspect</div>
+                <div class="mt-1 text-sm text-white/65">Detail overlay (base)</div>
+              </div>
+              <div class="glass-strong rounded-2xl px-4 py-4">
+                <div class="mono text-[11px] text-white/60">DESIGN</div>
+                <div class="mt-1 text-lg font-bold text-white/90">Obsidian & Neon</div>
+                <div class="mt-1 text-sm text-white/65">Bento + glass UI</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: visual / media bay (placeholders you can replace later) -->
+          <div class="lg:col-span-5 grid gap-4">
+            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="mono text-xs text-white/60">MEDIA BAY</div>
+                  <div class="mt-1 text-xl font-bold">Robotics Visual Feed</div>
+                  <div class="mt-1 text-sm text-white/70">Drop your own WebM/MP4 later. Base UI ships now.</div>
+                </div>
+                <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#2e66ff">PLACEHOLDER</div>
+              </div>
+
+              <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                <!-- Replace the src with your own assets later -->
+                <video
+                  class="absolute inset-0 h-full w-full object-cover opacity-70"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                >
+                  <!-- Put a real asset later: assets/robot-loop.webm -->
+                  <source src="" type="video/webm" />
+                </video>
+
+                <!-- Synthetic scan overlay -->
+                <div class="absolute inset-0 opacity-70"
+                  style="background:
+                    radial-gradient(circle at 30% 40%, rgba(204,255,0,.18), transparent 55%),
+                    radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 60%);"
+                ></div>
+
+                <div id="sweep" class="absolute -left-24 top-0 h-full w-40"
+                  style="background: linear-gradient(90deg, transparent, rgba(204,255,0,.16), transparent); transform: skewX(-18deg);"
+                ></div>
+
+                <!-- HUD text -->
+                <div class="absolute left-4 top-4 glass-strong rounded-xl px-3 py-2">
+                  <div class="mono text-[11px] text-white/60">FEED</div>
+                  <div class="mono text-[11px]" style="color:#ccff00">SENSORS / TELEMETRY</div>
+                </div>
+              </div>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">LiDAR</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Camera</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GPS</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">IMU</span>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
+              <div class="mono text-xs text-white/60">QUICK COMMANDS</div>
+              <div class="mt-2 grid gap-3">
+                <a href="#grid" class="glass-strong rounded-2xl px-4 py-3 hover-lift">
+                  <div class="mono text-[11px] text-white/60">NAV</div>
+                  <div class="mt-1 font-bold text-white/90">Jump to Bento Grid</div>
+                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/projects#grid</div>
+                </a>
+                <button id="btnReset" class="glass-strong rounded-2xl px-4 py-3 hover-lift text-left">
+                  <div class="mono text-[11px] text-white/60">RESET</div>
+                  <div class="mt-1 font-bold text-white/90">Clear Filters</div>
+                  <div class="mt-1 mono text-[11px]" style="color:#ccff00">CTRL + R (soft)</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Grid -->
+      <section id="grid" class="mt-10 sm:mt-14 pb-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <div class="mono text-xs text-white/60">BENTO GRID</div>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Project Cards <span class="text-white/60">—</span> <span style="color:#ccff00">click to inspect</span>
+            </h2>
+            <p class="mt-2 text-white/70 max-w-2xl">
+              Base version: detail overlay per card. Later, we’ll add dedicated subpages + real videos/images per project.
+            </p>
+          </div>
+
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="mono text-[11px] text-white/60">MODE</span>
+            <span id="modePill" class="mono text-[11px] rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">ACADEMIC</span>
+          </div>
+        </div>
+
+        <div id="emptyState" class="hidden mt-6 glass rounded-3xl p-6 neon-ring">
+          <div class="mono text-xs text-white/60">NO MATCH</div>
+          <div class="mt-2 text-xl font-bold">No projects match your filters.</div>
+          <div class="mt-2 text-white/70">Try a different keyword (e.g., OpenCV, SLAM, GTSAM, CNN).</div>
+        </div>
+
+        <div id="bento" class="mt-6 bento"></div>
+
+        <footer class="mt-10 text-center text-white/55 mono text-[11px]">
+          © <span id="year"></span> Sujai Rajan — Bento Lab UI
+        </footer>
+      </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="modal" class="fixed inset-0 z-[60] hidden">
+      <div class="absolute inset-0 modal-backdrop"></div>
+
+      <div class="absolute inset-0 overflow-y-auto">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10">
+          <div class="glass rounded-3xl neon-ring overflow-hidden">
+            <div class="flex items-start justify-between gap-4 px-5 sm:px-7 py-5 border-b border-white/10">
+              <div>
+                <div id="mKicker" class="mono text-xs text-white/60">DETAIL VIEW</div>
+                <h3 id="mTitle" class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">Project Title</h3>
+                <div id="mMeta" class="mt-2 mono text-[12px] text-white/65">Meta</div>
+              </div>
+
+              <button id="modalClose" class="rounded-2xl px-3 py-2 glass hover:bg-white/5 transition" aria-label="Close">
+                <span class="mono text-xs text-white/80">ESC</span>
+              </button>
+            </div>
+
+            <div class="px-5 sm:px-7 py-6 grid gap-5 lg:grid-cols-12">
+              <div class="lg:col-span-8">
+                <div class="glass-strong rounded-3xl p-5">
+                  <div class="mono text-xs text-white/60">SUMMARY</div>
+                  <p id="mSummary" class="mt-3 text-white/80 leading-relaxed">...</p>
+
+                  <div class="mt-5">
+                    <div class="mono text-xs text-white/60">HIGHLIGHTS</div>
+                    <ul id="mBullets" class="mt-3 space-y-2 text-white/75 text-sm leading-relaxed"></ul>
+                  </div>
+                </div>
+
+                <div class="mt-5 glass-strong rounded-3xl p-5">
+                  <div class="mono text-xs text-white/60">NOTES</div>
+                  <div class="mt-2 text-sm text-white/70">
+                    This is the base “detail view.” Later we can generate dedicated pages like
+                    <span class="mono text-[12px]" style="color:#2e66ff">/projects/stretch.html</span> and embed real demos.
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-4">
+                <div class="glass-strong rounded-3xl p-5">
+                  <div class="mono text-xs text-white/60">TECH STACK</div>
+                  <div id="mTags" class="mt-3 flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="mt-5 glass-strong rounded-3xl p-5">
+                  <div class="mono text-xs text-white/60">LINKS</div>
+                  <div class="mt-3 grid gap-2">
+                    <a href="about.html" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition">
+                      <div class="mono text-[11px] text-white/60">NEXT</div>
+                      <div class="mt-1 font-bold text-white/90">Experience Timeline</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/about</div>
+                    </a>
+                    <a href="index.html" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition">
+                      <div class="mono text-[11px] text-white/60">BACK</div>
+                      <div class="mt-1 font-bold text-white/90">Command Center</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/home</div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="mt-5 glass-strong rounded-3xl p-5">
+                  <div class="mono text-xs text-white/60">STATUS</div>
+                  <div class="mt-2 flex items-center justify-between">
+                    <span class="mono text-[12px] text-white/60">MODE</span>
+                    <span id="mMode" class="mono text-[12px]" style="color:#ccff00">ACADEMIC</span>
+                  </div>
+                  <div class="mt-2 flex items-center justify-between">
+                    <span class="mono text-[12px] text-white/60">RENDER</span>
+                    <span class="mono text-[12px]" style="color:#2e66ff">GLASS / BENTO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-5 sm:px-7 py-5 border-t border-white/10 flex items-center justify-between">
+              <div class="mono text-[11px] text-white/55">Tip: press <span class="text-white/80">Esc</span> to close</div>
+              <button id="modalNext" class="rounded-2xl px-4 py-3 font-semibold text-black hover:brightness-95 transition" style="background:#ccff00">
+                Next Project →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ---------------------------
+      // Motion helper (Framer Motion if available, else WAAPI)
+      // ---------------------------
+      const FM = window.framerMotion || window.FramerMotion || null;
+      function animateSafe(el, keyframes, options) {
+        try {
+          if (FM && typeof FM.animate === "function") return FM.animate(el, keyframes, options);
+        } catch (_) {}
+        return el.animate(keyframes, options);
+      }
+
+      // ---------------------------
+      // Mobile menu
+      // ---------------------------
+      const mobileBtn = document.getElementById("mobileBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileBtn?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+      // ---------------------------
+      // Year
+      // ---------------------------
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // ---------------------------
+      // Background stars
+      // ---------------------------
+      const canvas = document.getElementById("stars");
+      const ctx = canvas.getContext("2d");
+      let w, h, stars;
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        stars = Array.from({ length: Math.min(180, Math.floor((w * h) / 14000)) }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.8 + 0.2,
+          r: Math.random() * 1.5 + 0.4,
+          vx: (Math.random() * 0.18 + 0.04) * (Math.random() > 0.5 ? 1 : -1),
+          vy: (Math.random() * 0.18 + 0.04) * (Math.random() > 0.5 ? 1 : -1),
+        }));
+      }
+      window.addEventListener("resize", resize);
+      resize();
+      (function tick() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.globalCompositeOperation = "lighter";
+        for (const s of stars) {
+          s.x += s.vx * (0.8 + s.z);
+          s.y += s.vy * (0.8 + s.z);
+          if (s.x < -20) s.x = w + 20;
+          if (s.x > w + 20) s.x = -20;
+          if (s.y < -20) s.y = h + 20;
+          if (s.y > h + 20) s.y = -20;
+
+          const lime = 0.16 + s.z * 0.22;
+          const blue = 0.10 + s.z * 0.20;
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(204,255,0,${lime})`;
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(46,102,255,${blue})`;
+          ctx.arc(s.x + 0.6, s.y + 0.3, Math.max(0.7, s.r * 0.6), 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = "source-over";
+        requestAnimationFrame(tick);
+      })();
+
+      // ---------------------------
+      // Header sweep animation
+      // ---------------------------
+      const sweep = document.getElementById("sweep");
+      if (sweep) {
+        animateSafe(
+          sweep,
+          [{ transform: "translateX(-140px) skewX(-18deg)" }, { transform: "translateX(560px) skewX(-18deg)" }],
+          { duration: 1900, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+
+      // ---------------------------
+      // Data (Academic projects you provided)
+      // ---------------------------
+      const projects = [
+        {
+          id: "stretch",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-7",
+          title: "Household Automation Robot using Stretch 2 Robot",
+          meta: "Sept 2022 – Present • Autonomy / Perception / Manipulation",
+          tags: ["Linux", "ROS2", "Gazebo", "RViz", "Python", "SLAM", "OpenCV", "Gmapping", "2D LiDAR", "Depth कैम"],
+          summary:
+            "Built an autonomous household helper robot that navigates, maps, detects objects/faces, estimates poses, grasps objects, and delivers items — simulation-first, then deployed on the real Stretch RE2.",
+          bullets: [
+            "Created a Gazebo simulator with 2D LiDAR + depth cameras to validate behaviors before real-world testing.",
+            "Implemented SLAM for mapping/navigation, obstacle avoidance, and optimized sensor fusion for accuracy.",
+            "Built ArUco-based pose estimation and interaction features (gesture recognition) to improve usability.",
+            "Integrated and calibrated systems on the Stretch RE2 and demonstrated end-to-end autonomy live.",
+          ],
+        },
+        {
+          id: "cnn-car",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-5",
+          title: "Autonomous Car Simulation using CNNs (Udacity Simulator)",
+          meta: "Regression steering from 3-camera inputs",
+          tags: ["Python", "Keras", "TensorFlow", "OpenCV", "imgaug", "Unity3D", "CNN"],
+          summary:
+            "Trained a CNN regression model to predict steering angles from simulator imagery. Focused on preprocessing and augmentation to improve robustness in varied driving conditions.",
+          bullets: [
+            "Built a data pipeline for three-camera inputs with strong augmentation using imgaug.",
+            "Applied OpenCV preprocessing to stabilize signal quality and reduce overfitting.",
+            "Validated model robustness through simulator testing with reliable lane-following behavior.",
+          ],
+        },
+        {
+          id: "ar-tool",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "Augmented Reality Tool",
+          meta: "Real-time pose estimation + virtual object overlay",
+          tags: ["C++", "OpenCV", "Camera Calibration", "Pose Estimation"],
+          summary:
+            "Developed an AR system that spawns virtual objects on live video with accurate alignment using calibration and pose estimation.",
+          bullets: [
+            "Performed camera calibration to reduce distortion and improve tracking stability.",
+            "Implemented pose estimation pipeline to anchor overlays consistently in real time.",
+            "Delivered a clean, low-latency AR experience with distortion-free alignment.",
+          ],
+        },
+        {
+          id: "deep-recognition",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "Recognition using Deep Networks",
+          meta: "Digit recognition + transfer learning",
+          tags: ["Python", "PyTorch", "Torchvision", "CNN", "Transfer Learning"],
+          summary:
+            "Built and analyzed a deep network for digit recognition, then adapted via transfer learning for new patterns (including Greek alphabets).",
+          bullets: [
+            "Trained CNNs for high accuracy and analyzed architecture trade-offs.",
+            "Applied transfer learning to generalize beyond digits to new symbol sets.",
+            "Optimized performance via layer/filter/dropout and hidden-node sweeps.",
+          ],
+        },
+        {
+          id: "underwater-stitch",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "Underwater Image Stitching Pipeline",
+          meta: "AUV mosaicing with factor graph optimization",
+          tags: ["Python", "OpenCV", "GTSAM", "SIFT", "RANSAC", "Levenberg–Marquardt"],
+          summary:
+            "Built a pipeline to stitch overlapping AUV images into a high-resolution mosaic using robust feature matching, homography estimation, and factor graph optimization.",
+          bullets: [
+            "Used SIFT + NMS + brute-force L2 matching for robust correspondences.",
+            "Applied RANSAC for outlier rejection and LM optimization for registration.",
+            "Improved global alignment using GTSAM factor graph optimization and blending.",
+          ],
+        },
+        {
+          id: "gesture-cnn",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-6",
+          title: "Gesture Recognition System using CNNs (Gesture-Controlled Calculator)",
+          meta: "18 gestures • 97%+ test accuracy",
+          tags: ["C++", "Keras", "TensorFlow", "OpenCV", "CNN"],
+          summary:
+            "Created a CNN-based gesture recognition system with accurate hand segmentation and robust classification across lighting and placement variation.",
+          bullets: [
+            "Used OpenCV for background subtraction, motion detection, and contour extraction.",
+            "Designed a multi-layer sequential model to classify 18 custom gestures.",
+            "Achieved 97%+ accuracy and improved usability for human-computer interaction.",
+          ],
+        },
+        {
+          id: "har-mpm",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-6",
+          title: "Human Activity Recognition using MPM and 1D CNN",
+          meta: "Ambient sensor classification • 91% test accuracy",
+          tags: ["Python", "Keras", "MPM", "1D CNN", "UCI Dataset", "Adam", "MaxPooling"],
+          summary:
+            "Built an activity classifier for ambient sensor data and tuned preprocessing to improve performance across 8 activity classes.",
+          bullets: [
+            "Removed collinear features, scaled inputs, and upsampled to balance classes.",
+            "Trained 5-layer model with ReLU activations and MaxPooling.",
+            "Reached ~91% test accuracy on 8 activity classes using Adam optimizer.",
+          ],
+        },
+        {
+          id: "obj-recog-2d",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "Real-time 2-D Object Recognition",
+          meta: "Classical CV + kNN evaluation",
+          tags: ["Python", "OpenCV", "Hu Moments", "KNN", "Morphology"],
+          summary:
+            "Implemented a real-time recognition pipeline using segmentation, invariant feature extraction, and kNN classification with evaluation via confusion matrix.",
+          bullets: [
+            "Used thresholding + morphological filtering to improve segmentation quality.",
+            "Extracted Hu Moments via connected components analysis across multiple objects.",
+            "Evaluated using nearest neighbor and kNN classifiers with confusion matrix reporting.",
+          ],
+        },
+        {
+          id: "cbir",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "Content-Based Image Retrieval (CBIR)",
+          meta: "Color + texture + spatial histograms",
+          tags: ["Python", "OpenCV", "Histograms", "Sobel", "Law Filters"],
+          summary:
+            "Built a retrieval system combining color, texture, and spatial cues; improved matching using normalized histograms and weighted distances.",
+          bullets: [
+            "Baseline matching via sum-of-squared-difference and histogram intersection.",
+            "Enhanced spatial layout matching using spatial histograms with weighted distances.",
+            "Integrated texture (Sobel magnitude + Law filters) combined with color histograms.",
+          ],
+        },
+        {
+          id: "pc-recon",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-4",
+          title: "3D Point Cloud Reconstruction",
+          meta: "Epipolar geometry + triangulation + bundle adjustment",
+          tags: ["Python", "OpenCV", "GTSAM", "Open3D", "SIFT", "RANSAC", "CLAHE"],
+          summary:
+            "Developed a sparse 3D reconstruction pipeline using feature matching, pose estimation, triangulation, and bundle adjustment; rendered results in Open3D.",
+          bullets: [
+            "Preprocessed images with CLAHE and detected features using SIFT.",
+            "Estimated pose with essential matrix + RANSAC; triangulated 3D points.",
+            "Refined camera poses and structure using GTSAM bundle adjustment and visualized with Open3D.",
+          ],
+        },
+        {
+          id: "quad-control",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-6",
+          title: "Enhancing Quadcopter Stability using MPC, LQR, and Robust Control",
+          meta: "Trajectory tracking + robustness under uncertainty",
+          tags: ["MATLAB", "Simulink", "Python", "MPC", "LQR", "µ-Synthesis", "Monte Carlo"],
+          summary:
+            "Implemented MPC for trajectory tracking, LQR for energy-performance optimization, and robust control using µ-synthesis validated via Monte Carlo simulations.",
+          bullets: [
+            "Tracked predefined trajectories with MPC to improve precision and stability.",
+            "Balanced performance and energy consumption with LQR tuning.",
+            "Maintained stability under uncertainties using µ-synthesis + Monte Carlo validation.",
+          ],
+        },
+        {
+          id: "gps-imu-kf",
+          mode: "academic",
+          span: "col-span-12 lg:col-span-6",
+          title: "Navigation Systems Development — GPS & IMU Fusion with Kalman Filter",
+          meta: "ROS topics integration + bias handling",
+          tags: ["Linux", "ROS", "Python", "Sensor Fusion", "Kalman Filter", "GPS", "IMU"],
+          summary:
+            "Integrated GPS and IMU using a Python-based Kalman Filter to improve 2D pose estimation for autonomous navigation.",
+          bullets: [
+            "Fused /GPS and /IMU rostopics for improved position/orientation estimates.",
+            "Improved IMU measurements via bias averaging and filtering.",
+            "Increased pose estimation accuracy for more reliable navigation behavior.",
+          ],
+        },
+
+        // Base Industrial placeholders (so the filter works now)
+        {
+          id: "ind-placeholder-1",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "Industrial Robotics System (Placeholder)",
+          meta: "We’ll populate from your resume next",
+          tags: ["PLC", "Sensors", "Integration", "Safety", "Robotics"],
+          summary:
+            "Industrial projects will be filled in after we extract them cleanly from your resume (base UI first).",
+          bullets: ["This card exists so the Industrial filter and layout are wired.", "Next step: we populate with real job projects + metrics."],
+        },
+        {
+          id: "ind-placeholder-2",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "Automation / Vision Line (Placeholder)",
+          meta: "We’ll populate from your resume next",
+          tags: ["Vision", "Cameras", "Conveyors", "Reliability", "Deployment"],
+          summary:
+            "Same idea: the UI is ready. We’ll replace placeholders with your shipped systems and measurable impact.",
+          bullets: ["Once we build about.html, we’ll align the work timeline with these projects.", "Then we add dedicated detail pages if you want."],
+        },
+      ];
+
+      // ---------------------------
+      // Bento rendering
+      // ---------------------------
+      const bento = document.getElementById("bento");
+      const emptyState = document.getElementById("emptyState");
+      const modePill = document.getElementById("modePill");
+      const searchInput = document.getElementById("search");
+
+      let mode = "academic";
+      let query = "";
+      let lastOpenedIndex = 0;
+
+      function badge(tag) {
+        return `<span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">${escapeHtml(tag)}</span>`;
+      }
+
+      function card(p, idx) {
+        const tint = p.mode === "academic" ? "#ccff00" : "#2e66ff";
+        return `
+          <button
+            class="glass rounded-3xl p-5 sm:p-6 neon-ring hover-lift text-left ${p.span}"
+            data-id="${p.id}"
+            data-idx="${idx}"
+            aria-label="Open ${escapeHtml(p.title)} details"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <div class="mono text-xs text-white/60">${p.mode.toUpperCase()}</div>
+              <div class="mono text-xs" style="color:${tint}">${escapeHtml(p.id)}</div>
+            </div>
+
+            <div class="mt-3 text-xl font-bold">${escapeHtml(p.title)}</div>
+            <div class="mt-1 mono text-[12px] text-white/60">${escapeHtml(p.meta)}</div>
+
+            <p class="mt-3 text-sm text-white/75 leading-relaxed">
+              ${escapeHtml(p.summary)}
+            </p>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              ${p.tags.slice(0, 6).map(badge).join("")}
+              ${p.tags.length > 6 ? `<span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">+${p.tags.length - 6}</span>` : ""}
+            </div>
+
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
+              <span>Inspect</span><span class="mono">↗</span>
+            </div>
+          </button>
+        `;
+      }
+
+      function render() {
+        const q = query.trim().toLowerCase();
+
+        const filtered = projects
+          .map((p, idx) => ({ p, idx }))
+          .filter(({ p }) => p.mode === mode)
+          .filter(({ p }) => {
+            if (!q) return true;
+            const hay = (p.title + " " + p.meta + " " + p.summary + " " + p.tags.join(" ")).toLowerCase();
+            return hay.includes(q);
+          });
+
+        if (modePill) {
+          modePill.textContent = mode.toUpperCase();
+          modePill.style.color = mode === "academic" ? "#ccff00" : "#2e66ff";
+        }
+
+        if (!filtered.length) {
+          bento.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+        emptyState.classList.add("hidden");
+
+        bento.innerHTML = filtered.map(({ p, idx }) => card(p, idx)).join("");
+
+        // Reveal animation on render
+        const nodes = Array.from(bento.children);
+        nodes.forEach((el, i) => {
+          el.style.opacity = "0";
+          animateSafe(
+            el,
+            [
+              { opacity: 0, transform: "translateY(12px) scale(0.99)" },
+              { opacity: 1, transform: "translateY(0) scale(1)" },
+            ],
+            { duration: 520, delay: Math.min(220, i * 18), easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "both" }
+          );
+        });
+
+        // Card click -> open modal
+        nodes.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.getAttribute("data-idx"));
+            openModalByIndex(idx);
+          });
+        });
+      }
+
+      // ---------------------------
+      // Filter buttons / search
+      // ---------------------------
+      document.getElementById("btnAcademic").addEventListener("click", () => {
+        mode = "academic";
+        render();
+      });
+      document.getElementById("btnIndustrial").addEventListener("click", () => {
+        mode = "industrial";
+        render();
+      });
+      document.getElementById("btnReset").addEventListener("click", () => {
+        mode = "academic";
+        query = "";
+        searchInput.value = "";
+        render();
+      });
+
+      searchInput.addEventListener("input", (e) => {
+        query = e.target.value;
+        render();
+      });
+
+      // ---------------------------
+      // Modal logic
+      // ---------------------------
+      const modal = document.getElementById("modal");
+      const modalClose = document.getElementById("modalClose");
+      const modalNext = document.getElementById("modalNext");
+      const mTitle = document.getElementById("mTitle");
+      const mMeta = document.getElementById("mMeta");
+      const mSummary = document.getElementById("mSummary");
+      const mBullets = document.getElementById("mBullets");
+      const mTags = document.getElementById("mTags");
+      const mMode = document.getElementById("mMode");
+
+      function openModalByIndex(idx) {
+        lastOpenedIndex = idx;
+        const p = projects[idx];
+        if (!p) return;
+
+        mTitle.textContent = p.title;
+        mMeta.textContent = p.meta;
+        mSummary.textContent = p.summary;
+        mBullets.innerHTML = p.bullets.map((b) => `<li class="flex gap-2"><span style="color:#ccff00">▸</span><span>${escapeHtml(b)}</span></li>`).join("");
+        mTags.innerHTML = p.tags.map((t) => `<span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">${escapeHtml(t)}</span>`).join("");
+        mMode.textContent = p.mode.toUpperCase();
+        mMode.style.color = p.mode === "academic" ? "#ccff00" : "#2e66ff";
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+        // Animate in
+        const panel = modal.querySelector(".glass.rounded-3xl");
+        if (panel) {
+          panel.style.opacity = "0";
+          animateSafe(
+            panel,
+            [
+              { opacity: 0, transform: "translateY(18px) scale(0.985)" },
+              { opacity: 1, transform: "translateY(0) scale(1)" },
+            ],
+            { duration: 420, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "both" }
+          );
+        }
+
+        // Set URL hash (base “detail routing”)
+        history.replaceState(null, "", `#p=${encodeURIComponent(p.id)}`);
+      }
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+        // Restore to grid anchor
+        history.replaceState(null, "", "#grid");
+      }
+
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal.querySelector(".modal-backdrop")) closeModal();
+      });
+
+      modalNext.addEventListener("click", () => {
+        // Next within current mode bucket
+        const bucket = projects
+          .map((p, idx) => ({ p, idx }))
+          .filter(({ p }) => p.mode === projects[lastOpenedIndex].mode);
+        const currentPos = bucket.findIndex((x) => x.idx === lastOpenedIndex);
+        const next = bucket[(currentPos + 1) % bucket.length];
+        openModalByIndex(next.idx);
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+      });
+
+      // Handle hash open (#p=stretch)
+      function maybeOpenFromHash() {
+        const hash = location.hash || "";
+        const m = hash.match(/#p=([^&]+)/);
+        if (!m) return;
+        const id = decodeURIComponent(m[1]);
+        const idx = projects.findIndex((p) => p.id === id);
+        if (idx >= 0) openModalByIndex(idx);
+      }
+
+      // ---------------------------
+      // Small helpers
+      // ---------------------------
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      // Initial render
+      render();
+      maybeOpenFromHash();
+    </script>
+  </body>
+</html>
