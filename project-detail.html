@@ -1,0 +1,709 @@
+<!-- project-detail.html (Project Dossier / Follow-up page) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Dossier — Sujai Rajan</title>
+
+    <!-- Tailwind CSS v4 (Play CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style type="text/tailwindcss">
+      @theme {
+        --color-obsidian: #050505;
+        --color-cyberlime: #ccff00;
+        --color-cobalt: #2e66ff;
+        --color-glass: rgba(255, 255, 255, 0.06);
+        --color-glass-strong: rgba(255, 255, 255, 0.09);
+        --color-stroke: rgba(255, 255, 255, 0.12);
+        --shadow-neon: 0 0 0 1px rgba(204, 255, 0, 0.18), 0 0 40px rgba(204, 255, 0, 0.08),
+          0 0 120px rgba(46, 102, 255, 0.06);
+        --shadow-neon-strong: 0 0 0 1px rgba(204, 255, 0, 0.28), 0 0 60px rgba(204, 255, 0, 0.12),
+          0 0 160px rgba(46, 102, 255, 0.1);
+      }
+
+      html,
+      body {
+        background: var(--color-obsidian);
+        color: white;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow-x: hidden;
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+      }
+
+      .glass {
+        background: var(--color-glass);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .glass-strong {
+        background: var(--color-glass-strong);
+        border: 1px solid var(--color-stroke);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .neon-ring {
+        box-shadow: var(--shadow-neon);
+      }
+
+      .neon-ring-strong {
+        box-shadow: var(--shadow-neon-strong);
+      }
+
+      .hover-lift {
+        transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease, background 280ms ease;
+        will-change: transform, box-shadow;
+      }
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-neon-strong);
+        border-color: rgba(204, 255, 0, 0.28);
+        background: rgba(255, 255, 255, 0.075);
+      }
+
+      /* Animated mesh gradient */
+      .mesh {
+        background:
+          radial-gradient(900px 620px at 12% 18%, rgba(204, 255, 0, 0.16), transparent 55%),
+          radial-gradient(860px 590px at 82% 20%, rgba(46, 102, 255, 0.18), transparent 55%),
+          radial-gradient(760px 560px at 66% 86%, rgba(204, 255, 0, 0.10), transparent 55%),
+          radial-gradient(900px 700px at 22% 80%, rgba(46, 102, 255, 0.10), transparent 55%),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03), transparent 22%, rgba(255, 255, 255, 0.02));
+        filter: saturate(1.12) contrast(1.05);
+        animation: meshShift 17s ease-in-out infinite alternate;
+        transform: translateZ(0);
+      }
+      @keyframes meshShift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: saturate(1.05) contrast(1.05);
+        }
+        100% {
+          transform: translate3d(0, -10px, 0) scale(1.02);
+          filter: saturate(1.25) contrast(1.1);
+        }
+      }
+
+      .scanlines {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 100% 6px;
+        opacity: 0.10;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      .vignette {
+        background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0, 0, 0, 0.74) 62%, rgba(0, 0, 0, 0.92) 100%);
+        pointer-events: none;
+      }
+
+      /* 3D tilt */
+      .tilt {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .tilt > .tilt-inner {
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      /* Sticky “Apple-like” chapter rail */
+      .rail {
+        position: sticky;
+        top: 92px;
+      }
+
+      /* Smooth anchor scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .mesh {
+          animation: none !important;
+        }
+        .hover-lift {
+          transition: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- Background -->
+    <div class="fixed inset-0 -z-50">
+      <div class="absolute inset-0 mesh"></div>
+      <div class="absolute inset-0 scanlines"></div>
+      <div class="absolute inset-0 vignette"></div>
+      <canvas id="stars" class="absolute inset-0 opacity-55"></canvas>
+    </div>
+
+    <!-- Fixed Nav -->
+    <header class="fixed top-0 left-0 right-0 z-50">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mt-4 glass rounded-2xl">
+          <div class="flex items-center justify-between px-4 py-3 sm:px-5">
+            <a href="index.html" class="group flex items-center gap-3">
+              <div class="h-10 w-10 rounded-xl glass-strong neon-ring flex items-center justify-center" aria-hidden="true">
+                <div class="h-2.5 w-2.5 rounded-full" style="background:#ccff00; box-shadow: 0 0 22px rgba(204,255,0,.45)"></div>
+              </div>
+              <div class="leading-tight">
+                <div class="text-sm font-semibold tracking-wide">SUJAI RAJAN</div>
+                <div class="mono text-[11px] text-white/60 group-hover:text-white/80 transition">PROJECT DOSSIER</div>
+              </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-2">
+              <a href="index.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Experience</a>
+              <a href="contact.html" class="px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition">Contact</a>
+
+              <a
+                href="#summary"
+                class="ml-2 inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-black"
+                style="background:#ccff00"
+              >
+                <span>Open Dossier</span>
+                <span class="mono text-[12px]">↓</span>
+              </a>
+            </div>
+
+            <button id="mobileBtn" class="md:hidden rounded-xl px-3 py-2 glass hover:bg-white/5 transition" aria-label="Open menu">
+              <span class="mono text-xs text-white/80">MENU</span>
+            </button>
+          </div>
+
+          <div id="mobileMenu" class="hidden border-t border-white/10 px-4 py-3">
+            <div class="grid gap-2">
+              <a href="index.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Home</a>
+              <a href="projects.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/5 transition">Projects</a>
+              <a href="about.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Experience</a>
+              <a href="contact.html" class="rounded-xl px-3 py-2 text-sm font-medium text-white/70 hover:bg-white/5 transition">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="pt-28 sm:pt-32">
+      <!-- Hero Dossier -->
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-12">
+          <!-- Left: Dossier content -->
+          <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 neon-ring tilt" id="heroTilt">
+            <div class="tilt-inner">
+              <div class="flex items-center gap-3">
+                <div class="mono text-xs text-white/60">MISSION FILE</div>
+                <div class="h-[1px] flex-1 bg-white/10"></div>
+                <div class="mono text-xs" style="color:#ccff00" id="fileId">ID: —</div>
+              </div>
+
+              <h1 id="title" class="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Project <span style="color:#ccff00">Dossier</span>
+              </h1>
+
+              <div id="meta" class="mt-3 mono text-[12px] text-white/65">Loading…</div>
+              <p id="summaryText" class="mt-5 text-white/75 text-base sm:text-lg leading-relaxed">
+                Loading summary…
+              </p>
+
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="glass-strong rounded-2xl px-4 py-4">
+                  <div class="mono text-[11px] text-white/60">MODE</div>
+                  <div class="mt-1 text-lg font-bold" id="modeLabel">—</div>
+                  <div class="mt-1 text-sm text-white/65">academic / industrial</div>
+                </div>
+                <div class="glass-strong rounded-2xl px-4 py-4">
+                  <div class="mono text-[11px] text-white/60">SYSTEM</div>
+                  <div class="mt-1 text-lg font-bold text-white/90" id="systemLabel">—</div>
+                  <div class="mt-1 text-sm text-white/65">perception / nav / control</div>
+                </div>
+                <div class="glass-strong rounded-2xl px-4 py-4">
+                  <div class="mono text-[11px] text-white/60">STATUS</div>
+                  <div class="mt-1 text-lg font-bold" style="color:#2e66ff" id="statusLabel">READY</div>
+                  <div class="mt-1 text-sm text-white/65">interactive</div>
+                </div>
+              </div>
+
+              <div class="mt-6 flex flex-wrap gap-2" id="tags"></div>
+
+              <div class="mt-7 flex flex-col sm:flex-row gap-3">
+                <a href="projects.html#grid" class="rounded-2xl px-5 py-3 font-semibold glass hover:bg-white/5 transition">
+                  Back to Projects
+                </a>
+                <a href="#results" class="rounded-2xl px-5 py-3 font-semibold text-black hover:brightness-95 transition" style="background:#ccff00">
+                  View Results ↓
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Sticky chapter rail -->
+          <div class="lg:col-span-5 grid gap-4">
+            <div class="rail glass rounded-3xl p-5 sm:p-6 neon-ring">
+              <div class="mono text-xs text-white/60">CHAPTERS</div>
+              <div class="mt-3 grid gap-2">
+                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#summary">
+                  <div class="mono text-[11px] text-white/60">01</div>
+                  <div class="mt-1 font-bold text-white/90">Summary</div>
+                </a>
+                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#highlights">
+                  <div class="mono text-[11px] text-white/60">02</div>
+                  <div class="mt-1 font-bold text-white/90">Highlights</div>
+                </a>
+                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#pipeline">
+                  <div class="mono text-[11px] text-white/60">03</div>
+                  <div class="mt-1 font-bold text-white/90">Pipeline</div>
+                </a>
+                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#media">
+                  <div class="mono text-[11px] text-white/60">04</div>
+                  <div class="mt-1 font-bold text-white/90">Media</div>
+                </a>
+                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#results">
+                  <div class="mono text-[11px] text-white/60">05</div>
+                  <div class="mt-1 font-bold text-white/90">Results</div>
+                </a>
+              </div>
+
+              <div class="mt-5 glass-strong rounded-2xl p-4">
+                <div class="mono text-[11px] text-white/60">QUICK ACTIONS</div>
+                <div class="mt-3 grid gap-2">
+                  <button id="copyLink" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition text-left">
+                    <div class="mono text-[11px] text-white/60">SHARE</div>
+                    <div class="mt-1 font-bold text-white/90">Copy deep link</div>
+                    <div class="mt-1 mono text-[11px]" style="color:#2e66ff">project-detail.html?id=…</div>
+                  </button>
+                  <a href="contact.html" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition">
+                    <div class="mono text-[11px] text-white/60">CONTACT</div>
+                    <div class="mt-1 font-bold text-white/90">Start a conversation</div>
+                    <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/contact</div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="mt-4 flex items-center justify-between">
+                <div class="mono text-[11px] text-white/60">LINK STATE</div>
+                <div class="mono text-[11px]" style="color:#ccff00" id="linkState">READY</div>
+              </div>
+            </div>
+
+            <div class="hidden lg:block glass rounded-3xl p-5 sm:p-6 neon-ring">
+              <div class="mono text-xs text-white/60">UI NOTE</div>
+              <div class="mt-2 text-white/70 text-sm leading-relaxed">
+                This page is the foundation for “Apple-like” narrative: later we’ll add pinned scroll scenes,
+                full-bleed robot video loops, and stat callouts that animate on intersection.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sections -->
+      <section class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-4 lg:grid-cols-12">
+          <div class="lg:col-span-8 grid gap-4">
+            <div id="summary" class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">SUMMARY</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                What was built <span class="text-white/60">—</span> <span style="color:#ccff00">and why it matters</span>
+              </h2>
+              <p class="mt-4 text-white/75 leading-relaxed" id="summaryLong">
+                Loading…
+              </p>
+            </div>
+
+            <div id="highlights" class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">HIGHLIGHTS</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                High-impact achievements
+              </h2>
+              <ul class="mt-5 space-y-3 text-white/80" id="bullets"></ul>
+            </div>
+
+            <div id="pipeline" class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">PIPELINE</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                System architecture <span class="text-white/60">—</span> <span style="color:#ccff00">command view</span>
+              </h2>
+
+              <!-- Pure CSS “command pipeline” -->
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">INPUTS</div>
+                  <div class="mt-2 font-bold">Sensors / Data</div>
+                  <div class="mt-2 text-sm text-white/70">LiDAR, camera, IMU, GPS, datasets</div>
+                </div>
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">COMPUTE</div>
+                  <div class="mt-2 font-bold">Algorithms</div>
+                  <div class="mt-2 text-sm text-white/70">SLAM, CNN inference, optimization</div>
+                </div>
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">OUTPUTS</div>
+                  <div class="mt-2 font-bold">Actions / Results</div>
+                  <div class="mt-2 text-sm text-white/70">Pose, map, control, classification</div>
+                </div>
+              </div>
+
+              <div class="mt-6 glass-strong rounded-2xl p-4">
+                <div class="mono text-[11px] text-white/60">TECHNICAL NOTE</div>
+                <div class="mt-2 text-sm text-white/70">
+                  Later we’ll swap this placeholder pipeline with project-specific diagrams (SVG) and animated flows.
+                </div>
+              </div>
+            </div>
+
+            <div id="media" class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">MEDIA</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Visual evidence <span class="text-white/60">—</span> <span style="color:#ccff00">demo-ready</span>
+              </h2>
+
+              <!-- Media placeholders (replace with your assets later) -->
+              <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                <div class="glass-strong rounded-3xl overflow-hidden border border-white/10">
+                  <div class="p-4">
+                    <div class="mono text-[11px] text-white/60">ROBOT LOOP</div>
+                    <div class="mt-1 font-bold text-white/90">Video placeholder</div>
+                    <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/assets/robots/loop.webm</div>
+                  </div>
+                  <div class="h-44 bg-black/40 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-70"
+                      style="background: radial-gradient(circle at 40% 30%, rgba(204,255,0,.16), transparent 60%), radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 60%);"
+                    ></div>
+                    <div class="absolute left-4 bottom-4 mono text-[11px] text-white/60">Drop a WebM here later</div>
+                  </div>
+                </div>
+
+                <div class="glass-strong rounded-3xl overflow-hidden border border-white/10">
+                  <div class="p-4">
+                    <div class="mono text-[11px] text-white/60">SENSOR HUD</div>
+                    <div class="mt-1 font-bold text-white/90">Image placeholder</div>
+                    <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/assets/posters/hud.png</div>
+                  </div>
+                  <div class="h-44 bg-black/40 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-70"
+                      style="background: radial-gradient(circle at 55% 45%, rgba(46,102,255,.18), transparent 60%), radial-gradient(circle at 25% 70%, rgba(204,255,0,.14), transparent 60%);"
+                    ></div>
+                    <div class="absolute left-4 bottom-4 mono text-[11px] text-white/60">Drop a PNG here later</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 text-sm text-white/70">
+                When you add real media, this becomes the page that sells you as “Senior-level”: proof, not claims.
+              </div>
+            </div>
+
+            <div id="results" class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">RESULTS</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Outcomes <span class="text-white/60">—</span> <span style="color:#ccff00">measurable</span>
+              </h2>
+
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">PERFORMANCE</div>
+                  <div class="mt-2 font-bold text-white/90">Metric slot</div>
+                  <div class="mt-2 text-sm text-white/70">e.g., 97% accuracy / drift reduction</div>
+                </div>
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">ROBUSTNESS</div>
+                  <div class="mt-2 font-bold text-white/90">Metric slot</div>
+                  <div class="mt-2 text-sm text-white/70">lighting / noise / uncertainty</div>
+                </div>
+                <div class="glass-strong rounded-2xl p-4 hover-lift">
+                  <div class="mono text-[11px] text-white/60">DELIVERY</div>
+                  <div class="mt-2 font-bold text-white/90">Metric slot</div>
+                  <div class="mt-2 text-sm text-white/70">simulation → real hardware</div>
+                </div>
+              </div>
+
+              <div class="mt-6 glass-strong rounded-2xl p-4">
+                <div class="mono text-[11px] text-white/60">NEXT</div>
+                <div class="mt-2 text-white/70 text-sm">
+                  If you want, we can add a “next/prev project” navigator and preload adjacent dossier data for instant transitions.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right rail: specs + next/prev -->
+          <div class="lg:col-span-4 grid gap-4">
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">TECH SPECS</div>
+              <div class="mt-3 grid gap-3" id="specs">
+                <!-- populated by JS -->
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
+              <div class="mono text-xs text-white/60">NAV</div>
+              <div class="mt-4 grid gap-3">
+                <a href="projects.html" class="glass-strong rounded-2xl px-4 py-3 hover-lift block">
+                  <div class="mono text-[11px] text-white/60">BACK</div>
+                  <div class="mt-1 font-bold text-white/90">Projects Grid</div>
+                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/projects</div>
+                </a>
+                <a href="about.html" class="glass-strong rounded-2xl px-4 py-3 hover-lift block">
+                  <div class="mono text-[11px] text-white/60">NEXT</div>
+                  <div class="mt-1 font-bold text-white/90">Mission Log</div>
+                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/about</div>
+                </a>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring hover:bg-white/5 transition">
+              <div class="mono text-xs text-white/60">TIP</div>
+              <div class="mt-2 text-sm text-white/70">
+                Add this link from the Projects modal and you’ll instantly have “follow-up pages” like a real product site.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="mt-10 pb-14 text-center text-white/55 mono text-[11px]">
+          © <span id="year"></span> Sujai Rajan — Project Dossier
+        </footer>
+      </section>
+    </main>
+
+    <script>
+      // Mobile menu
+      const mobileBtn = document.getElementById("mobileBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileBtn?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Stars (lightweight)
+      const canvas = document.getElementById("stars");
+      const ctx = canvas.getContext("2d");
+      let w, h, stars;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        stars = Array.from({ length: Math.min(170, Math.floor((w * h) / 15000)) }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.8 + 0.2,
+          r: Math.random() * 1.5 + 0.4,
+          vx: (Math.random() * 0.18 + 0.04) * (Math.random() > 0.5 ? 1 : -1),
+          vy: (Math.random() * 0.18 + 0.04) * (Math.random() > 0.5 ? 1 : -1),
+        }));
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      (function tick() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.globalCompositeOperation = "lighter";
+        for (const s of stars) {
+          s.x += s.vx * (0.8 + s.z);
+          s.y += s.vy * (0.8 + s.z);
+          if (s.x < -20) s.x = w + 20;
+          if (s.x > w + 20) s.x = -20;
+          if (s.y < -20) s.y = h + 20;
+          if (s.y > h + 20) s.y = -20;
+
+          const lime = 0.14 + s.z * 0.22;
+          const blue = 0.10 + s.z * 0.18;
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(204,255,0,${lime})`;
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(46,102,255,${blue})`;
+          ctx.arc(s.x + 0.6, s.y + 0.3, Math.max(0.7, s.r * 0.6), 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = "source-over";
+        requestAnimationFrame(tick);
+      })();
+
+      // Tilt
+      function attachTilt(containerId, strength = 10) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const inner = el.querySelector(".tilt-inner");
+        if (!inner) return;
+
+        function onMove(e) {
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          const rx = (-y * strength).toFixed(2);
+          const ry = (x * strength).toFixed(2);
+          inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+        }
+        function onLeave() {
+          inner.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)";
+        }
+
+        el.addEventListener("mousemove", onMove);
+        el.addEventListener("mouseleave", onLeave);
+      }
+      attachTilt("heroTilt", 12);
+
+      // Data (base: mirrors your academic set; extend later)
+      const PROJECTS = [
+        {
+          id: "stretch",
+          mode: "academic",
+          system: "Autonomous Navigation + Perception",
+          title: "Household Automation Robot using Stretch 2 Robot",
+          meta: "Sept 2022 – Present • Linux / ROS2 / Gazebo / SLAM",
+          summary:
+            "Built an autonomous household helper robot that navigates, maps, detects objects/faces, estimates poses, grasps objects, and delivers items — simulation-first, then deployed on the real Stretch RE2.",
+          bullets: [
+            "Created a Gazebo simulator with 2D LiDAR + depth cameras to validate behaviors before real-world testing.",
+            "Implemented SLAM for mapping/navigation, obstacle avoidance, and optimized sensor fusion for accuracy.",
+            "Built ArUco-based pose estimation and interaction features (gesture recognition).",
+            "Integrated and calibrated systems on the Stretch RE2 and demonstrated end-to-end autonomy live.",
+          ],
+          tags: ["Linux", "ROS2", "Gazebo", "RViz", "Python", "SLAM", "OpenCV", "Gmapping", "2D LiDAR", "Depth Camera"],
+          specs: [
+            ["Core", "SLAM + mapping + navigation"],
+            ["Perception", "ArUco pose + object/face detection"],
+            ["Simulation", "Gazebo + sensor rigs"],
+            ["Deployment", "Stretch RE2 calibration + demo"],
+          ],
+        },
+        {
+          id: "cnn-car",
+          mode: "academic",
+          system: "Deep Learning Perception",
+          title: "Autonomous Car Simulation using CNNs (Udacity Simulator)",
+          meta: "Regression steering from 3-camera inputs",
+          summary:
+            "Trained a CNN regression model to predict steering angles from simulator imagery with augmentation and preprocessing for robustness.",
+          bullets: [
+            "Built a data pipeline for three-camera inputs with strong augmentation using imgaug.",
+            "Applied OpenCV preprocessing to stabilize signal quality and reduce overfitting.",
+            "Validated behavior through simulator testing with reliable driving performance.",
+          ],
+          tags: ["Python", "Keras", "TensorFlow", "OpenCV", "imgaug", "Unity3D", "CNN"],
+          specs: [
+            ["Model", "CNN regression for steering"],
+            ["Data", "Augmentation + preprocessing"],
+            ["Eval", "Simulator behavioral testing"],
+            ["Goal", "Robust lane-following policy"],
+          ],
+        },
+        // Add more ids here later (or we can auto-import from projects.html next pass)
+      ];
+
+      function esc(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function getId() {
+        const u = new URL(window.location.href);
+        return u.searchParams.get("id") || "";
+      }
+
+      function badge(t) {
+        return `<span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">${esc(t)}</span>`;
+      }
+
+      function specRow(k, v) {
+        return `
+          <div class="glass-strong rounded-2xl p-4 hover-lift">
+            <div class="mono text-[11px] text-white/60">${esc(k)}</div>
+            <div class="mt-2 font-bold text-white/90">${esc(v)}</div>
+          </div>
+        `;
+      }
+
+      function mount(p) {
+        document.title = `${p.title} — Dossier | Sujai Rajan`;
+
+        document.getElementById("fileId").textContent = `ID: ${p.id}`;
+        document.getElementById("title").innerHTML = `${esc(p.title)} <span style="color:#ccff00">Dossier</span>`;
+        document.getElementById("meta").textContent = p.meta;
+        document.getElementById("summaryText").textContent = p.summary;
+        document.getElementById("summaryLong").textContent = p.summary;
+
+        document.getElementById("modeLabel").textContent = p.mode.toUpperCase();
+        document.getElementById("systemLabel").textContent = p.system;
+
+        const tagsEl = document.getElementById("tags");
+        tagsEl.innerHTML = p.tags.map(badge).join("");
+
+        const bulletsEl = document.getElementById("bullets");
+        bulletsEl.innerHTML = p.bullets
+          .map((b) => `<li class="flex gap-2"><span style="color:#ccff00">▸</span><span>${esc(b)}</span></li>`)
+          .join("");
+
+        const specsEl = document.getElementById("specs");
+        specsEl.innerHTML = p.specs.map(([k, v]) => specRow(k, v)).join("");
+      }
+
+      function mountNotFound(id) {
+        document.title = `Project Not Found — Sujai Rajan`;
+        document.getElementById("fileId").textContent = `ID: ${id || "missing"}`;
+        document.getElementById("title").innerHTML = `Project <span style="color:#ccff00">Not Found</span>`;
+        document.getElementById("meta").textContent = "Try opening this page from Projects.";
+        document.getElementById("summaryText").textContent =
+          "This dossier page expects a valid project id (example: project-detail.html?id=stretch).";
+        document.getElementById("summaryLong").textContent =
+          "Fix: open Projects → click a card → use the ‘Open dossier’ link (we’ll wire this next).";
+        document.getElementById("modeLabel").textContent = "—";
+        document.getElementById("systemLabel").textContent = "—";
+        document.getElementById("tags").innerHTML = badge("Open Projects");
+        document.getElementById("bullets").innerHTML =
+          `<li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Go to <a class="underline" style="color:#2e66ff" href="projects.html">projects.html</a> and open a card.</span></li>`;
+        document.getElementById("specs").innerHTML = specRow("Hint", "Use project-detail.html?id=stretch");
+      }
+
+      const id = getId();
+      const p = PROJECTS.find((x) => x.id === id);
+      if (p) mount(p);
+      else mountNotFound(id);
+
+      // Copy deep link
+      const copyLink = document.getElementById("copyLink");
+      const linkState = document.getElementById("linkState");
+      copyLink?.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          linkState.textContent = "COPIED";
+          linkState.style.color = "#ccff00";
+          setTimeout(() => (linkState.textContent = "READY"), 1200);
+        } catch {
+          linkState.textContent = "DENIED";
+          linkState.style.color = "#2e66ff";
+        }
+      });
+    </script>
+  </body>
+</html>
