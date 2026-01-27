@@ -219,8 +219,9 @@
     <main class="pt-28 sm:pt-32">
       <!-- HERO -->
       <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
-          <div class="lg:col-span-7">
+          <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+
+          <div class="space-y-6">
             <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
               <div class="flex items-center gap-3">
                 <div class="mono text-xs text-white/60">CHANGING THE WORLD ONE STEP AT A TIME</div>
@@ -300,10 +301,71 @@
                 </div>
               </div>
             </div>
+            <!-- Rig + Skills (moved to left column) -->
+            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="mono text-xs text-white/60">SKILLS SNAPSHOT</div>
+                  <div class="mt-1 text-lg font-bold">Core Robotics Stack</div>
+                  <div class="mt-1 text-sm text-white/70">
+                    Tools I repeatedly use across perception, navigation, and control.
+                  </div>
+                </div>
+                <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">LIVE</div>
+              </div>
+
+              <!-- your existing rig block goes here -->
+              <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                  <div
+                    class="absolute inset-0 opacity-60"
+                    style="background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 16px 16px;"
+                  ></div>
+
+                  <!-- “humanoid” rig -->
+                  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div id="rig" class="relative h-32 w-28">
+                      <div class="absolute left-1/2 top-2 h-8 w-8 -translate-x-1/2 rounded-2xl glass-strong neon-ring"></div>
+                      <div class="absolute left-1/2 top-12 h-10 w-14 -translate-x-1/2 rounded-2xl glass neon-ring"></div>
+
+                      <div id="armL" class="absolute left-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-right"></div>
+                      <div id="armR" class="absolute right-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-left"></div>
+
+                      <div id="legL" class="absolute left-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-right"></div>
+                      <div id="legR" class="absolute right-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-left"></div>
+
+                      <div
+                        class="absolute left-1/2 top-28 h-2 w-16 -translate-x-1/2 rounded-full"
+                        style="background: linear-gradient(90deg, transparent, rgba(204,255,0,.28), transparent);"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <!-- floating glow orbs -->
+                  <div class="absolute -left-10 top-6 h-40 w-40 rounded-full blur-3xl" style="background: rgba(204,255,0,.12)"></div>
+                  <div class="absolute -right-10 bottom-0 h-44 w-44 rounded-full blur-3xl" style="background: rgba(46,102,255,.12)"></div>
+                </div>
+
+              </div>
+
+              <!-- your existing chips go here -->
+              <div class="mt-3 flex flex-wrap items-center gap-2">
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
           <!-- Right: “Live” robotics panel -->
-          <div class="lg:col-span-5">
+          <div class="space-y-6">
             <div class="glass rounded-3xl p-5 sm:p-6 neon-ring tilt" id="tiltPanel">
               <div class="tilt-inner">
                 <div class="flex items-start justify-between gap-4">
