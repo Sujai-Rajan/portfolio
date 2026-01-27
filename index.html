@@ -293,10 +293,11 @@
                   href="https://www.linkedin.com/in/sujai-r/"
                   target="_blank"
                   rel="noreferrer"
+                  style="background:#0077b5"
                   class="inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold text-white/80 glass hover:bg-white/5 transition"
                 >
                   <span>LinkedIn</span>
-                  <span class="mono text-sm" style="color:#2e66ff">↗</span>
+                  <span class="mono text-sm" style="color:#fa0b0b">↗</span>
                 </a>
               </div>
 
@@ -319,90 +320,170 @@
                 </div>
               </div>
             </div>
-            <!-- Rig + Skills (moved to left column) -->
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <div class="mono text-xs text-white/60">SKILLS SNAPSHOT</div>
-                  <div class="mt-1 text-lg font-bold">Core Robotics Stack</div>
-                  <div class="mt-1 text-sm text-white/70">
-                    Tools I repeatedly use across perception, navigation, and control.
+          
+              <!-- SKILLS SNAPSHOT -->
+              <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="mt-1 text-lg font-bold">SKILLS SNAPSHOT</div>
+                    <div class="mt-1 text-sm text-white/70">
+                      Tools, algorithms, & systems I’ve used across academic
+                      & industrial robotics projects.
+                    </div>
                   </div>
+                  <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">LIVE</div>
                 </div>
-                <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">LIVE</div>
-              </div>
 
-              <!-- your existing rig block goes here -->
-              <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
-                <div class="mt-4 relative h-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
-                  <div
-                    class="absolute inset-0 opacity-60"
+                <!-- Humanoid rig (HUD / innovative) -->
+                <div class="mt-4 relative h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                  <!-- subtle grid -->
+                  <div class="absolute inset-0 opacity-60"
                     style="background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 16px 16px;"
                   ></div>
 
-                  <!-- “humanoid” rig -->
-                  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div id="rig" class="relative h-32 w-28">
-                      <div class="absolute left-1/2 top-2 h-8 w-8 -translate-x-1/2 rounded-2xl glass-strong neon-ring"></div>
-                      <div class="absolute left-1/2 top-12 h-10 w-14 -translate-x-1/2 rounded-2xl glass neon-ring"></div>
+                  <!-- faint gradient wash -->
+                  <div class="absolute inset-0 opacity-70"
+                    style="background:
+                      radial-gradient(600px 180px at 20% 50%, rgba(204,255,0,.10), transparent 60%),
+                      radial-gradient(600px 180px at 80% 50%, rgba(46,102,255,.10), transparent 60%);"
+                  ></div>
 
-                      <div id="armL" class="absolute left-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-right"></div>
-                      <div id="armR" class="absolute right-1 top-[56px] h-3 w-10 rounded-xl glass-strong origin-left"></div>
+                  <!-- data bus line -->
+                  <div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[1px] bg-white/10"></div>
+                  <div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[1px] opacity-70"
+                    style="background: linear-gradient(90deg, rgba(204,255,0,.0), rgba(204,255,0,.28), rgba(46,102,255,.28), rgba(46,102,255,.0));"
+                  ></div>
 
-                      <div id="legL" class="absolute left-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-right"></div>
-                      <div id="legR" class="absolute right-7 top-[90px] h-3 w-10 rounded-xl glass-strong origin-top-left"></div>
 
-                      <div
-                        class="absolute left-1/2 top-28 h-2 w-16 -translate-x-1/2 rounded-full"
-                        style="background: linear-gradient(90deg, transparent, rgba(204,255,0,.28), transparent);"
-                      ></div>
+
+                  <!-- pulsing nodes -->
+                  <div class="absolute left-10 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full"
+                    style="background:#ccff00; box-shadow: 0 0 18px rgba(204,255,0,.45);"
+                  ></div>
+                  <div class="absolute right-10 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full"
+                    style="background:#2e66ff; box-shadow: 0 0 18px rgba(46,102,255,.40);"
+                  ></div>
+
+                  <!-- tiny readouts (makes it feel like an interface) -->
+                  <div class="absolute left-6 top-4 mono text-[10px] text-white/55">
+                    stack: <span class="text-white/80">perception • slam • planning</span>
+                  </div>
+                  <div class="absolute right-6 top-4 mono text-[10px] text-white/55 text-right">
+                    mode: <span style="color:#ccff00">active</span>
+                    <span class="text-white/35">•</span>
+                    sync: <span style="color:#2e66ff">ok</span>
+                  </div>
+
+                  <!-- center humanoid (moves along the bus) -->
+                  <div class="absolute left-0 right-0 top-1/2 pointer-events-none">
+                        <div
+                          id="rigCarrier"
+                          class="absolute left-1/2 -translate-x-1/2"
+                          style="top: -48px;"
+                        >
+
+                      <div id="rig" class="relative h-24 w-20 opacity-95">
+                        <div class="absolute left-1/2 top-1 h-6 w-6 -translate-x-1/2 rounded-xl glass-strong neon-ring"></div>
+                        <div class="absolute left-1/2 top-9 h-8 w-10 -translate-x-1/2 rounded-xl glass neon-ring"></div>
+
+                        <div id="armL" class="absolute left-0 top-[42px] h-2.5 w-8 rounded-xl glass-strong origin-right"></div>
+                        <div id="armR" class="absolute right-0 top-[42px] h-2.5 w-8 rounded-xl glass-strong origin-left"></div>
+
+                        <div id="legL" class="absolute left-5 top-[66px] h-2.5 w-8 rounded-xl glass-strong origin-top-right"></div>
+                        <div id="legR" class="absolute right-5 top-[66px] h-2.5 w-8 rounded-xl glass-strong origin-top-left"></div>
+
+                        <div class="absolute left-1/2 top-[52px] -translate-x-1/2 h-12 w-12 rounded-full opacity-60"
+                          style="border: 1px solid rgba(255,255,255,.10); box-shadow: 0 0 30px rgba(204,255,0,.10);"
+                        ></div>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- floating glow orbs -->
-                  <div class="absolute -left-10 top-6 h-40 w-40 rounded-full blur-3xl" style="background: rgba(204,255,0,.12)"></div>
-                  <div class="absolute -right-10 bottom-0 h-44 w-44 rounded-full blur-3xl" style="background: rgba(46,102,255,.12)"></div>
+
+                  <!-- corner glows -->
+                  <div class="absolute -left-12 top-6 h-36 w-36 rounded-full blur-3xl" style="background: rgba(204,255,0,.10)"></div>
+                  <div class="absolute -right-12 bottom-0 h-40 w-40 rounded-full blur-3xl" style="background: rgba(46,102,255,.12)"></div>
+
+                  <!-- bottom label strip -->
+                  <div class="absolute left-6 right-6 bottom-3 flex items-center justify-between">
+                    <div class="mono text-[10px] text-white/55">signal: <span class="text-white/80">skill-map</span></div>
+                    <div class="mono text-[10px] text-white/55">frame: <span style="color:#ccff00">stable</span></div>
+                  </div>
                 </div>
 
-              </div>
 
-              <!-- your existing chips go here -->
-              <div class="mt-3 flex flex-wrap items-center gap-2">
-                <div class="mt-3 flex flex-wrap items-center gap-2">
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>                    
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
-                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+                <!-- Skills cloud (resume-complete, no headings) -->
+                <div class="mt-4 flex flex-wrap gap-2 leading-tight">
+
+                  <!-- Languages & OS -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">Python</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">C++</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">C</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">MATLAB</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Linux</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Git</span>
+
+                  <!-- Robotics core -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">ROS</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">ROS2</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">Perception</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass-strong">SLAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Mapping</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Path Planning</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Motion Planning</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Kinematics</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Sensor Fusion</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Robot Control (PID, MPC)</span>
+
+                  <!-- Vision -->
+
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Object Detection</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Feature Extraction</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Pose Estimation</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Stereo Vision</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">3D Vision</span>
+
+                  <!-- ML -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Supervised Learning</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Unsupervised Learning</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Deep Learning</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">CNNs</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">PyTorch</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">TensorFlow</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Scikit-Learn</span>
+
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Arduino</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Raspberry Pi</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Jetson Nano</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">SolidWorks</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">AutoCAD</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Autodesk Inventor</span>
+
+                  <!-- Estimation / geometry -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Kalman Filtering</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">GTSAM</span>
+
+                  <!-- Hardware -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Cameras</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">LiDAR</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">IMU</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">GPS</span>
+
+
+                  <!-- Simulation / design -->
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">Gazebo</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">RViz</span>
+                  <span class="mono text-[11px] rounded-xl px-2.5 py-1 glass">MoveIt2</span>
+
+
                 </div>
-
               </div>
-            </div>
+
+
+
+
+
 
           </div>
 
@@ -528,7 +609,7 @@
               <!-- Video -->
               <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40">
                 <video
-                  class="w-full h-72 lg:h-70 object-cover"
+                  class="w-full h-72 lg:h-80 object-cover"
                   autoplay
                   muted
                   loop
@@ -940,6 +1021,35 @@
         requestAnimationFrame(tick);
       }
       tick();
+
+      // Humanoid travels along the data-bus
+      const rigCarrier = document.getElementById("rigCarrier");
+      if (rigCarrier) {
+        animateSafe(
+          rigCarrier,
+          [
+            { transform: "translateX(-170px) translateY(0px)", opacity: 0.85 },
+            { transform: "translateX(170px) translateY(-2px)", opacity: 1 },
+            { transform: "translateX(-170px) translateY(0px)", opacity: 0.85 },
+          ],
+          { duration: 10000, iterations: Infinity, easing: "ease-in-out" }
+        );
+      }
+
+
+      // Skills HUD sweep
+      const skillSweep = document.getElementById("skillSweep");
+      if (skillSweep) {
+        animateSafe(
+          skillSweep,
+          [
+            { transform: "translateX(-120px) skewX(-18deg)" },
+            { transform: "translateX(520px) skewX(-18deg)" },
+          ],
+          { duration: 8000, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+
 
       // ---------------------------
       // Reveals on scroll
