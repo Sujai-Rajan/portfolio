@@ -151,6 +151,23 @@
       ::-webkit-scrollbar-thumb:hover {
         background: rgba(204, 255, 0, 0.18);
       }
+      .tile {
+        position: relative;
+        overflow: hidden;
+      }
+      .tile::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(circle at 30% 30%, rgba(204,255,0,.10), transparent 55%),
+                    radial-gradient(circle at 70% 70%, rgba(46,102,255,.10), transparent 55%);
+        opacity: 0;
+        transition: opacity 300ms ease;
+        pointer-events: none;
+      }
+      .tile:hover::after {
+        opacity: 1;
+      }
     </style>
   </head>
 
@@ -219,7 +236,8 @@
     <main class="pt-28 sm:pt-32">
       <!-- HERO -->
       <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="grid gap-6 lg:grid-cols-12 lg:items-start">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-start">
+
 
           <div class="space-y-6 lg:col-span-7">
             <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
@@ -286,7 +304,7 @@
               <div class="mt-8 grid gap-3 sm:grid-cols-3">
                 <div class="glass-strong rounded-2xl px-4 py-4 hover-lift reveal">
                   <div class="mono text-[11px] text-white/60">TECHNICAL STATS</div>
-                  <div class="mt-1 text-lg font-bold" style="color:#ccff00">15+ PROJECTS</div>
+                  <div class="mt-1 text-lg font-bold" style="color:#ccff00">20+ PROJECTS</div>
                   <div class="mt-1 text-sm text-white/70">Academic + Industrial</div>
                 </div>
                 <div class="glass-strong rounded-2xl px-4 py-4 hover-lift reveal">
@@ -357,6 +375,30 @@
                   <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
                   <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
                   <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>                    
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC/LQR</span>
+                  <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">GTSAM</span>
                 </div>
 
               </div>
@@ -366,24 +408,36 @@
 
           <!-- Right: “Live” robotics panel -->
           <div class="space-y-6 lg:col-span-5">
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring tilt" id="tiltPanel">
+            <div class="glass rounded-3xl p-5 sm:p-6 lg:p-5 neon-ring tilt" id="tiltPanel">
               <div class="tilt-inner">
                 <div class="flex items-start justify-between gap-4">
                   <div>
-                    <div class="mono text-xs text-white/60">SENSOR FUSION VIEW</div>
+                    <div class="mono text-xs text-white/60">FUSION STACK</div>
                     <div class="mt-1 text-xl font-bold">Robotics Telemetry</div>
                     <div class="mt-1 text-sm text-white/70">
-                      Animated “system feed” with LiDAR sweep + camera tiles.
+                      LiDAR + camera + IMU/GPS streams — fused into a stable pose & scene model.
                     </div>
                   </div>
                   <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">LIVE</div>
                 </div>
 
+               <div class="mt-4 glass-strong rounded-2xl px-3 py-2 flex items-center justify-between">
+                  <div class="mono text-[11px] text-white/60">
+                    node: <span class="text-white/80">fusion_core</span>
+                  </div>
+                  <div class="mono text-[11px] text-white/60">
+                    rate: <span style="color:#ccff00">100Hz</span>
+                    <span class="text-white/40">•</span>
+                    latency: <span style="color:#2e66ff">18ms</span>
+                  </div>
+                </div>
+ 
+
                 <!-- Faux sensor tiles -->
                 <div class="mt-5 grid grid-cols-2 gap-3">
-                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                  <div class="glass-strong rounded-2xl p-3 hover-lift tile">
                     <div class="mono text-[11px] text-white/60">LIDAR</div>
-                    <div class="mt-2 relative h-24 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                    <div class="mt-2 relative h-28 overflow-hidden rounded-xl border border-white/10 bg-black/40">
                       <!-- radar sweep -->
                       <svg class="absolute inset-0 h-full w-full" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true">
                         <defs>
@@ -404,13 +458,13 @@
                       ></div>
                     </div>
                     <div class="mt-2 mono text-[11px] text-white/60">
-                      <span style="color:#ccff00">~</span> point cloud inference overlay
+                      <span style="color:#ccff00">~</span> scan matching/obstacle cues
                     </div>
                   </div>
 
-                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                  <div class="glass-strong rounded-2xl p-3 hover-lift tile">
                     <div class="mono text-[11px] text-white/60">CAMERA</div>
-                    <div class="mt-2 relative h-24 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                    <div class="mt-2 relative h-28 overflow-hidden rounded-xl border border-white/10 bg-black/40">
                       <!-- “camera feed” shimmer tiles -->
                       <div class="absolute inset-0 grid grid-cols-3 gap-[2px] p-[2px] opacity-95">
                         <div class="rounded-[8px] bg-white/5"></div>
@@ -428,74 +482,108 @@
                       ></div>
                     </div>
                     <div class="mt-2 mono text-[11px] text-white/60">
-                      <span style="color:#2e66ff">⊙</span> feature extraction / pose cues
+                      <span style="color:#2e66ff">⊙</span> features/tracking/pose cues
                     </div>
                   </div>
 
-                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                  <div class="glass-strong rounded-2xl p-3 hover-lift tile">
                     <div class="mono text-[11px] text-white/60">IMU</div>
                     <div class="mt-2 flex items-end justify-between gap-2">
-                      <div class="mono text-[11px] text-white/60">bias</div>
+                      <div class="mono text-[11px] text-white/60">gyro_bias</div>
                       <div class="mono text-[11px]" style="color:#ccff00" id="imuBias">0.014</div>
                     </div>
                     <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
                       <div id="imuBar" class="h-full w-1/2" style="background:#ccff00; box-shadow: 0 0 18px rgba(204,255,0,.35)"></div>
                     </div>
-                    <div class="mt-2 mono text-[11px] text-white/60">kalman-filtered stabilization</div>
+                    <div class="mt-2 mono text-[11px] text-white/60">EKF innovation gating</div>
                   </div>
 
-                  <div class="glass-strong rounded-2xl p-3 hover-lift">
+                  <div class="glass-strong rounded-2xl p-3 hover-lift tile">
                     <div class="mono text-[11px] text-white/60">GPS</div>
                     <div class="mt-2 flex items-end justify-between gap-2">
-                      <div class="mono text-[11px] text-white/60">fix</div>
+                      <div class="mono text-[11px] text-white/60">solution</div>
                       <div class="mono text-[11px]" style="color:#2e66ff" id="gpsFix">3D</div>
                     </div>
                     <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
                       <div id="gpsBar" class="h-full w-[68%]" style="background:#2e66ff; box-shadow: 0 0 18px rgba(46,102,255,.35)"></div>
                     </div>
-                    <div class="mt-2 mono text-[11px] text-white/60">pose correction stream</div>
+                    <div class="mt-2 mono text-[11px] text-white/60">global correction/drift reset</div>
                   </div>
                 </div>
 
-                <div class="mt-4 flex items-center justify-between">
-                  <div class="mono text-[11px] text-white/60">COMMAND</div>
+                <div class="mt-4 flex items-center justify-between gap-3">
+                  <div class="mono text-[11px] text-white/60">COMMAND:</div>
                   <div class="mono text-[11px] text-white/70">
-                    <span style="color:#ccff00">run</span> /projects<span class="text-white/60"> --mode</span> <span style="color:#2e66ff">bento</span>
+                    <span style="color:#ccff00">ros2</span> launch fusion_stack bringup.launch.py
+                    <span class="text-white/40">—</span>
+                    <span style="color:#2e66ff">live:=true</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Robot visual strip (latest build) -->
+            <div class="glass rounded-3xl p-6 sm:p-7 neon-ring hover:bg-white/5 transition">
+              <!-- Video -->
+              <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40">
+                <video
+                  class="w-full h-72 lg:h-70 object-cover"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                >
+                  <source src="./assets/robots/linker.webm" type="video/webm" />
+                </video>
+
+                <!-- subtle premium glow -->
+                <div
+                  class="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-80"
+                  style="
+                    background:
+                      radial-gradient(60% 120% at 20% 100%, rgba(204,255,0,.14), transparent 60%),
+                      radial-gradient(60% 120% at 80% 100%, rgba(46,102,255,.12), transparent 62%);
+                  "
+                ></div>
+
+                <!-- faint sheen -->
+                <div
+                  class="pointer-events-none absolute inset-0 opacity-[0.10]"
+                  style="background: linear-gradient(180deg, rgba(255,255,255,.10), transparent 32%, transparent 72%, rgba(255,255,255,.06));"
+                ></div>
+              </div>
+
+              <!-- Text -->
+              <div class="mt-4">
+                <div class="mono text-xs text-white/60">LATEST BUILD</div>
+                <div class="mt-1 text-xl font-extrabold tracking-tight">
+                  Vision-guided barcode linking on PCB panels
+                </div>
+                <div class="mt-1 text-sm text-white/70">
+                  Camera-mounted 6-DOF robotic arm with custom 3D-printed extremities, vision-based targeting,
+                  and repeatable positioning.
+                </div>
+
+                <!-- optional: clean “console” line (keeps it generic, not over-sharing) -->
+                <div class="mt-4 glass-strong rounded-2xl px-4 py-3 border border-white/10">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="mono text-[11px] text-white/60">
+                      status: <span class="text-white/85">deployed (internal)</span>
+                      <span class="text-white/35">•</span>
+                      mode: <span style="color:#ccff00">vision + IO</span>
+                    </div>
+                    <div class="mono text-[11px] text-white/60">
+                      focus: <span style="color:#2e66ff">repeatability</span>
+                      <span class="text-white/35">•</span>
+                      integration: <span class="text-white/80">line-ready</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Robot visual strip (lightweight “live” animation) -->
-            <div class="mt-6 glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
-              <div class="mt-4 rounded-2xl overflow-hidden border border-white/10 bg-black/40">
-                  <video
-                    class="w-full h-56 object-cover"
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                  >
-                    <source src="./assets/robots/linker.webm" type="video/webm" />
-                  </video>
-                </div>
-
-                <div class="flex items-start justify-between gap-4 mt-4">
-                  <div>
-                    <div class="mono text-xs text-white/60">ROBOT VISUALIZATION</div>
-                    <div class="mt-1 text-lg font-bold">Autonomous Linker System</div>
-                    <div class="mt-1 text-sm text-white/70">
-                      6 DOF articulated robot with onboard perception with sensor integration.
-                    </div>
-                  </div>
-
-                  <a href="project-detail.html?id=stretch" class="mono text-xs" style="color:#2e66ff">
-                    see builds ↗
-                  </a>
-                </div>
-              </div> 
-              
           </div>
         </div>
       </section>
