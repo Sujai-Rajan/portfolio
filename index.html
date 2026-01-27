@@ -669,16 +669,16 @@
         </div>
       </section>
 
-      <!-- CORE SYSTEMS -->
+      <!-- CORE SYSTEMS (Command Center) -->
       <section id="core" class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between gap-4">
           <div>
             <div class="mono text-xs text-white/60">CORE SYSTEMS</div>
             <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Command Modules <span class="text-white/60">—</span> <span style="color:#ccff00">interactive</span>
+              Command Modules <span class="text-white/60">—</span> <span style="color:#ccff00">live panel</span>
             </h2>
-            <p class="mt-2 text-white/70 max-w-2xl">
-              Four pillars that show up across my 13+ academic projects and real-world builds: navigation, vision, embedded integration, and control.
+            <p class="mt-2 text-white/70 max-w-4xl">
+              Three pillars that show up repeatedly across my robotics work — click a module to load capabilities and the stack.
             </p>
           </div>
 
@@ -688,92 +688,197 @@
           </a>
         </div>
 
-        <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <!-- Card 1 -->
-          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
-            <div class="flex items-center justify-between">
-              <div class="mono text-xs text-white/60">MODULE 01</div>
-              <div class="mono text-xs" style="color:#ccff00">NAV</div>
-            </div>
-            <div class="mt-3 text-xl font-bold">Autonomous Navigation</div>
-            <p class="mt-2 text-sm text-white/70 leading-relaxed">
-              SLAM, mapping, obstacle avoidance, and reliable localization in simulation → reality.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Gazebo</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Gmapping</span>
-            </div>
-            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
-              <span>Drill-in</span><span class="mono">↗</span>
-            </div>
-          </a>
+        <div class="mt-6 grid gap-4 lg:grid-cols-12">
+          <!-- LEFT: Module list -->
+          <div class="lg:col-span-5 space-y-3">
+            <!-- Module button -->
+            <button
+              class="w-full text-left glass rounded-3xl p-5 sm:p-6 hover-lift transition module-btn"
+              data-module="perception"
+              aria-pressed="true"
+            >
+              <div class="flex items-center justify-between">
+                <div class="mono text-xs text-white/60">MODULE 01</div>
+                <div class="mono text-xs" style="color:#ccff00">VISION</div>
+              </div>
+              <div class="mt-3 text-xl font-bold">Perception & Vision</div>
+              <p class="mt-2 text-sm text-white/70 leading-relaxed">
+                Detection, pose cues, 2D→3D, and robust feature pipelines for real scenes.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">YOLO</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Stereo / 3D</span>
+              </div>
+            </button>
 
-          <!-- Card 2 -->
-          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
-            <div class="flex items-center justify-between">
-              <div class="mono text-xs text-white/60">MODULE 02</div>
-              <div class="mono text-xs" style="color:#ccff00">CV</div>
-            </div>
-            <div class="mt-3 text-xl font-bold">Computer Vision</div>
-            <p class="mt-2 text-sm text-white/70 leading-relaxed">
-              Detection, tracking, pose estimation, AR overlays, and retrieval pipelines.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">OpenCV</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ArUco</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">PyTorch</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">CNN</span>
-            </div>
-            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
-              <span>Drill-in</span><span class="mono">↗</span>
-            </div>
-          </a>
+            <button
+              class="w-full text-left glass rounded-3xl p-5 sm:p-6 hover-lift transition module-btn"
+              data-module="nav"
+              aria-pressed="false"
+            >
+              <div class="flex items-center justify-between">
+                <div class="mono text-xs text-white/60">MODULE 02</div>
+                <div class="mono text-xs" style="color:#ccff00">NAV</div>
+              </div>
+              <div class="mt-3 text-xl font-bold">Localization & Navigation</div>
+              <p class="mt-2 text-sm text-white/70 leading-relaxed">
+                SLAM, mapping, planning, and stable state estimation in sim → reality.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">SLAM</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Kalman / EKF</span>
+              </div>
+            </button>
 
-          <!-- Card 3 -->
-          <a href="projects.html#industrial" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
-            <div class="flex items-center justify-between">
-              <div class="mono text-xs text-white/60">MODULE 03</div>
-              <div class="mono text-xs" style="color:#ccff00">EMB</div>
-            </div>
-            <div class="mt-3 text-xl font-bold">Embedded Systems</div>
-            <p class="mt-2 text-sm text-white/70 leading-relaxed">
-              Sensor integration, calibration, timing, and robust field wiring + safety behaviors.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Linux</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">C++</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Python</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Sensor Fusion</span>
-            </div>
-            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
-              <span>Drill-in</span><span class="mono">↗</span>
-            </div>
-          </a>
+            <button
+              class="w-full text-left glass rounded-3xl p-5 sm:p-6 hover-lift transition module-btn"
+              data-module="integration"
+              aria-pressed="false"
+            >
+              <div class="flex items-center justify-between">
+                <div class="mono text-xs text-white/60">MODULE 03</div>
+                <div class="mono text-xs" style="color:#ccff00">DEPLOY</div>
+              </div>
+              <div class="mt-3 text-xl font-bold">Robot Integration & Deployment</div>
+              <p class="mt-2 text-sm text-white/70 leading-relaxed">
+                Sensors, timing, I/O, safety behavior, and field-friendly system integration.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Sensors</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Linux</span>
+                <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">ROS2 Nodes</span>
+              </div>
+            </button>
+          </div>
 
-          <!-- Card 4 -->
-          <a href="projects.html#academic" class="glass rounded-3xl p-5 sm:p-6 hover-lift reveal group">
-            <div class="flex items-center justify-between">
-              <div class="mono text-xs text-white/60">MODULE 04</div>
-              <div class="mono text-xs" style="color:#ccff00">CTRL</div>
+          <!-- RIGHT: Details panel -->
+          <div class="lg:col-span-7">
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring relative overflow-hidden">
+              <!-- subtle background -->
+              <div class="absolute inset-0 opacity-40 pointer-events-none"
+                style="background:
+                  radial-gradient(600px 280px at 20% 10%, rgba(204,255,0,.14), transparent 55%),
+                  radial-gradient(600px 280px at 80% 25%, rgba(46,102,255,.14), transparent 55%);">
+              </div>
+
+              <div class="relative">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="mono text-xs text-white/60" id="coreKicker">ACTIVE MODULE</div>
+                    <div class="mt-1 text-2xl font-extrabold tracking-tight" id="coreTitle">Perception & Vision</div>
+                    <div class="mt-2 text-sm text-white/70" id="coreDesc">
+                      Build robust perception pipelines that survive lighting, motion blur, and messy real-world geometry.
+                    </div>
+                  </div>
+                  <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">ONLINE</div>
+                </div>
+
+                <!-- Mini pipeline diagram (swaps per module) -->
+                <div class="mt-5 glass-strong rounded-2xl p-4 border border-white/10 overflow-hidden">
+                  <div class="flex items-center justify-between">
+                    <div class="mono text-[11px] text-white/60">PIPELINE</div>
+                    <div class="mono text-[11px] text-white/60">
+                      state: <span id="pipeState" style="color:#ccff00">running</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-3 relative rounded-xl border border-white/10 bg-black/40 p-3">
+                    <!-- soft dot grid -->
+                    <div class="absolute inset-0 opacity-40 pointer-events-none"
+                      style="background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 16px 16px;">
+                    </div>
+
+                    <!-- SVG pipeline -->
+                    <svg class="relative w-full h-20" viewBox="0 0 640 80" preserveAspectRatio="none" aria-hidden="true">
+                      <!-- line -->
+                      <path id="pipeLine" d="M40 40 C 180 10, 280 70, 360 40 C 440 10, 520 70, 600 40"
+                            fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2.2" />
+
+                      <!-- nodes -->
+                      <g id="pipeNodes">
+                        <circle id="node1" cx="60"  cy="40" r="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                        <circle id="node2" cx="320" cy="40" r="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                        <circle id="node3" cx="580" cy="40" r="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                      </g>
+
+                      <!-- moving packet -->
+                      <circle id="pipeDot" cx="60" cy="40" r="5" fill="#ccff00" opacity="0.9"></circle>
+                    </svg>
+
+                    <!-- labels -->
+                    <div class="mt-2 grid grid-cols-3 gap-2 text-[11px]">
+                      <div class="mono text-white/70">
+                        <span style="color:#ccff00">[1]</span> <span id="pipeL1">sense</span>
+                      </div>
+                      <div class="mono text-white/70 text-center">
+                        <span style="color:#ccff00">[2]</span> <span id="pipeL2">estimate</span>
+                      </div>
+                      <div class="mono text-white/70 text-right">
+                        <span style="color:#ccff00">[3]</span> <span id="pipeL3">act</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- “capabilities” -->
+                <div class="mt-6 glass-strong rounded-2xl p-4 border border-white/10">
+                  <div class="mono text-[11px] text-white/60">CAPABILITIES</div>
+                  <ul class="mt-3 space-y-2 text-white/80 text-sm" id="coreCaps">
+                    <li class="flex gap-2"><span style="color:#ccff00">•</span><span>Object detection + feature extraction for reliable targets</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">•</span><span>Pose cues / camera geometry for alignment and repeatability</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">•</span><span>2D→3D reasoning (stereo / point cloud) when needed</span></li>
+                  </ul>
+                </div>
+
+                <!-- example -->
+                <div class="mt-4 grid gap-4 md:grid-cols-2">
+                  <div class="glass-strong rounded-2xl p-4 border border-white/10">
+                    <div class="mono text-[11px] text-white/60">BATTLE-TESTED EXAMPLE</div>
+                    <div class="mt-2 text-white/90 font-semibold" id="coreExampleTitle">Barcode linking on PCB panels</div>
+                    <div class="mt-1 text-sm text-white/70" id="coreExampleBody">
+                      Vision-based targeting to reliably acquire barcodes and drive repeatable robot positioning and handoff logic.
+                    </div>
+                  </div>
+
+                  <!-- stack -->
+                  <div class="glass-strong rounded-2xl p-4 border border-white/10">
+                    <div class="mono text-[11px] text-white/60">TECH STACK</div>
+                    <div class="mt-2 mono text-[12px] text-white/80 leading-relaxed" id="coreStack">
+                      OpenCV • ROS2 • Python • Cameras • Calibration
+                    </div>
+
+                    <div class="mt-4 flex items-center justify-between">
+                      <div class="mono text-[11px] text-white/60">STATE</div>
+                      <div class="mono text-[11px]" style="color:#2e66ff" id="coreState">tracking: stable • latency: low</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- small command line -->
+                <div class="mt-5 flex items-center justify-between">
+                  <div class="mono text-[11px] text-white/60">COMMAND</div>
+                  <div class="mono text-[11px] text-white/70 whitespace-nowrap overflow-x-auto" id="coreCmd">
+                    <span style="color:#ccff00">load</span> module.perception
+                    <span class="text-white/40">—</span>
+                    <span style="color:#2e66ff">mode:=field</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="mt-3 text-xl font-bold">Control Theory</div>
-            <p class="mt-2 text-sm text-white/70 leading-relaxed">
-              MPC, LQR, robust control (µ-synthesis), stability under uncertainty.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MATLAB</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">Simulink</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">MPC</span>
-              <span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">LQR</span>
+
+            <!-- micro hint -->
+            <div class="mt-3 mono text-[10px] text-white/55 justify-between">
+              Click modules to swap the panel 
             </div>
-            <div class="mt-5 flex items-center gap-2 text-sm font-semibold" style="color:#2e66ff">
-              <span>Drill-in</span><span class="mono">↗</span>
-            </div>
-          </a>
+          </div>
         </div>
       </section>
+
+
+
 
       <!-- Quick “Featured” academic highlights -->
       <section class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -930,7 +1035,7 @@
         </div>
 
         <footer class="mt-10 text-center text-white/55 mono text-[11px]">
-          © <span id="year"></span> Sujai Rajan — Obsidian & Neon Command Center UI
+          © <span id="year"></span> Sujai Rajan — Portfolio v1.6.0
         </footer>
       </section>
     </main>
@@ -1202,6 +1307,180 @@
           { duration: 1600, iterations: Infinity, easing: "ease-in-out" }
         );
       }
+      // ---------------------------
+      // Core Systems: Command Center panel
+      // ---------------------------
+      const coreData = {
+        perception: {
+          title: "Perception & Vision",
+          desc: "Build perception pipelines that survive lighting shifts, motion blur, and messy real-world geometry.",
+          caps: [
+            "Object detection + feature extraction for reliable targets",
+            "Pose cues / camera geometry for alignment and repeatability",
+            "2D→3D reasoning (stereo / point cloud) when needed",
+          ],
+          exampleTitle: "Vision-guided barcode linking on PCB panels",
+          exampleBody:
+            "Camera-based targeting and repeatable acquisition to link top/bottom identifiers with production-style I/O and handoff logic.",
+          stack: "OpenCV • ROS2 • Python • Cameras • Calibration",
+          state: "tracking: stable • latency: low",
+          cmd: '<span style="color:#ccff00">load</span> module.perception <span class="text-white/40">—</span> <span style="color:#2e66ff">mode:=field</span>',
+          pipeLabels: ["sense", "extract + match", "align + verify"],
+          pipeState: "features locked",
+        },
+        nav: {
+          title: "Localization & Navigation",
+          desc: "Map, localize, and plan motion reliably — making autonomy hold up beyond perfect simulation.",
+          caps: [
+            "SLAM + mapping for consistent scene structure",
+            "State estimation (EKF/Kalman-style) for stable pose",
+            "Path planning + obstacle handling for safe motion",
+          ],
+          exampleTitle: "Autonomous navigation stacks (sim → hardware)",
+          exampleBody:
+            "End-to-end navigation workflows integrating sensing, localization, and planning with real constraints and tuning tradeoffs.",
+          stack: "ROS2 • SLAM • RViz • Gazebo • Estimation",
+          state: "localization: locked • replans: adaptive",
+          cmd: '<span style="color:#ccff00">load</span> module.nav <span class="text-white/40">—</span> <span style="color:#2e66ff">planner:=online</span>',
+          pipeLabels: ["map", "localize", "plan + avoid"],
+          pipeState: "pose stable",
+        },
+        integration: {
+          title: "Robot Integration & Deployment",
+          desc: "Connect sensors, compute, and I/O into a system that’s debuggable, reliable, and production-friendly.",
+          caps: [
+            "Sensor integration (cameras/LiDAR/IMU/GPS) + timing discipline",
+            "ROS2 nodes, logging, and practical bring-up workflows",
+            "Control where required (PID/MPC) — tuned for stability, not theory",
+          ],
+          exampleTitle: "Industrial automation + robot cell integration",
+          exampleBody:
+            "Field wiring, sensors, interlocks, and deployment-minded behavior — the part that decides whether a robot ships or dies on the floor.",
+          stack: "Linux • ROS2 • Sensors • Git • Embedded / SBCs",
+          state: "system: resilient • failures: diagnosable",
+          cmd: '<span style="color:#ccff00">load</span> module.integration <span class="text-white/40">—</span> <span style="color:#2e66ff">bringup:=safe</span>',
+          pipeLabels: ["integrate", "synchronize", "deploy + debug"],
+          pipeState: "handoff ready",
+        },
+      };
+
+
+      const moduleBtns = document.querySelectorAll(".module-btn");
+
+      const coreTitle = document.getElementById("coreTitle");
+      const coreDesc = document.getElementById("coreDesc");
+      const coreCaps = document.getElementById("coreCaps");
+      const coreExampleTitle = document.getElementById("coreExampleTitle");
+      const coreExampleBody = document.getElementById("coreExampleBody");
+      const coreStack = document.getElementById("coreStack");
+      const coreState = document.getElementById("coreState");
+      const coreCmd = document.getElementById("coreCmd");
+
+      function setActiveModule(key) {
+        const d = coreData[key];
+        if (!d) return;
+
+        // Update content
+        coreTitle.textContent = d.title;
+        coreDesc.textContent = d.desc;
+        coreExampleTitle.textContent = d.exampleTitle;
+        coreExampleBody.textContent = d.exampleBody;
+        coreStack.textContent = d.stack;
+        coreState.textContent = d.state;
+        coreCmd.innerHTML = d.cmd;
+
+        // Capabilities list
+        coreCaps.innerHTML = d.caps
+          .map((c) => `<li class="flex gap-2"><span style="color:#ccff00">•</span><span>${c}</span></li>`)
+          .join("");
+
+        // Active button styling
+        moduleBtns.forEach((b) => {
+          const isActive = b.dataset.module === key;
+          b.setAttribute("aria-pressed", String(isActive));
+          b.classList.toggle("neon-ring-strong", isActive);
+          b.style.borderColor = isActive ? "rgba(204,255,0,0.28)" : "rgba(255,255,255,0.12)";
+          b.style.boxShadow = isActive ? "var(--shadow-neon-strong)" : "var(--shadow-neon)";
+        });
+        
+        updatePipeline(d);
+
+        // Tiny “panel refresh” animation
+        const panel = coreTitle.closest(".glass");
+        if (panel) {
+          try {
+            animateSafe(
+              panel,
+              [
+                { transform: "translateY(6px)", opacity: 0.85 },
+                { transform: "translateY(0px)", opacity: 1 },
+              ],
+              { duration: 220, easing: "cubic-bezier(0.2,0.8,0.2,1)", fill: "both" }
+            );
+          } catch (_) {}
+        }
+      }
+            // Pipeline UI hooks
+      const pipeL1 = document.getElementById("pipeL1");
+      const pipeL2 = document.getElementById("pipeL2");
+      const pipeL3 = document.getElementById("pipeL3");
+      const pipeState = document.getElementById("pipeState");
+      const pipeDot = document.getElementById("pipeDot");
+
+      // one running animation handle (optional)
+      let pipeAnim = null;
+
+      function runPipeAnimation() {
+        if (!pipeDot) return;
+
+        // Cancel previous animation if possible (WAAPI returns Animation)
+        try { pipeAnim?.cancel?.(); } catch (_) {}
+
+        // Animate dot along approximate positions (simple + reliable)
+        pipeAnim = animateSafe(
+          pipeDot,
+          [
+            { transform: "translateX(0px)", opacity: 0.75 },
+            { transform: "translateX(260px)", opacity: 1 },
+            { transform: "translateX(520px)", opacity: 0.9 },
+          ],
+          { duration: 3000, iterations: Infinity, easing: "cubic-bezier(0.2,0.8,0.2,1)" }
+        );
+      }
+
+      function updatePipeline(d) {
+        if (!d) return;
+
+        if (pipeL1) pipeL1.textContent = d.pipeLabels?.[0] || "sense";
+        if (pipeL2) pipeL2.textContent = d.pipeLabels?.[1] || "estimate";
+        if (pipeL3) pipeL3.textContent = d.pipeLabels?.[2] || "act";
+        if (pipeState) pipeState.textContent = d.pipeState || "running";
+
+        // small “refresh” pulse
+        const panel = pipeDot?.closest(".glass-strong");
+        if (panel) {
+          try {
+            animateSafe(
+              panel,
+              [{ transform: "translateY(6px)", opacity: 0.85 }, { transform: "translateY(0px)", opacity: 1 }],
+              { duration: 220, easing: "cubic-bezier(0.2,0.8,0.2,1)", fill: "both" }
+            );
+          } catch (_) {}
+        }
+
+        runPipeAnimation();
+      }
+
+      moduleBtns.forEach((btn) => {
+        btn.addEventListener("click", () => setActiveModule(btn.dataset.module));
+      });
+
+
+
+
+      // Default
+      setActiveModule("perception");
+
     </script>
   </body>
 </html>
