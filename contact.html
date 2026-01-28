@@ -201,10 +201,10 @@
 
     <main class="pt-28 sm:pt-32">
       <!-- Hero -->
-      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-6 lg:grid-cols-12 lg:auto-rows-fr">
+      <section class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
+        <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-fr">
 
-          <div class="lg:col-span-8 glass rounded-3xl p-6 sm:p-8 neon-ring h-full flex flex-col">
+          <div class="lg:col-span-8 glass rounded-3xl p-3 sm:p-4 neon-ring h-80 flex flex-col">
 
             <div class="flex items-center gap-3">
               <div class="mono text-xs text-white/60">COMMS CHANNEL</div>
@@ -250,9 +250,9 @@
 
 
           <!-- Right: Live Telemetry -->
-          <div class="lg:col-span-4 glass rounded-3xl p-6 sm:p-8 neon-ring h-full flex flex-col">
+          <div class="lg:col-span-4 glass rounded-3xl p-3 sm:p-4 neon-ring h-80 flex flex-col">
 
-            <div class="glass rounded-3xl p-6 sm:p-12 neon-ring hover:bg-white/5 transition tilt h-full" id="telemetryTilt">
+            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring hover:bg-white/5 transition tilt h-full" id="telemetryTilt">
             <div class="tilt-inner">
               <div class="mono text-xs text-white/60">LIVE TELEMETRY</div>
 
@@ -286,9 +286,10 @@
         </div>
           
       <!-- Uplink Form -->
-      <section id="uplink" class="mt-10 sm:mt-10 pb-10 mx-auto max-w-7xl px-2 sm:px-2 lg:px-1">
-        <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-fr">
-          <div class="lg:col-span-8 glass rounded-3xl p-6 sm:p-8 neon-ring h-full flex flex-col">
+      <section id="uplink" class="mt-8 sm:mt-10 pb-12 mx-auto max-w-7xl px-2 sm:px-2 lg:px-1">
+        <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-fr lg:items-stretch">
+
+          <div class="lg:col-span-8 glass rounded-3xl p-5 sm:p-6 neon-ring h-110 flex flex-col">
             <div class="flex items-end justify-between gap-4">
               <div>
                 <div class="mono text-xs text-white/60">TRANSMISSION CONSOLE</div>
@@ -304,9 +305,9 @@
               </div>
             </div>
 
-            <form id="form" class="mt-6 grid gap-4 flex-1">
-
-              <div class="grid gap-4 flex-1">
+            <form id="form" class="mt-6 flex flex-col gap-4 flex-1">
+              <!-- Top inputs -->
+              <div class="grid gap-4 sm:grid-cols-2">
                 <div class="field glass-strong rounded-2xl px-4 py-3">
                   <div class="mono text-[11px] text-white/60">NAME</div>
                   <input
@@ -329,16 +330,17 @@
                 </div>
               </div>
 
-              <div class="field glass-strong rounded-2xl px-4 py-3">
+              <!-- Message should GROW -->
+              <div class="field glass-strong rounded-2xl px-4 py-3 flex-1 flex flex-col min-h-[100px]">
                 <div class="mono text-[11px] text-white/60">MESSAGE</div>
                 <textarea
                   id="msg"
-                  rows="6"
-                  class="mt-2 w-full bg-transparent outline-none text-sm placeholder:text-white/35 resize-none"
+                  class="mt-2 w-full flex-1 bg-transparent outline-none text-sm placeholder:text-white/35 resize-none"
                   placeholder="Write your message…"
                 ></textarea>
               </div>
 
+              <!-- Bottom controls (stays pinned down) -->
               <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
                 <div class="mono text-[11px] text-white/60">
                   Packet size: <span id="packet" class="text-white/80">0</span> bytes •
@@ -346,24 +348,16 @@
                 </div>
 
                 <div class="flex gap-3">
-                  <button
-                    type="button"
-                    id="clear"
-                    class="rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition"
-                  >
+                  <button type="button" id="clear" class="rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition">
                     Clear
                   </button>
-                  <button
-                    type="submit"
-                    id="send"
-                    class="rounded-2xl px-5 py-3 font-semibold text-black hover:brightness-95 transition"
-                    style="background:#ccff00"
-                  >
+                  <button type="submit" id="send" class="rounded-2xl px-5 py-3 font-semibold text-black hover:brightness-95 transition" style="background:#ccff00">
                     Transmit →
                   </button>
                 </div>
               </div>
             </form>
+
 
             <div id="toast" class="hidden mt-5 glass-strong rounded-2xl p-4">
               <div class="mono text-[11px] text-white/60">TRANSMISSION</div>
@@ -375,14 +369,14 @@
 
 
         <!-- Right: Beacon + Actions -->
-         <div class="lg:col-span-4 glass rounded-3xl p-6 sm:p-8 neon-ring h-full flex flex-col">
-
-            <div class="glass rounded-3xl p-6 sm:p-8 neon-ring tilt h-full" id="beaconTilt">
-
-              <div class="tilt-inner">
+         <div class="lg:col-span-4 glass rounded-3xl p-5 sm:p-6 neon-ring tilt h-full flex flex-col" id="beaconTilt">
 
 
-                <div class="mt-5 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-44">
+              <div class="tilt-inner flex flex-col h-full">
+
+
+
+                <div class="mt-5 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-full">
                   <div class="absolute inset-0 opacity-70"
                     style="background: radial-gradient(circle at 40% 30%, rgba(204,255,0,.16), transparent 55%), radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 55%);"
                   ></div>
