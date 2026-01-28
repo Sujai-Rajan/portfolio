@@ -221,7 +221,7 @@
 
                 <div class="mt-5 grid gap-3 sm:grid-cols-3">
                   <a
-                    class="hover-lift glass-strong rounded-2xl p-4"
+                    class="hover-lift glass-strong rounded-2xl p-3"
                     href="https://www.linkedin.com/in/sujai-r/"
                     target="_blank"
                     rel="noreferrer"
@@ -232,12 +232,12 @@
                     <div class="mt-1 text-sm" style="color:#2e66ff">/in/sujai-r ↗</div>
                   </a>
 
-                  <button class="hover-lift glass-strong rounded-2xl p-4 text-left" id="copyEmail">
+                  <button class="hover-lift glass-strong rounded-2xl p-3 text-left" id="copyEmail">
                     <div class="mono text-[11px] text-white/60">EMAIL</div>
                     <div class="mt-1 font-bold text-white/90" id="emailText">send2sujai@gmail.com</div>
                     <div class="mt-1 text-sm" style="color:#2e66ff" id="copyHint">Click to copy</div>
                   </button>
-                  <a class="hover-lift glass-strong rounded-2xl p-4" href="./assets/Sujai Rajan Resume.pdf" target="_blank" rel="noreferrer">
+                  <a class="hover-lift glass-strong rounded-2xl p-3" href="./assets/Sujai Rajan Resume.pdf" target="_blank" rel="noreferrer">
                     <div class="mono text-[11px] text-white/60">RESUME</div>
                     <div class="mt-1 font-bold text-white/90">PDF Download</div>
                     <div class="mt-1 text-sm" style="color:#2e66ff">Open ↗</div>
@@ -257,7 +257,7 @@
               <div class="mono text-xs text-white/60">LIVE TELEMETRY</div>
 
               <div class="mt-4 grid gap-3">
-                <div class="glass-strong rounded-2xl p-4">
+                <div class="glass-strong rounded-2xl p-3">
                   <div class="flex items-center justify-between">
                     <span class="mono text-[11px] text-white/60">CHANNEL</span>
                     <span class="mono text-[11px]" style="color:#ccff00" id="chan">UP</span>
@@ -271,7 +271,7 @@
                   </div>
                 </div>
 
-                <div class="glass-strong rounded-2xl p-4">
+                <div class="glass-strong rounded-2xl p-3">
                   <div class="mono text-[11px] text-white/60">SHORTCUTS</div>
                   <div class="mt-2 grid gap-2 text-sm text-white/70">
                     <div class="flex justify-between"><span class="mono text-[11px]">CTRL+K</span><span>focus message</span></div>
@@ -289,7 +289,7 @@
       <section id="uplink" class="mt-8 sm:mt-10 pb-12 mx-auto max-w-7xl px-2 sm:px-2 lg:px-1">
         <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-fr lg:items-stretch">
 
-          <div class="lg:col-span-8 glass rounded-3xl p-5 sm:p-6 neon-ring h-110 flex flex-col">
+          <div class="lg:col-span-8 glass rounded-3xl p-5 sm:p-6 neon-ring h-full flex flex-col">
             <div class="flex items-end justify-between gap-4">
               <div>
                 <div class="mono text-xs text-white/60">TRANSMISSION CONSOLE</div>
@@ -331,7 +331,7 @@
               </div>
 
               <!-- Message should GROW -->
-              <div class="field glass-strong rounded-2xl px-4 py-3 flex-1 flex flex-col min-h-[100px]">
+              <div class="field glass-strong rounded-2xl px-4 py-3 flex-1 flex flex-col min-h-[150px]">
                 <div class="mono text-[11px] text-white/60">MESSAGE</div>
                 <textarea
                   id="msg"
@@ -359,7 +359,7 @@
             </form>
 
 
-            <div id="toast" class="hidden mt-5 glass-strong rounded-2xl p-4">
+            <div id="toast" class="hidden mt-5 glass-strong rounded-2xl p-3">
               <div class="mono text-[11px] text-white/60">TRANSMISSION</div>
               <div class="mt-1 font-bold text-white/90" id="toastTitle">Prepared mail client.</div>
               <div class="mt-1 text-sm text-white/70" id="toastBody">If nothing opened, your browser may block mailto links.</div>
@@ -376,7 +376,7 @@
 
 
 
-                <div class="mt-5 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-full">
+                <div class="mt-3 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-full">
                   <div class="absolute inset-0 opacity-70"
                     style="background: radial-gradient(circle at 40% 30%, rgba(204,255,0,.16), transparent 55%), radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 55%);"
                   ></div>
@@ -545,14 +545,11 @@
       // ---------------------------
       const signalPct = document.getElementById("signalPct");
       const latencyMs = document.getElementById("latencyMs");
-      const handshake = document.getElementById("handshake");
       const headerStatus = document.getElementById("headerStatus");
 
       const signalBar = document.getElementById("signalBar");
       const signalLabel = document.getElementById("signalLabel");
       const chan = document.getElementById("chan");
-      const payloadState = document.getElementById("payloadState");
-      const payloadNote = document.getElementById("payloadNote");
 
       let strength = 72;
       let latency = 18;
