@@ -204,7 +204,7 @@
       <section class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
         <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-fr">
 
-          <div class="lg:col-span-8 glass rounded-3xl p-3 sm:p-4 neon-ring h-80 flex flex-col">
+          <div class="lg:col-span-8 glass rounded-3xl p-3 sm:p-4 neon-ring h-full flex flex-col">
 
             <div class="flex items-center gap-3">
               <div class="mono text-xs text-white/60">COMMS CHANNEL</div>
@@ -250,7 +250,7 @@
 
 
           <!-- Right: Live Telemetry -->
-          <div class="lg:col-span-4 glass rounded-3xl p-3 sm:p-4 neon-ring h-80 flex flex-col">
+          <div class="lg:col-span-4 glass rounded-3xl p-3 sm:p-4 neon-ring h-full flex flex-col">
 
             <div class="glass rounded-3xl p-6 sm:p-8 neon-ring hover:bg-white/5 transition tilt h-full" id="telemetryTilt">
             <div class="tilt-inner">
@@ -404,7 +404,7 @@
 
 
 
-                <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <div class="mt-2 grid gap-3 sm:grid-cols-2">
                     <div class="glass-strong rounded-2xl px-4 py-4">
                       <div class="mono text-[11px] text-white/60">SIGNAL</div>
                       <div class="mt-1 text-lg font-bold"><span style="color:#ccff00" id="signalPct">92</span><span class="text-white/80">%</span></div>
@@ -412,15 +412,10 @@
                     </div>
                     <div class="glass-strong rounded-2xl px-4 py-4">
                       <div class="mono text-[11px] text-white/60">LATENCY</div>
-                      <div class="mt-1 text-lg font-bold"><span style="color:#ccff00"id="latencyMs">18</span><span class="text-white/60">ms</span></div>
-                      <div class="mt-1 text-sm text-white/65">uplink ping</div>
+                      <div class="mt-2 text-lg font-bold"><span style="color:#ccff00"id="latencyMs">18</span><span class="text-white/60">ms</span></div>
+                      <div class="mt-2 text-sm text-white/65">uplink ping</div>
                     </div>
-                  </div>
-
-                  <div class="mt-4 flex items-center justify-between">
-                    <div class="mono text-[11px] text-white/60">PREFERRED</div>
-                    <div class="mono text-[11px]" style="color:#ccff00">EMAIL → SCHEDULING</div>
-                  </div>
+                  </dikv>
 
               </div>
             </div>
