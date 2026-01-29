@@ -255,7 +255,7 @@
                   data-mode="industrial"
                 >
                   <div class="mono text-[11px] text-white/60">FILTER</div>
-                  <div class="mt-1 font-bold text-white/90">Industrial</div>
+                  <div class="mt-1 font-bold" style="color:#2e66ff">Industrial</div>
                 </button>
               </div>
             </div>
@@ -669,29 +669,145 @@
           ],
         },
 
-        // Base Industrial placeholders (so the filter works now)
+        // ---------------------------
+        // Industrial projects (from career experience)
+        // ---------------------------
         {
-          id: "ind-placeholder-1",
+          id: "vision-inspection",
           mode: "industrial",
-          span: "col-span-12 lg:col-span-6",
-          title: "Industrial Robotics System (Placeholder)",
-          meta: "We’ll populate from your resume next",
-          tags: ["PLC", "Sensors", "Integration", "Safety", "Robotics"],
+          span: "col-span-12 lg:col-span-7",
+          title: "Multi-Stage PCB Vision Inspection + Traceability (Pre-Coating Gate)",
+          meta: "Futaba Corporation of America",
+          tags: ["OpenCV", "Machine Vision", "SMEMA", "MES API", "LabVIEW", "Python", "C++", "Data Matrix", "Conveyors"],
           summary:
-            "Industrial projects will be filled in after we extract them cleanly from your resume (base UI first).",
-          bullets: ["This card exists so the Industrial filter and layout are wired.", "Next step: we populate with real job projects + metrics."],
+            "Designed and deployed machine-vision inspection systems for PCB validation (alignment + feature recognition + data-matrix verification) before conformal coating, targeting reject reduction and throughput scaling.",
+          bullets: [
+            "Deployed two vision inspection systems for multi-stage PCB validation; reported ~98% downstream reject reduction and ~65% throughput increase.",
+            "Integrated OpenCV inspection with SMEMA handshaking, internal MES API validation, and LabVIEW GUI monitoring to maintain traceability.",
+            "Built a maintainable mechanical + software framework (CAD + modular ESD-safe assemblies; 3D-printed components) to support line uptime and future expansions.",
+          ],
         },
         {
-          id: "ind-placeholder-2",
+          id: "stepper-motion-platform",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-5",
+          title: "7-Axis Stepper Motion Platform for Precision Conveyor Positioning",
+          meta: "Futaba Corporation of America",
+          tags: ["Marlin", "BTT Octopus", "Stepper Control", "Sensorless Homing", "Motion Control", "Embedded", "Calibration"],
+          summary:
+            "Engineered a synchronized motion-control architecture to achieve repeatable, precise conveyor positioning for inspection/alignment workflows.",
+          bullets: [
+            "Implemented motion-control architecture using a BTT Octopus controller with customized Marlin firmware, coordinating seven stepper axes.",
+            "Used sensorless homing and repeatable positioning logic to support accurate alignment cycles and stable inspection outcomes.",
+            "Focused on reliability and maintainability so the platform can be reused across similar inspection stations.",
+          ],
+        },
+        {
+          id: "barcode-linking-robotic-cell",
           mode: "industrial",
           span: "col-span-12 lg:col-span-6",
-          title: "Automation / Vision Line (Placeholder)",
-          meta: "We’ll populate from your resume next",
-          tags: ["Vision", "Cameras", "Conveyors", "Reliability", "Deployment"],
+          title: "Robotic PCB Barcode Linking Cell (6-DOF Vision Automation)",
+          meta: "Futaba Corporation of America",
+          tags: ["MyCobot 320 Pi", "ROS2", "Python", "OpenCV", "8K Camera", "Barcode SDK", "Automation"],
           summary:
-            "Same idea: the UI is ready. We’ll replace placeholders with your shipped systems and measurable impact.",
-          bullets: ["Once we build about.html, we’ll align the work timeline with these projects.", "Then we add dedicated detail pages if you want."],
+            "Delivered robotic vision systems to automate PCB barcode linking, eliminating manual scan errors and improving traceability across downstream inspection stages.",
+          bullets: [
+            "Delivered industrial 6-DOF robotic vision systems using MyCobot 320 Pi arms with 8K cameras and a Python–ROS2–OpenCV stack.",
+            "Integrated barcode decoding SDK and structured logging to support traceability across inspection stages.",
+            "Tuned imaging parameters for glare resilience and consistent decoding under variable factory lighting.",
+          ],
         },
+        {
+          id: "safety-hmi-logging",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "Safety + Operator HMI + Fault Handling for Vision Automation",
+          meta: "Futaba Corporation of America",
+          tags: ["Keyence", "Light Curtains", "Photo Sensors", "ESP32", "Raspberry Pi", "Tkinter", "CSV Logging", "Fault Handling"],
+          summary:
+            "Directed electromechanical + safety + vision integration with operator-facing tooling and automated fault handling to support stable factory deployment.",
+          bullets: [
+            "Integrated Keyence light curtains, photo sensors, tower lights, COB illumination, and polarizing filters into a cohesive station architecture.",
+            "Implemented autonomous fault handling and automated CSV + image logging for debugging and traceability.",
+            "Reported ~3× throughput increase with zero rework incidents and a scalable architecture for future robotic-vision systems.",
+          ],
+        },
+        {
+          id: "ros2-nav-ekf",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "ROS2 Autonomous Navigation Pipeline (LiDAR + IMU + GPS, EKF Fusion)",
+          meta: "Tekflaire",
+          tags: ["ROS2", "Gazebo", "RViz", "LiDAR", "IMU", "GPS", "EKF", "Localization", "Obstacle Avoidance"],
+          summary:
+            "Built and validated a ROS2 navigation pipeline in simulation with sensor fusion for localization and obstacle avoidance, emphasizing trajectory stability and repeatability.",
+          bullets: [
+            "Integrated LiDAR, IMU, and GPS data for localization and obstacle avoidance in ROS2 + Gazebo.",
+            "Applied EKF-based fusion to improve trajectory accuracy and stability on simulated platforms.",
+            "Used RViz/Gazebo iteration loops to debug edge cases and improve system behavior consistency.",
+          ],
+        },
+        {
+          id: "motion-planning",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "Motion Planning + Recovery Behaviors (Costmaps, DWA, A*)",
+          meta: "Tekflaire",
+          tags: ["ROS2 Nav", "Costmaps", "DWA", "A*", "Planning", "Recovery", "Simulation"],
+          summary:
+            "Designed and tuned motion planning stacks for adaptive route generation and collision recovery, focusing on smoothness and drift reduction.",
+          bullets: [
+            "Built motion-planning behaviors using costmaps, DWA, and A* for adaptive routing.",
+            "Optimized planner parameters in RViz/Gazebo to improve path smoothness and reduce drift across simulation environments.",
+            "Improved recovery behaviors for collision scenarios and navigation dead-ends.",
+          ],
+        },
+        {
+          id: "motion-control-sorting",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "PID Motion-Control for Conveyor-Driven Sorting Arms",
+          meta: "Citus Infotech",
+          tags: ["C++", "PID Control", "Motion Control", "Conveyors", "Industrial Automation", "Tuning"],
+          summary:
+            "Developed motion-control systems for automation, focusing on controller tuning to improve response time and stability during real-world tests.",
+          bullets: [
+            "Implemented PID-based velocity controllers in C++ for conveyor-driven sorting arms.",
+            "Optimized control-loop tuning to reduce oscillations and improve response time during testing.",
+            "Focused on practical robustness: stable behavior under real mechanical variability.",
+          ],
+        },
+        {
+          id: "slam-warehouse-mapping",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-6",
+          title: "Warehouse SLAM Mapping (ROS2 Nav Stack, Gmapping/Cartographer)",
+          meta: "Citus Infotech",
+          tags: ["ROS2", "Navigation Stack", "SLAM", "Gmapping", "Cartographer", "Point Clouds", "Voxel Grid"],
+          summary:
+            "Implemented LiDAR SLAM for warehouse mapping, improving localization performance via point cloud processing optimizations.",
+          bullets: [
+            "Implemented LiDAR-based SLAM using the ROS2 Navigation Stack for warehouse mapping use-cases.",
+            "Refined Gmapping and Cartographer configurations to improve map quality and localization reliability.",
+            "Optimized point cloud processing via voxel-grid filtering to improve accuracy and computational efficiency.",
+          ],
+        },
+        {
+          id: "engine-manufacturing-internship",
+          mode: "industrial",
+          span: "col-span-12 lg:col-span-5",
+          title: "Engine Manufacturing Internship (Testing + Assembly + Automation Exposure)",
+          meta: "Mahindra & Mahindra",
+          tags: ["Manufacturing", "Assembly", "Inspection", "Testing", "Production Systems", "Automation Exposure"],
+          summary:
+            "Hands-on exposure to production-line testing, assembly, and inspection of new-generation engines, with direct observation of automation and robotic assembly systems.",
+          bullets: [
+            "Assisted with testing, assembling, and inspecting new-generation engines as part of the production team.",
+            "Observed automation and robotic assembly systems in engine manufacturing, building practical intuition for industrial deployment constraints.",
+            "Used the internship as the pivot point toward robotics + intelligent automation as a career focus.",
+          ],
+        },
+
       ];
 
       // ---------------------------
@@ -702,7 +818,7 @@
       const modePill = document.getElementById("modePill");
       const searchInput = document.getElementById("search");
 
-      let mode = "academic";
+      let mode = "all";
       let query = "";
       let lastOpenedIndex = 0;
 
@@ -746,18 +862,25 @@
       function render() {
         const q = query.trim().toLowerCase();
 
-        const filtered = projects
-          .map((p, idx) => ({ p, idx }))
-          .filter(({ p }) => p.mode === mode)
-          .filter(({ p }) => {
-            if (!q) return true;
-            const hay = (p.title + " " + p.meta + " " + p.summary + " " + p.tags.join(" ")).toLowerCase();
-            return hay.includes(q);
-          });
+      const filtered = projects
+        .map((p, idx) => ({ p, idx }))
+        .filter(({ p }) => mode === "all" || p.mode === mode)
+        .filter(({ p }) => {
+          if (!q) return true;
+          const hay = (p.title + " " + p.meta + " " + p.summary + " " + p.tags.join(" ")).toLowerCase();
+          return hay.includes(q);
+        });
+
 
         if (modePill) {
-          modePill.textContent = mode.toUpperCase();
-          modePill.style.color = mode === "academic" ? "#ccff00" : "#2e66ff";
+          if (mode === "all") {
+            modePill.textContent = "ALL";
+            modePill.style.color = "#ccff00";
+          } else {
+            modePill.textContent = mode.toUpperCase();
+            modePill.style.color = mode === "academic" ? "#ccff00" : "#2e66ff";
+          }
+
         }
 
         if (!filtered.length) {
@@ -804,7 +927,7 @@
         render();
       });
       document.getElementById("btnReset").addEventListener("click", () => {
-        mode = "academic";
+        mode = "all";
         query = "";
         searchInput.value = "";
         render();
