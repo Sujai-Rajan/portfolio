@@ -233,248 +233,6 @@
     </header>
 
     <main class="pt-28 sm:pt-32">
-      <!-- Header -->
-      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-6 lg:grid-cols-12">
-          <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 neon-ring">
-            <div class="flex items-center gap-3">
-              <div class="mono text-xs text-white/60">CAREER TRACE</div>
-              <div class="h-[1px] flex-1 bg-white/10"></div>
-              <div class="mono text-xs" style="color:#ccff00">LOGGED</div>
-            </div>
-
-            <h1 class="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight">
-              The <span style="color:#ccff00">Mission Log</span>
-            </h1>
-            <p class="mt-3 text-white/75 text-base sm:text-lg leading-relaxed">
-              A vertical timeline of work experience and an academic evolution track.
-              Base build focuses on structure, clarity, and the “glowing mission UI” aesthetic.
-            </p>
-
-            <div class="mt-6 grid gap-3 sm:grid-cols-3">
-              <div class="glass-strong rounded-2xl px-4 py-4">
-                <div class="mono text-[11px] text-white/60">WORK</div>
-                <div class="mt-1 text-lg font-bold text-white/90">3 Experiences</div>
-                <div class="mt-1 text-sm text-white/65">Timeline format</div>
-              </div>
-              <div class="glass-strong rounded-2xl px-4 py-4">
-                <div class="mono text-[11px] text-white/60">ACADEMICS</div>
-                <div class="mt-1 text-lg font-bold"><span style="color:#ccff00">13+</span> Projects</div>
-                <div class="mt-1 text-sm text-white/65">Evolution track</div>
-              </div>
-              <div class="glass-strong rounded-2xl px-4 py-4">
-                <div class="mono text-[11px] text-white/60">FOCUS</div>
-                <div class="mt-1 text-lg font-bold text-white/90">Robotics Systems</div>
-                <div class="mt-1 text-sm text-white/65">Perception → Control</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: "profile / status" panel -->
-          <div class="lg:col-span-5 grid gap-4">
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring tilt" id="tiltPanel">
-              <div class="tilt-inner">
-                <div class="flex items-start justify-between gap-4">
-                  <div>
-                    <div class="mono text-xs text-white/60">ENGINEER PROFILE</div>
-                    <div class="mt-1 text-xl font-bold">Systems-first Robotics</div>
-                    <div class="mt-1 text-sm text-white/70">
-                      Strong in simulation-to-reality delivery, sensor fusion, and reliability.
-                    </div>
-                  </div>
-                  <div class="mono text-xs rounded-xl px-3 py-1 glass-strong" style="color:#ccff00">ACTIVE</div>
-                </div>
-
-                <div class="mt-5 grid gap-3">
-                  <div class="glass-strong rounded-2xl p-4 hover-lift">
-                    <div class="mono text-[11px] text-white/60">SIGNATURE STACK</div>
-                    <div class="mt-2 flex flex-wrap gap-2">
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ROS2</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Python</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">C++</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">GTSAM</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">SLAM</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Kalman</span>
-                      <span class="mono text-[11px] rounded-xl px-2 py-1 glass">MPC/LQR</span>
-                    </div>
-                  </div>
-
-                  <a href="projects.html#grid" class="glass-strong rounded-2xl p-4 hover-lift block">
-                    <div class="mono text-[11px] text-white/60">NEXT</div>
-                    <div class="mt-1 font-bold text-white/90">Browse Projects Grid</div>
-                    <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/projects</div>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
-              <div class="mono text-xs text-white/60">DOWNLOAD</div>
-              <div class="mt-2 text-xl font-bold">Resume + Links</div>
-              <div class="mt-2 text-sm text-white/70">
-                Base placeholder: wire the resume PDF and email in the final polish pass.
-              </div>
-
-              <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="#" onclick="alert('Wire resume.pdf link later'); return false;">
-                  <div class="mono text-[11px] text-white/60">PDF</div>
-                  <div class="mt-1 font-bold text-white/90">Download Resume</div>
-                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/assets/resume.pdf</div>
-                </a>
-                <a class="glass-strong rounded-2xl px-4 py-3 hover-lift" href="https://www.linkedin.com/in/sujai-r/" target="_blank" rel="noreferrer">
-                  <div class="mono text-[11px] text-white/60">SOCIAL</div>
-                  <div class="mt-1 font-bold text-white/90">LinkedIn</div>
-                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/in/sujai-r ↗</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Work Timeline -->
-      <section id="work" class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-between gap-4">
-          <div>
-            <div class="mono text-xs text-white/60">WORK HISTORY</div>
-            <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Glowing Timeline <span class="text-white/60">—</span> <span style="color:#ccff00">3 roles</span>
-            </h2>
-            <p class="mt-2 text-white/70 max-w-2xl">
-              Base version uses clean, high-impact bullets. Replace placeholders with final metrics once you confirm exact numbers.
-            </p>
-          </div>
-          <span class="hidden sm:inline-flex mono text-[11px] text-white/55">Tip: we can “pin” sections later for Apple-like scroll narrative</span>
-        </div>
-
-        <div class="mt-6 grid gap-4 lg:grid-cols-12">
-          <!-- Timeline column -->
-          <div class="lg:col-span-8 glass rounded-3xl p-6 sm:p-8 neon-ring">
-            <div class="timeline space-y-6">
-              <!-- Role 1 (placeholder) -->
-              <div class="node">
-                <div class="dot"></div>
-                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                    <div>
-                      <div class="text-xl font-bold">Automation Engineer — Robotics</div>
-                      <div class="mt-1 text-white/70">Futaba Corporation of America • Huntsville, AL</div>
-                    </div>
-                    <div class="mono text-[12px] text-white/60">Mar 2025 – Present</div>
-                  </div>
-
-                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
-                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Built and integrated inspection + conveyor automation subsystems; focused on reliability, uptime, and sensor-driven sequencing.</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Developed robotics tooling for barcode linking automation with vision + arm integration (MyCobot pipeline).</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Deployed field-ready behaviors: safety interlocks, sensor fusion, and robust state-machine logic.</span></li>
-                  </ul>
-
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Sensors</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Conveyors</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Vision</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Integration</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Role 2 (placeholder) -->
-              <div class="node">
-                <div class="dot" style="border-color: rgba(46,102,255,0.35); background: rgba(46,102,255,0.12);"></div>
-                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                    <div>
-                      <div class="text-xl font-bold">Robotics / Engineering Co-op (Placeholder)</div>
-                      <div class="mt-1 text-white/70">Company Name • Location</div>
-                    </div>
-                    <div class="mono text-[12px] text-white/60">Work Term #2</div>
-                  </div>
-
-                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
-                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Replace with role bullets from resume (3–5 max; quantified where possible).</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Emphasize shipped systems, latency reductions, throughput gains, or reliability improvements.</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Note tech stack + integration complexity (hardware + software).</span></li>
-                  </ul>
-
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ROS</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Python</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">C++</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">CV</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Role 3 (placeholder) -->
-              <div class="node">
-                <div class="dot"></div>
-                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                    <div>
-                      <div class="text-xl font-bold">Engineering Intern / Research Assistant (Placeholder)</div>
-                      <div class="mt-1 text-white/70">Company / Lab • Location</div>
-                    </div>
-                    <div class="mono text-[12px] text-white/60">Work Term #3</div>
-                  </div>
-
-                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
-                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Replace with role bullets from resume (3–5 max).</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Focus on deep technical wins: algorithmic improvements, experimental results, performance metrics.</span></li>
-                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Keep it punchy and senior-level: outcome + scope + complexity.</span></li>
-                  </ul>
-
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Perception</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Controls</span>
-                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Deployment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Side “work summary” -->
-          <div class="lg:col-span-4 grid gap-4">
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
-              <div class="mono text-xs text-white/60">CAREER THESIS</div>
-              <div class="mt-2 text-xl font-bold">I ship robotics systems.</div>
-              <p class="mt-2 text-white/70 text-sm leading-relaxed">
-                The difference-maker is the “last 20%”: calibration, failure modes, robustness, and integration details.
-                That’s where I’m strongest.
-              </p>
-              <div class="mt-4 glass-strong rounded-2xl p-4">
-                <div class="mono text-[11px] text-white/60">WHAT HIRING MANAGERS GET</div>
-                <ul class="mt-2 space-y-2 text-sm text-white/75">
-                  <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Systems architecture mindset</span></li>
-                  <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Simulation → real-world delivery</span></li>
-                  <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Comfort with sensors + controls + CV</span></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition">
-              <div class="mono text-xs text-white/60">NAV</div>
-              <div class="mt-2 grid gap-3">
-                <a href="projects.html" class="glass-strong rounded-2xl px-4 py-3 hover-lift block">
-                  <div class="mono text-[11px] text-white/60">NEXT</div>
-                  <div class="mt-1 font-bold text-white/90">Projects Bento Grid</div>
-                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/projects</div>
-                </a>
-                <a href="index.html" class="glass-strong rounded-2xl px-4 py-3 hover-lift block">
-                  <div class="mono text-[11px] text-white/60">BACK</div>
-                  <div class="mt-1 font-bold text-white/90">Home Command Center</div>
-                  <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/home</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Academic timeline (education + evolution) -->
       <section id="education" class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="glass rounded-3xl p-6 sm:p-8 neon-ring">
@@ -484,39 +242,38 @@
               <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Engineering Evolution <span class="text-white/60">—</span> <span style="color:#ccff00">M.S. Robotics</span>
               </h2>
-              <p class="mt-2 text-white/70 max-w-2xl">
-                This section connects education to the 13+ academic projects on the Projects page, showing progression in perception, navigation, and controls.
-              </p>
             </div>
-
             <a href="projects.html#grid" class="hidden sm:inline-flex items-center gap-2 rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition">
-              <span>Open Academic Bento</span>
+              <span>Open Projects</span>
               <span class="mono text-sm" style="color:#2e66ff">→</span>
             </a>
           </div>
 
-          <div class="mt-6 grid gap-4 lg:grid-cols-12">
-            <div class="lg:col-span-5 glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
+          <div class="mt-6 flex flex-col lg:flex-row gap-4">
+            <!-- Education: 40% -->
+            <div class="lg:w-2/5 w-full glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
               <div class="mono text-xs text-white/60">EDUCATION</div>
-              <div class="mt-2 text-xl font-bold">M.S. Robotics</div>
-              <div class="mt-1 text-white/70">Northeastern University</div>
-              <div class="mt-3 mono text-[11px] text-white/60">COURSE SIGNALS</div>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Robot Sensing</span>
-                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Navigation</span>
-                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Computer Vision</span>
-                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ML / Deep Nets</span>
-                <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Controls</span>
-              </div>
-              <div class="mt-4 text-sm text-white/70">
-                The Projects page contains the full academic catalog (13+) with detail overlays.
+              <div class="mt-2 text-xl font-bold">Master in Robotics</div>
+              <div class="mt-1 text-white/70">Northeastern University, Boston</div>
+              <div class="mt-3 mono text-[11px] text-white/60">COURSES COMPLETED</div>
+              <div class="mt-2 flex flex-col gap-2">
+                <ul class="flex flex-col gap-2">
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Autonomous Field Robotics</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Control Systems Engineering</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Machine Learning</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Neural Networks and Deep Learning</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Pattern Recognition and Computer Vision</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Robot Mechanics and Control</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Robot Sensing and Navigation</li>
+                  <li class="mono text-[11px] rounded-xl px-2 py-1 glass block">Robotic Science and Systems</li>
+                </ul>
               </div>
             </div>
-
-            <div class="lg:col-span-7 grid gap-4">
-              <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
+            <!-- Evolution: 60% -->
+            <div class="lg:w-3/5 w-full grid gap-4">
+              <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift h-full flex flex-col">
                 <div class="mono text-xs text-white/60">EVOLUTION TRACK</div>
-                <div class="mt-2 grid gap-3">
+                <div class="mt-2 grid gap-3 flex-1">
                   <div class="glass rounded-2xl p-4">
                     <div class="mono text-[11px] text-white/60">PHASE 1</div>
                     <div class="mt-1 font-bold text-white/90">Classical Vision Foundations</div>
@@ -539,97 +296,220 @@
                   </div>
                 </div>
               </div>
-
-              <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
-                <div class="mono text-xs text-white/60">CALL TO ACTION</div>
-                <div class="mt-2 text-xl font-bold">Want the full story?</div>
-                <p class="mt-2 text-sm text-white/70">
-                  Open Projects and click any card to inspect the summary, highlights, and tech stack.
-                </p>
-                <div class="mt-4 flex gap-2">
-                  <a href="projects.html#grid" class="rounded-2xl px-4 py-3 font-semibold text-black hover:brightness-95 transition" style="background:#ccff00">
-                    Open Projects
-                  </a>
-                  <a href="#contact" class="rounded-2xl px-4 py-3 font-semibold glass hover:bg-white/5 transition">
-                    Contact
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact -->
-      <section id="contact" class="mt-10 sm:mt-14 pb-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-4 lg:grid-cols-12">
-          <div class="lg:col-span-7 glass rounded-3xl p-6 sm:p-8 neon-ring">
-            <div class="mono text-xs text-white/60">CONTACT</div>
-            <h3 class="mt-2 text-2xl font-extrabold tracking-tight">
-              Signal Uplink <span class="text-white/60">—</span> <span style="color:#ccff00">ready</span>
-            </h3>
-            <p class="mt-2 text-white/70">
-              Base interaction: animated beacon + quick actions. Later we can add a full interactive form with validation and motion choreography.
-            </p>
 
-            <div class="mt-6 grid gap-3 sm:grid-cols-2">
-              <a class="hover-lift glass-strong rounded-2xl p-4" href="https://www.linkedin.com/in/sujai-r/" target="_blank" rel="noreferrer">
-                <div class="mono text-[11px] text-white/60">LINKEDIN</div>
-                <div class="mt-1 font-bold text-white/90">/in/sujai-r</div>
-                <div class="mt-1 text-sm" style="color:#2e66ff">Open profile ↗</div>
-              </a>
+      <!-- Work Timeline -->
+      <section id="work" class="mt-10 sm:mt-14 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <div class="mono text-xs text-white/60">WORK HISTORY</div>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Carrer Timeline <span class="text-white/60">—</span> <span style="color:#ccff00">roles</span>
+            </h2>
+          </div>
+        </div>
 
-              <button class="hover-lift glass-strong rounded-2xl p-4 text-left" id="copyEmail">
-                <div class="mono text-[11px] text-white/60">EMAIL</div>
-                <div class="mt-1 font-bold text-white/90" id="emailText">your.email@domain.com</div>
-                <div class="mt-1 text-sm" style="color:#2e66ff">Click to copy</div>
-              </button>
-            </div>
+        <div class="mt-6 grid gap-4 lg:grid-cols-1">
+          <!-- Timeline column -->
+          <div class="lg:col-span-8 glass rounded-3xl p-6 sm:p-8 neon-ring">
+            <div class="timeline space-y-6">
+              <!-- Role 1 (placeholder) -->
+              <div class="node">
+                <div class="dot"></div>
 
-            <div class="mt-6 glass-strong rounded-2xl p-4">
-              <div class="mono text-[11px] text-white/60">NOTE</div>
-              <div class="mt-1 text-sm text-white/70">
-                Replace the email placeholder with your real address. If you want, we’ll make this a full interactive Apple-style contact page later.
+                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div>
+                      <div class="text-xl font-bold">Robotics & Automation Engineer</div>
+                      <div class="mt-1 text-white/70">Futaba Corporation of America • Huntsville, AL</div>
+                    </div>
+                    <div class="mono text-[12px] text-white/60">Mar 2025 – Present</div>
+                  </div>
+
+                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
+                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
+                    <li class="flex gap-2">
+                      <span style="color:#ccff00">▸</span>
+                      <span>
+                        Designed and deployed <b>two machine-vision inspection systems</b> for multi-stage PCB validation (positional alignment, feature recognition, data-matrix verification) before conformal coating — reduced downstream rejects by <b>98%</b> and increased inspection throughput by <b>65%</b>.
+                      </span>
+                    </li>
+
+                    <li class="flex gap-2">
+                      <span style="color:#ccff00">▸</span>
+                      <span>
+                        Engineered a perception + motion-control architecture using a <b>BTT Octopus</b> controller with customized <b>Marlin</b> firmware — coordinated <b>7 synchronized stepper axes</b> with sensorless homing for repeatable conveyor positioning and precision alignment.
+                      </span>
+                    </li>
+
+                    <li class="flex gap-2">
+                      <span style="color:#ccff00">▸</span>
+                      <span>
+                        Built the mechanical + software framework in <b>Python/C++</b>: modular ESD-safe assemblies (CAD + 3D-printed components), <b>OpenCV</b> inspection pipeline, SMEMA handshaking, MES API validation, and LabVIEW monitoring — achieved <b>100% traceability</b> across the coating line.
+                      </span>
+                    </li>
+
+                    <li class="flex gap-2">
+                      <span style="color:#ccff00">▸</span>
+                      <span>
+                        Delivered <b>two 6-DOF robotic vision systems</b> using <b>MyCobot 320 Pi</b> arms with <b>8K cameras</b> and a Python–ROS2–OpenCV stack to automate PCB barcode linking — eliminated manual scan errors and achieved end-to-end traceability downstream.
+                      </span>
+                    </li>
+
+                    <li class="flex gap-2">
+                      <span style="color:#ccff00">▸</span>
+                      <span>
+                        Directed electromechanical + safety integration (Keyence light curtains, photo sensors, tower lights, COB illumination, polarizers) on Raspberry Pi 4 / ESP32 — autonomous fault handling + automated CSV/image logs, enabling a <b>3× throughput increase</b> and <b>zero rework incidents</b>.
+                      </span>
+                    </li>
+                  </ul>
+
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Machine Vision</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ROS2</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Motion Control</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Embedded</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Safety</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">MES / Traceability</span>
+                  </div>
+                </div>
               </div>
+
+
+
+              <!-- Role 2 -->
+              <div class="node">
+                <div class="dot" style="border-color: rgba(46,102,255,0.35); background: rgba(46,102,255,0.12);"></div>
+
+                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div>
+                      <div class="text-xl font-bold">Robotics Software Engineer</div>
+                      <div class="mt-1 text-white/70">Tekflaire • Texas</div>
+                    </div>
+                    <div class="mono text-[12px] text-white/60">Aug 2024 – Mar 2025</div>
+                  </div>
+
+                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
+                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Developed and validated an autonomous navigation pipeline in <b>ROS2 + Gazebo</b>, integrating <b>LiDAR, IMU, GPS</b> for localization and obstacle avoidance; applied <b>EKF sensor fusion</b> to improve trajectory stability.</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Designed and tuned motion planning in ROS2 using <b>costmaps, DWA, and A*</b> for adaptive routing and recovery; optimized in <b>RViz/Gazebo</b> to reduce drift and improve path smoothness.</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Built perception modules in <b>Python + OpenCV</b> for terrain segmentation, feature detection, and visual mapping to improve decision-making in simulation.</span></li>
+                  </ul>
+
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">ROS2</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Nav / Planning</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">EKF Fusion</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Gazebo</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Role 3 -->
+              <div class="node">
+                <div class="dot"></div>
+
+                <div class="glass-strong rounded-3xl p-5 sm:p-6 hover-lift">
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div>
+                      <div class="text-xl font-bold">Robotics Engineer</div>
+                      <div class="mt-1 text-white/70">Citus Infotech • India</div>
+                    </div>
+                    <div class="mono text-[12px] text-white/60">Aug 2020 – Jul 2022</div>
+                  </div>
+
+                  <div class="mt-4 mono text-[11px] text-white/60">IMPACT</div>
+                  <ul class="mt-2 space-y-2 text-sm text-white/75 leading-relaxed">
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Developed motion-control systems for industrial automation, implementing <b>PID-based velocity controllers</b> in C++ for conveyor-driven sorting arms; improved response time and reduced oscillations in real-world tests.</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Implemented LiDAR SLAM using the ROS2 navigation stack, refining mapping pipelines (Gmapping/Cartographer) and optimizing point clouds with <b>Voxel-Grid filtering</b> for better localization and compute efficiency.</span></li>
+                    <li class="flex gap-2"><span style="color:#ccff00">▸</span><span>Prototyped a vision-based gesture recognition interface with <b>OpenCV + TensorFlow</b>, enabling basic robot control via hand-motion detection and CNN classification.</span></li>
+                  </ul>
+
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">Controls</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">PID</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">SLAM</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">LiDAR</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">OpenCV</span>
+                    <span class="mono text-[11px] rounded-xl px-2 py-1 glass">TensorFlow</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <div class="lg:col-span-5 glass rounded-3xl p-6 sm:p-8 neon-ring tilt" id="contactTilt">
-            <div class="tilt-inner">
-              <div class="mono text-xs text-white/60">BEACON</div>
-              <div class="mt-2 text-xl font-bold">Handshake Pulse</div>
-              <p class="mt-2 text-white/70 text-sm">
-                A subtle motion system that sells the “product UI” feel without heavy libraries.
-              </p>
+          <!-- Side “work summary” -->
+          <div class="lg:col-span-4">
+            <div class="glass rounded-3xl p-5 sm:p-6 neon-ring hover:bg-white/5 transition h-full">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="mono text-xs text-white/60">QUICK LINKS</div>
+                </div>
+                <div class="mono text-[11px]" style="color:#ccff00">READY</div>
+              </div>
 
-              <div class="mt-5 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 h-44">
-                <div class="absolute inset-0 opacity-70"
-                  style="background: radial-gradient(circle at 40% 30%, rgba(204,255,0,.16), transparent 55%), radial-gradient(circle at 70% 70%, rgba(46,102,255,.16), transparent 55%);"
-                ></div>
+              <!-- Equal split -->
+              <div class="mt-5 grid gap-4 lg:grid-cols-2">
+                <!-- Left half: Resume + LinkedIn -->
+                <div class="glass-strong rounded-3xl p-4 border border-white/10">
+                  <div class="mono text-[11px] text-white/60">PROFILE</div>
+                  <div class="mt-3 grid gap-3">
+                    <a class="glass rounded-2xl px-4 py-3 hover-lift block" href="/assets/Sujai Rajan Resume.pdf" target="_blank" rel="noreferrer">
+                      <div class="mono text-[11px] text-white/60">PDF</div>
+                      <div class="mt-1 font-bold text-white/90">Download Resume</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">Sujai Rajan Resume.pdf</div>
+                    </a>
 
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div class="relative h-24 w-24">
-                    <div id="beacon" class="absolute inset-0 rounded-full"
-                      style="background: rgba(204,255,0,.10); box-shadow: 0 0 0 1px rgba(204,255,0,.18), 0 0 50px rgba(204,255,0,.12);"
-                    ></div>
-                    <div class="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                      style="background:#ccff00; box-shadow: 0 0 24px rgba(204,255,0,.55);"
-                    ></div>
+                    <a class="glass rounded-2xl px-4 py-3 hover-lift block" href="https://www.linkedin.com/in/sujai-r/" target="_blank" rel="noreferrer">
+                      <div class="mono text-[11px] text-white/60">SOCIAL</div>
+                      <div class="mt-1 font-bold text-white/90">LinkedIn</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/in/sujai-r ↗</div>
+                    </a>
                   </div>
                 </div>
 
-                <div id="beaconSweep" class="absolute -left-40 top-0 h-full w-64"
-                  style="background: linear-gradient(90deg, transparent, rgba(46,102,255,.22), transparent); transform: skewX(-18deg);"
-                ></div>
+                <!-- Right half: Nav -->
+                <div class="glass-strong rounded-3xl p-4 border border-white/10">
+                  <div class="mono text-[11px] text-white/60">NAV</div>
+                  <div class="mt-3 grid gap-3">
+                    <a href="projects.html" class="glass rounded-2xl px-4 py-3 hover-lift block">
+                      <div class="mono text-[11px] text-white/60">NEXT</div>
+                      <div class="mt-1 font-bold text-white/90">Projects Bento Grid</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/projects</div>
+                    </a>
+
+                    <a href="index.html" class="glass rounded-2xl px-4 py-3 hover-lift block">
+                      <div class="mono text-[11px] text-white/60">BACK</div>
+                      <div class="mt-1 font-bold text-white/90">Home Command Center</div>
+                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">/home</div>
+                    </a>
+                  </div>
+                </div>
               </div>
 
+              <!-- Tiny footer line (optional, looks clean) -->
               <div class="mt-4 flex items-center justify-between">
-                <div class="mono text-[11px] text-white/60">STATUS</div>
-                <div class="mono text-[11px]" style="color:#ccff00" id="copyStatus">READY</div>
+                <div class="mono text-[11px] text-white/60">ACCESS</div>
+                <div class="mono text-[11px]" style="color:#ccff00">ONE-TAP</div>
               </div>
             </div>
           </div>
-        </div>
+
+        
+      </section>
+
+
+
+    
 
         <footer class="mt-10 text-center text-white/55 mono text-[11px]">
           © <span id="year"></span> Sujai Rajan — Mission Log UI
