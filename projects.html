@@ -47,6 +47,10 @@
         overflow-x: hidden;
       }
 
+      button:not(:disabled) {
+        cursor: pointer;
+      }
+
       .mono {
         font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
           "Courier New", monospace;
@@ -114,10 +118,6 @@
         opacity: 0.10;
         mix-blend-mode: overlay;
         pointer-events: none;
-      }
-
-      .button {
-        cursor: pointer
       }
 
       .vignette {
