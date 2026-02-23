@@ -366,12 +366,6 @@
                 <div class="mt-5 glass-strong rounded-3xl p-5">
                   <div class="mono text-xs text-white/60">LINKS</div>
                   <div class="mt-3 grid gap-2">
-                    <a id="openDossier" href="project-detail.html?id=stretch" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition">
-                      <div class="mono text-[11px] text-white/60">DOSSIER</div>
-                      <div class="mt-1 font-bold text-white/90">Open full project view</div>
-                      <div class="mt-1 mono text-[11px]" style="color:#2e66ff">project-detail.html?id=…</div>
-                    </a>
-
                     <a href="about.html" class="rounded-2xl px-4 py-3 glass hover:bg-white/5 transition">
                       <div class="mono text-[11px] text-white/60">NEXT</div>
                       <div class="mt-1 font-bold text-white/90">Experience Timeline</div>
@@ -387,13 +381,6 @@
 
                 </div>
 
-                <div class="mt-5 glass-strong rounded-3xl p-5">
-                  <div class="mt-2 flex items-center justify-between">
-                    <span class="mono text-[12px] text-white/60">MODE</span>
-                    <span id="mMode" class="mono text-[12px]" style="color:#ccff00">ACADEMIC</span>
-                  </div>
-                  
-                </div>
               </div>
             </div>
 
@@ -880,7 +867,6 @@
           return hay.includes(q);
         });
 
-
         if (modePill) {
           if (mode === "all") {
             modePill.textContent = "ALL";
@@ -889,7 +875,6 @@
             modePill.textContent = mode.toUpperCase();
             modePill.style.color = mode === "academic" ? "#ccff00" : "#2e66ff";
           }
-
         }
 
         if (!filtered.length) {
@@ -958,7 +943,6 @@
       const mSummary = document.getElementById("mSummary");
       const mBullets = document.getElementById("mBullets");
       const mTags = document.getElementById("mTags");
-      const mMode = document.getElementById("mMode");
 
       function openModalByIndex(idx) {
         lastOpenedIndex = idx;
@@ -970,8 +954,6 @@
         mSummary.textContent = p.summary;
         mBullets.innerHTML = p.bullets.map((b) => `<li class="flex gap-2"><span style="color:#ccff00">▸</span><span>${escapeHtml(b)}</span></li>`).join("");
         mTags.innerHTML = p.tags.map((t) => `<span class="mono text-[11px] rounded-xl px-2 py-1 glass-strong">${escapeHtml(t)}</span>`).join("");
-        mMode.textContent = p.mode.toUpperCase();
-        mMode.style.color = p.mode === "academic" ? "#ccff00" : "#2e66ff";
 
         modal.classList.remove("hidden");
         document.body.style.overflow = "hidden";
@@ -992,9 +974,6 @@
 
         // Set URL hash (base “detail routing”)
         history.replaceState(null, "", `#p=${encodeURIComponent(p.id)}`);
-        const openDossier = document.getElementById("openDossier");
-        if (openDossier) openDossier.href = `project-detail.html?id=${encodeURIComponent(p.id)}`;
-
       }
 
       function closeModal() {
